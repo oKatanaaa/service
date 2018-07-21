@@ -10,14 +10,15 @@ import win32con
 from FileHandler import FileHandler
 from TableHandler import TableHandler
 
-if os.path.exists(str(os.getcwd()) + "\my_watch.log") and os.path.getsize("my_watch.log") > 10240:
-    copyfile("my_watch.log", "old_my_watch.log")
-    os.remove(str(os.getcwd()) + "\my_watch.log")
+# Log-control block
+if os.path.exists(str(os.getcwd()) + ".\logs\my_watch.log") and os.path.getsize(".\logs\my_watch.log") > 100240:
+    copyfile(".\logs\my_watch.log", ".\logs\old_my_watch.log")
+    os.remove(str(os.getcwd()) + ".\logs\my_watch.log")
 
 # Logger initialization.
 logger = logging.getLogger("DirInspector")
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler("my_watch.log")
+file_handler = logging.FileHandler(".\logs\my_watch.log")
 file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s -> %(message)s'))
 logger.addHandler(file_handler)
 
@@ -46,10 +47,12 @@ class DirInspector(Thread):
             None
         )
         self.start()
+        pass
 
     def run(self):
         FileHandler(self.__first_generation())
         self.__inspect()
+        pass
 
     def __first_generation(self):
         file_list = []
@@ -103,6 +106,9 @@ class DirInspector(Thread):
                     TableHandler.rename(temp, full_filename)
                     temp = None
                     pass
+                pass
+            pass
+        pass
 
 
 def check_args():
@@ -111,12 +117,10 @@ def check_args():
                      "Launch script again, and don't forget about args")
         sys.exit(-1)
         pass
-
     if os.path.exists(sys.argv[1]) is False:
         logger.error("Directory does not exist, Launch script again, and don't forget about args")
         sys.exit(-1)
         pass
-
     logger.info('My watch begin. Watching for ' + str(sys.argv[1]))
     return sys.argv[1]
 

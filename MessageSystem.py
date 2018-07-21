@@ -1,8 +1,6 @@
-import sys
-from threading import Thread
-from multiprocessing import Queue
 import logging
-import DirInspector
+from multiprocessing import Queue
+from threading import Thread
 
 
 class MessageSystem(Thread):
@@ -15,6 +13,7 @@ class MessageSystem(Thread):
         self.start()
 
     def run(self):
+        pass
 
     def put(self):
         pass
@@ -23,4 +22,4 @@ class MessageSystem(Thread):
         pass
 
 class Address:
-    
+    pass

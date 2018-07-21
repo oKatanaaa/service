@@ -1,13 +1,14 @@
-from shutil import copyfile
-from threading import Thread
+import logging
 import os
 import sys
-import logging
 import win32file
+from shutil import copyfile
+from threading import Thread
+
 import win32con
 
-import FileHandler
-import TableHandler
+from FileHandler import FileHandler
+from TableHandler import TableHandler
 
 if os.path.exists(str(os.getcwd()) + "\my_watch.log") and os.path.getsize("my_watch.log") > 10240:
     copyfile("my_watch.log", "old_my_watch.log")
@@ -22,7 +23,6 @@ logger.addHandler(file_handler)
 
 
 class DirInspector(Thread):
-
     ACTIONS = {
         1: "Created",
         2: "Deleted",
@@ -37,8 +37,8 @@ class DirInspector(Thread):
         Thread.__init__(self)
         self.path_to_watch = path
         self.hDir = win32file.CreateFile(
-            path_to_watch,
-            FILE_LIST_DIRECTORY,
+            self.path_to_watch,
+            self.FILE_LIST_DIRECTORY,
             win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_DELETE,
             None,
             win32con.OPEN_EXISTING,
@@ -48,15 +48,15 @@ class DirInspector(Thread):
         self.start()
 
     def run(self):
+        FileHandler(self.__first_generation())
         self.__inspect()
 
-    def __first_launch(self):
+    def __first_generation(self):
         file_list = []
         for root_dir, dirs, files in os.walk(self.path_to_watch):
-            for dir in dirs:
-                file_list.append(str(os.path.join(root_dir, dir)))
             for file in files:
-                file_list.append(str(os.path.join(root_dir, file)))
+                if file[-4:] == ".txt":
+                    file_list.append(str(os.path.join(root_dir, file)))
         return file_list
 
     def __inspect(self):
@@ -80,23 +80,35 @@ class DirInspector(Thread):
             )
 
             for action, file in results:
+                global temp
                 full_filename = os.path.join(self.path_to_watch, file)
+
+                if full_filename[-4:] != ".txt":
+                    continue
+
                 logger.info(str(full_filename) + "| is: " + str(self.ACTIONS.get(action)))
                 if action == 1:
-                    file_handler = FileHandler()
-                    file_handler.update()
-
+                    TableHandler.create(full_filename)
                 elif action == 2:
+                    TableHandler.delete(full_filename)
                     pass
                 elif action == 3:
+                    table = FileHandler.collect_information([str(full_filename)])
+                    TableHandler.update(table)
+                    pass
+                elif action == 4:
+                    temp = full_filename
                     pass
                 elif action == 5:
+                    TableHandler.rename(temp, full_filename)
+                    temp = None
                     pass
+
 
 def check_args():
     if len(sys.argv) != 2:
         logger.error("Have not enough args, except one: dir_for_watching \n"
-                          "Launch script again, and don't forget about args")
+                     "Launch script again, and don't forget about args")
         sys.exit(-1)
         pass
 
@@ -107,6 +119,7 @@ def check_args():
 
     logger.info('My watch begin. Watching for ' + str(sys.argv[1]))
     return sys.argv[1]
+
 
 if __name__ == "__main__":
     root_path = check_args()

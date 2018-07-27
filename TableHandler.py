@@ -1,6 +1,5 @@
 import csv
 import logging
-from threading import Thread
 
 import pandas as pd
 
@@ -9,26 +8,17 @@ from FileHandler import FileHandler
 logger = logging.getLogger("TableHandler")
 
 
-class TableHandler(Thread):
-
-    def __init__(self, target: list):
-        self.target = target
-        Thread.__init__(self)
-        self.start()
-        pass
-
-    def run(self):
-        self.__create_table()
-        pass
+class TableHandler:
 
     # First create. Fill the table
-    def __create_table(self):
+    @staticmethod
+    def create_table(target):
         logger.info("First creating table")
         with open("table.csv", "w", newline="") as file:
             columns = ["path", "last_symbol"]
             writer = csv.DictWriter(file, fieldnames=columns)
             writer.writeheader()
-            writer.writerows(self.target)
+            writer.writerows(target)
             pass
         logger.info("Table was created")
         pass
@@ -68,6 +58,8 @@ class TableHandler(Thread):
             for content in update:
                 logger.info("Updating ", str(content))
                 v = list(content.values())
+                if not (str(v[0]) in file.path):
+                    file.loc[len(file)] = [str(v[0]), ""]
                 file.last_symbol[file.path == str(v[0])] = str(v[1])
             file.to_csv("table.csv", index=False)
         except UnicodeDecodeError:

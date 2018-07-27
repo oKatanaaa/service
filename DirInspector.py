@@ -50,7 +50,7 @@ class DirInspector:
         pass
 
     def run(self):
-        FileHandler.collect_information(self.__first_generation())
+        TableHandler.create_table(FileHandler.collect_information(self.__first_generation()))
         self.__inspect()
         pass
 
@@ -89,10 +89,20 @@ class DirInspector:
                 if full_filename[-4:] != ".txt":
                     continue
 
+                # if action != 2:
+                #     try:
+                #         _ = open(full_filename, 'rb')
+                #         _.close()
+                #     except PermissionError:
+                #         logger.error("File is open now")
+                #         continue
+                #     pass
+
                 logger.info(str(full_filename) + "| is: " + str(self.ACTIONS.get(action)))
-                if action == 1:
-                    threading.Thread(target=TableHandler.create(full_filename)).start()
-                elif action == 2:
+                # if action == 1:
+                #     threading.Thread(target=TableHandler.create(full_filename)).start()
+                #     pass
+                if action == 2:
                     threading.Thread(target=TableHandler.delete(full_filename)).start()
                     pass
                 elif action == 3:
@@ -102,8 +112,9 @@ class DirInspector:
                     temp = full_filename
                     pass
                 elif action == 5:
-                    threading.Thread(target=TableHandler.rename(temp, full_filename))
-                    temp = None
+                    if sys.getsizeof(full_filename) != 0:
+                        threading.Thread(target=TableHandler.rename(temp, full_filename))
+                        temp = None
                     pass
                 pass
             pass

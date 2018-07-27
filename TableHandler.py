@@ -13,7 +13,7 @@ class TableHandler:
     @staticmethod
     def create_table(target):
         TableHandler.logger.info("First creating table")
-        with open("table.csv", "w", newline="") as file:
+        with open("table.csv", "w", newline="", encoding='utf-8') as file:
             columns = ["path", "last_symbol"]
             writer = csv.DictWriter(file, fieldnames=columns)
             writer.writeheader()

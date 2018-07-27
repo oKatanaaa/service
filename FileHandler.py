@@ -17,18 +17,27 @@ class FileHandler:
                         continue
                     else:
                         with open(name, 'rb') as file:
-                            file.seek(1, os.SEEK_END)
-                            while file.tell() > 1 and file.seek(-2, os.SEEK_CUR):
-                                try:
-                                    ch = file.read(1).decode()
+                            try:
+                                file.seek(1, os.SEEK_END)
+                                while file.tell() > 1 and file.seek(-3, os.SEEK_CUR):
+                                    ch = file.read(2).decode()
+                                    ch = ch[-1]
                                     # print(ch, " pos=", file.tell(), " size=", sys.getsizeof(ch))
-                                    if str(ch).isalpha():
+                                    if ch.isalpha():
                                         table.append({"path": name, "last_symbol": ch})
                                         FileHandler.logger.info("File read success")
                                         break
-                                except UnicodeDecodeError:
-                                    FileHandler.logger.error("Catch UnicodeDecodeError in ", name)
-                                    break
+                            except UnicodeDecodeError:
+                                FileHandler.logger.error("Catch UnicodeDecodeError in ", name)
+                                break
+                            except OSError:
+                                with open(name, 'rb') as file:
+                                    ch = file.read(1).decode()
+                                    ch = ch[-1]
+                                    # print(ch, " pos=", file.tell(), " size=", sys.getsizeof(ch))
+                                    if ch.isalpha():
+                                        table.append({"path": name, "last_symbol": ch})
+                                        FileHandler.logger.info("File read success")
                                 pass
                             pass
                         pass
@@ -36,5 +45,5 @@ class FileHandler:
                 pass
             pass
         except PermissionError:
-            self.logger.error("Catch permission error, someone using the file")
+            FileHandler.logger.error("Catch permission error, someone using the file")
         return table

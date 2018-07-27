@@ -1,5 +1,9 @@
-path                                                     ,last_symbol
-C:\Users\Banayaki\Desktop\test_folder\English A.txt      ,A
-C:\Users\Banayaki\Desktop\test_folder\English Z.txt      ,Z
+path                                                         ,last_symbol
+C:\Users\Banayaki\Desktop\test_folder\English A.txt          ,A
+C:\Users\Banayaki\Desktop\test_folder\English Z.txt          ,Z
 C:\Users\Banayaki\Desktop\test_folder\small english a.txt,a
 C:\Users\Banayaki\Desktop\test_folder\small english z.txt,z
+C:\Users\Banayaki\Desktop\test_folder\Русская А.txt          ,А
+C:\Users\Banayaki\Desktop\test_folder\русская маленькая а.txt,а
+C:\Users\Banayaki\Desktop\test_folder\русская маленькая я.txt,я
+C:\Users\Banayaki\Desktop\test_folder\Русская Я.txt          ,Я

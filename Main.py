@@ -14,7 +14,7 @@ if os.path.exists(str(os.getcwd()) + ".\logs\my_watch.log") and os.path.getsize(
 logger = logging.getLogger("Main")
 logger.setLevel(logging.INFO)
 file_handler = logging.FileHandler(".\logs\my_watch.log")
-file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s -> %(message)s'))
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s -> %(message)s'))
 logger.addHandler(file_handler)
 
 

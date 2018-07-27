@@ -78,12 +78,14 @@ class DirInspector:
                 None
             )
             self.MAIN_QUEUE.put(results)
+            print("put")
             pass
         pass
 
     def queue_handler(self):
         while True:
             results = self.MAIN_QUEUE.get()
+            print("get")
             for action, file in results:
                 global temp
                 full_filename = os.path.join(self.path_to_watch, file)

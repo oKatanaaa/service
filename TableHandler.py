@@ -4,6 +4,8 @@ from threading import Thread
 
 import pandas as pd
 
+from FileHandler import FileHandler
+
 logger = logging.getLogger("TableHandler")
 
 
@@ -28,6 +30,7 @@ class TableHandler(Thread):
             writer.writeheader()
             writer.writerows(self.target)
             pass
+        logger.info("Table was created")
         pass
 
     # Delete note
@@ -58,7 +61,8 @@ class TableHandler(Thread):
 
     # Update content of file in table
     @staticmethod
-    def update(update):
+    def update(full_filename):
+        update = FileHandler.collect_information([str(full_filename)])
         try:
             file = pd.read_csv("table.csv", sep=',')
             for content in update:

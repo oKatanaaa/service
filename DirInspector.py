@@ -1,9 +1,9 @@
 import logging
 import os
 import sys
+import threading
 import win32file
 from shutil import copyfile
-from threading import Thread
 
 import win32con
 
@@ -23,7 +23,7 @@ file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s -> %(me
 logger.addHandler(file_handler)
 
 
-class DirInspector(Thread):
+class DirInspector:
     ACTIONS = {
         1: "Created",
         2: "Deleted",
@@ -35,7 +35,6 @@ class DirInspector(Thread):
     FILE_LIST_DIRECTORY = 0x0001
 
     def __init__(self, path):
-        Thread.__init__(self)
         self.path_to_watch = path
         self.hDir = win32file.CreateFile(
             self.path_to_watch,
@@ -46,11 +45,12 @@ class DirInspector(Thread):
             win32con.FILE_FLAG_BACKUP_SEMANTICS,
             None
         )
-        self.start()
+        inspector_thread = threading.Thread(target=self.run())
+        inspector_thread.start()
         pass
 
     def run(self):
-        FileHandler(self.__first_generation())
+        FileHandler.collect_information(self.__first_generation())
         self.__inspect()
         pass
 
@@ -91,19 +91,18 @@ class DirInspector(Thread):
 
                 logger.info(str(full_filename) + "| is: " + str(self.ACTIONS.get(action)))
                 if action == 1:
-                    TableHandler.create(full_filename)
+                    threading.Thread(target=TableHandler.create(full_filename)).start()
                 elif action == 2:
-                    TableHandler.delete(full_filename)
+                    threading.Thread(target=TableHandler.delete(full_filename)).start()
                     pass
                 elif action == 3:
-                    table = FileHandler.collect_information([str(full_filename)])
-                    TableHandler.update(table)
+                    threading.Thread(target=TableHandler.update(full_filename)).start()
                     pass
                 elif action == 4:
                     temp = full_filename
                     pass
                 elif action == 5:
-                    TableHandler.rename(temp, full_filename)
+                    threading.Thread(target=TableHandler.rename(temp, full_filename))
                     temp = None
                     pass
                 pass

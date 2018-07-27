@@ -1,25 +1,11 @@
 import logging
 import os
-from threading import Thread
 
-from TableHandler import TableHandler
 
 logger = logging.getLogger("FileHandler")
 
 
-class FileHandler(Thread):
-
-    def __init__(self, file_list):
-        Thread.__init__(self)
-        self.file_list = file_list
-        self.start()
-        self.join()
-        pass
-
-    def run(self):
-        TableHandler(self.collect_information(self.file_list))
-        self.file_list = None
-        pass
+class FileHandler:
 
     # Find last symbol of txt file
     @staticmethod
@@ -29,19 +15,21 @@ class FileHandler(Thread):
         for name in file_list:
             if name[-4:] == ".txt":
                 if os.path.getsize(name) == 0:
-                    table.append({"path": str(name), "last_symbol": "SystemMessage: empty file"})
+                    continue
                 else:
                     with open(name, 'rb') as file:
-                        file.seek(-1, os.SEEK_END)
-                        try:
-                            if str(file.readline().decode()).isspace():
-                                table.append({"path": name, "last_symbol": "SystemMessage: space_symbol"})
-                            else:
-                                table.append({"path": name, "last_symbol": file.readline().decode()})
-                            logger.info("File read success")
-                        except UnicodeDecodeError:
-                            table.append({"path": name, "last_symbol": "SystemMessage: can't decode bytes"})
-                            logger.error("Catch UnicodeDecodeError in ", name)
+                        file.seek(1, os.SEEK_END)
+                        while file.tell() > 1 and file.seek(-2, os.SEEK_CUR):
+                            try:
+                                ch = file.read(1).decode()
+                                # print(ch, " pos=", file.tell(), " size=", sys.getsizeof(ch))
+                                if str(ch).isalpha():
+                                    table.append({"path": name, "last_symbol": ch})
+                                    logger.info("File read success")
+                                    break
+                            except UnicodeDecodeError:
+                                logger.error("Catch UnicodeDecodeError in ", name)
+                                break
                             pass
                         pass
                     pass

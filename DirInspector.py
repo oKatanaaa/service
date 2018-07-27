@@ -3,27 +3,19 @@ import os
 import sys
 import threading
 import win32file
-from shutil import copyfile
+from multiprocessing import Queue
 
 import win32con
 
 from FileHandler import FileHandler
 from TableHandler import TableHandler
 
-# Log-control block
-if os.path.exists(str(os.getcwd()) + ".\logs\my_watch.log") and os.path.getsize(".\logs\my_watch.log") > 100240:
-    copyfile(".\logs\my_watch.log", ".\logs\old_my_watch.log")
-    os.remove(str(os.getcwd()) + ".\logs\my_watch.log")
-
-# Logger initialization.
-logger = logging.getLogger("DirInspector")
-logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler(".\logs\my_watch.log")
-file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s -> %(message)s'))
-logger.addHandler(file_handler)
-
 
 class DirInspector:
+    logger = logging.getLogger("DirInspector")
+
+    MAIN_QUEUE = Queue()
+
     ACTIONS = {
         1: "Created",
         2: "Deleted",
@@ -45,13 +37,17 @@ class DirInspector:
             win32con.FILE_FLAG_BACKUP_SEMANTICS,
             None
         )
-        inspector_thread = threading.Thread(target=self.run())
-        inspector_thread.start()
+        self.run()
         pass
 
     def run(self):
         TableHandler.create_table(FileHandler.collect_information(self.__first_generation()))
-        self.__inspect()
+        q = threading.Thread(target=self.queue_handler)
+        q.setDaemon(True)
+        t = threading.Thread(target=self.inspect)
+        q.start()
+        t.start()
+        t.join()
         pass
 
     def __first_generation(self):
@@ -62,7 +58,7 @@ class DirInspector:
                     file_list.append(str(os.path.join(root_dir, file)))
         return file_list
 
-    def __inspect(self):
+    def inspect(self):
         while True:
             # ReadDirectoryChangesW takes a previously-created
             # handle to a directory, a buffer size for results,
@@ -81,7 +77,13 @@ class DirInspector:
                 None,
                 None
             )
+            self.MAIN_QUEUE.put(results)
+            pass
+        pass
 
+    def queue_handler(self):
+        while True:
+            results = self.MAIN_QUEUE.get()
             for action, file in results:
                 global temp
                 full_filename = os.path.join(self.path_to_watch, file)
@@ -89,52 +91,27 @@ class DirInspector:
                 if full_filename[-4:] != ".txt":
                     continue
 
-                # if action != 2:
-                #     try:
-                #         _ = open(full_filename, 'rb')
-                #         _.close()
-                #     except PermissionError:
-                #         logger.error("File is open now")
-                #         continue
-                #     pass
-
-                logger.info(str(full_filename) + "| is: " + str(self.ACTIONS.get(action)))
-                # if action == 1:
-                #     threading.Thread(target=TableHandler.create(full_filename)).start()
-                #     pass
+                self.logger.info(str(full_filename) + "| is: " + str(self.ACTIONS.get(action)))
                 if action == 2:
-                    threading.Thread(target=TableHandler.delete(full_filename)).start()
+                    TableHandler.delete(full_filename)
                     pass
                 elif action == 3:
-                    threading.Thread(target=TableHandler.update(full_filename)).start()
+                    TableHandler.update(full_filename)
                     pass
                 elif action == 4:
                     temp = full_filename
                     pass
                 elif action == 5:
                     if sys.getsizeof(full_filename) != 0:
-                        threading.Thread(target=TableHandler.rename(temp, full_filename))
+                        TableHandler.rename(temp, full_filename)
                         temp = None
                     pass
                 pass
             pass
         pass
 
+    pass
 
-def check_args():
-    if len(sys.argv) != 2:
-        logger.error("Have not enough args, except one: dir_for_watching \n"
-                     "Launch script again, and don't forget about args")
-        sys.exit(-1)
-        pass
-    if os.path.exists(sys.argv[1]) is False:
-        logger.error("Directory does not exist, Launch script again, and don't forget about args")
-        sys.exit(-1)
-        pass
-    logger.info('My watch begin. Watching for ' + str(sys.argv[1]))
-    return sys.argv[1]
-
-
-if __name__ == "__main__":
-    root_path = check_args()
-    main_class = DirInspector(root_path)
+# if __name__ == "__main__":
+#     root_path = check_args()
+#     main_class = DirInspector(root_path)

@@ -36,7 +36,7 @@ if __name__ == "__main__":
     # cluster_base = ClusterBase()
     teach_path, analyze_path = check_args()
     teaching = DirInspector(teach_path)
-    teaching.create_clusters()
+    teaching.cluster_generation()
     # cluster_base.make_cluster()
     analyze = DirInspector(analyze_path)
     analyze.run()

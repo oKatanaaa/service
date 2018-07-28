@@ -39,7 +39,7 @@ class DirInspector:
             None
         )
 
-    def create_clusters(self):
+    def cluster_generation(self):
         self.table_handler = TableHandler("teach_table.csv")
         self.table_handler.create_cluster_table(FileHandler.collect_information(self.__first_generation()))
 

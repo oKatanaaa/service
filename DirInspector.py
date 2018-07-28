@@ -27,6 +27,7 @@ class DirInspector:
     FILE_LIST_DIRECTORY = 0x0001
 
     def __init__(self, path):
+        self.table_handler = TableHandler()
         self.path_to_watch = path
         self.hDir = win32file.CreateFile(
             self.path_to_watch,
@@ -37,17 +38,19 @@ class DirInspector:
             win32con.FILE_FLAG_BACKUP_SEMANTICS,
             None
         )
-        self.run()
-        pass
+
+    def create_clusters(self):
+        self.table_handler = TableHandler("teach_table.csv")
+        self.table_handler.create_cluster_table(FileHandler.collect_information(self.__first_generation()))
 
     def run(self):
-        TableHandler.create_table(FileHandler.collect_information(self.__first_generation()))
+        self.table_handler.create_table(FileHandler.collect_information(self.__first_generation()))
         q = threading.Thread(target=self.queue_handler)
         q.setDaemon(True)
         t = threading.Thread(target=self.inspect)
         q.start()
         t.start()
-        t.join()
+        # t.join()
         pass
 
     def __first_generation(self):
@@ -95,23 +98,22 @@ class DirInspector:
 
                 self.logger.info(str(full_filename) + "| is: " + str(self.ACTIONS.get(action)))
                 if action == 2:
-                    TableHandler.delete(full_filename)
+                    self.table_handler.delete(full_filename)
                     pass
                 elif action == 3:
-                    TableHandler.update(full_filename)
+                    self.table_handler.update(full_filename)
                     pass
                 elif action == 4:
                     temp = full_filename
                     pass
                 elif action == 5:
                     if sys.getsizeof(full_filename) != 0:
-                        TableHandler.rename(temp, full_filename)
+                        self.table_handler.rename(temp, full_filename)
                         temp = None
                     pass
                 pass
             pass
         pass
-
     pass
 
 # if __name__ == "__main__":

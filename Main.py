@@ -19,19 +19,26 @@ logger.addHandler(file_handler)
 
 
 def check_args():
-    if len(sys.argv) != 2:
-        logger.error("Have not enough args, except one: dir_for_watching \n"
+    if len(sys.argv) != 3:
+        logger.error("Have not enough args, except two: dir_for_teach, dir_for_analyze \n"
                      "Launch script again, and don't forget about args")
         sys.exit(-1)
         pass
-    if os.path.exists(sys.argv[1]) is False:
+    if os.path.exists(sys.argv[1]) is False or os.path.exists(sys.argv[2]) is False:
         logger.error("Directory does not exist, Launch script again, and don't forget about args")
         sys.exit(-1)
         pass
     logger.info('My watch begin. Watching for ' + str(sys.argv[1]))
-    return sys.argv[1]
+    return sys.argv[1], sys.argv[2]
 
 
 if __name__ == "__main__":
-    root_path = check_args()
-    main_class = DirInspector(root_path)
+    # cluster_base = ClusterBase()
+    teach_path, analyze_path = check_args()
+    teaching = DirInspector(teach_path)
+    teaching.create_clusters()
+    # cluster_base.make_cluster()
+    analyze = DirInspector(analyze_path)
+    analyze.run()
+
+    print("I am in main")

@@ -1,9 +1,6 @@
-cluster,last_symbol,path
-A      ,A          ,C:\Users\Banayaki\Downloads\asd - Copy.txt
-a      ,d          ,C:\Users\Banayaki\Downloads\New Text Document - Copy.txt
-z      ,s          ,C:\Users\Banayaki\Downloads\New Text Document.txt
-z      ,t          ,C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\readme.txt
-a      ,e          ,C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_bg.txt
-a      ,e          ,C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_cn.txt
-a      ,e          ,C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_en.txt
-A      ,A          ,C:\Users\Banayaki\Downloads\asd - Copy - Copy.txt
+path                                                                                                                        ,last_symbol,cluster
+C:\Users\Banayaki\Downloads\Русский документ.txt                                                                            ,Я          ,Я
+C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\readme.txt                                           ,t          ,z
+C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_bg.txt,e          ,a
+C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_cn.txt,e          ,a
+C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_en.txt,e          ,a

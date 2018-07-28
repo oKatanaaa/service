@@ -32,6 +32,7 @@ class TableHandler:
         TableHandler.logger.info("First creating table")
         self.cluster_base.make_cluster()
         file = pd.DataFrame({'path': [], 'last_symbol': [], 'cluster': []})
+        file.columns = ['path', 'last_symbol', 'cluster']
         for line in target:
             line['cluster'] = self.cluster_base.go_in_right_cluster(line['last_symbol'])
             file.loc[len(file)] = line
@@ -63,7 +64,7 @@ class TableHandler:
         TableHandler.logger.info("Creating ", target)
         try:
             file = pd.read_csv(self.name, sep=',')
-            file.loc[len(file)] = [target, "SystemMessage: empty file"]
+            file.loc[len(file)] = [target, "SystemMessage: empty file", ""]
             file.to_csv(self.name, index=False)
         except UnicodeDecodeError:
             TableHandler.logger.error("Catch UnicodeDecodeError in create module")
@@ -80,7 +81,7 @@ class TableHandler:
                 content['cluster'] = self.cluster_base.go_in_right_cluster(content['last_symbol'])
                 v = list(content.values())
                 if file.loc[file['path'] == str(v[2])].empty and sys.getsizeof(full_filename) != 0:
-                    file.loc[len(file)] = [str(v[2]), str(v[1]), str(v[0])]
+                    file.loc[len(file)] = [str(v[0]), str(v[1]), str(v[2])]
             file.to_csv(self.name, index=False)
         except UnicodeDecodeError:
             TableHandler.logger.error("Catch UnicodeDecodeError in update module")

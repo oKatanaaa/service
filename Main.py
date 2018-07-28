@@ -40,5 +40,3 @@ if __name__ == "__main__":
     # cluster_base.make_cluster()
     analyze = DirInspector(analyze_path)
     analyze.run()
-
-    print("I am in main")

@@ -50,7 +50,7 @@ class DirInspector:
         t = threading.Thread(target=self.inspect)
         q.start()
         t.start()
-        # t.join()
+        t.join()
         pass
 
     def __first_generation(self):

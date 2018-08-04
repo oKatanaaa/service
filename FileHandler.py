@@ -28,7 +28,7 @@ class FileHandler:
                                         FileHandler.logger.info("File read success")
                                         break
                             except UnicodeDecodeError:
-                                FileHandler.logger.error("Catch UnicodeDecodeError in ", name)
+                                FileHandler.logger.error(str("Catch UnicodeDecodeError in " + name))
                             except OSError:
                                 with open(name, 'rb') as file:
                                     ch = file.read(1).decode()

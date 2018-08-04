@@ -3,7 +3,7 @@ import os
 import sys
 from shutil import copyfile
 
-from DirInspector import DirInspector
+from Watcher import Watcher
 
 # Log-control block
 if os.path.exists(str(os.getcwd()) + ".\logs\my_watch.log") and os.path.getsize(".\logs\my_watch.log") > 100240:
@@ -35,8 +35,9 @@ def check_args():
 if __name__ == "__main__":
     # cluster_base = ClusterBase()
     teach_path, analyze_path = check_args()
-    teaching = DirInspector(teach_path)
-    teaching.cluster_generation()
+    teaching = Watcher(teach_path, True)
+    teaching.run()
+    # teaching.cluster_generation()
     # cluster_base.make_cluster()
-    analyze = DirInspector(analyze_path)
+    analyze = Watcher(analyze_path, False)
     analyze.run()

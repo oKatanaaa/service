@@ -40,7 +40,7 @@ class Watcher:
         if is_learn:
             self.table_handler = TableHandler(is_learn, "teach_table.csv")
         else:
-            self.table_handler = TableHandler(is_learn, "table" + str(++Watcher.number) + ".csv")
+            self.table_handler = TableHandler(is_learn, "table.csv")
         self.logger.info(
             "Object watcher was created. Watching for " + target_path + ", it's learner watcher = " + str(is_learn))
 

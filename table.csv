@@ -1,0 +1,10 @@
+path                                                         ,last_symbol,cluster
+C:\Users\Banayaki\Desktop\test_folder\English A.txt          ,A          ,A
+C:\Users\Banayaki\Desktop\test_folder\English Z.txt          ,Z          ,Z
+C:\Users\Banayaki\Desktop\test_folder\noise.txt              ,p          ,o
+C:\Users\Banayaki\Desktop\test_folder\small english a.txt    ,a          ,a
+C:\Users\Banayaki\Desktop\test_folder\small english z.txt    ,z          ,z
+C:\Users\Banayaki\Desktop\test_folder\Русская А.txt          ,А          ,А
+C:\Users\Banayaki\Desktop\test_folder\русская маленькая а.txt,а          ,а
+C:\Users\Banayaki\Desktop\test_folder\русская маленькая я.txt,я          ,я
+C:\Users\Banayaki\Desktop\test_folder\Русская Я.txt          ,Я          ,Я

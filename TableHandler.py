@@ -87,9 +87,9 @@ class TableHandler:
                 else:
                     # Странно выглядит что то, я запутался
                     v = list(content.values())
-                    if file.loc[file['path'] == str(v[1])].empty and sys.getsizeof(full_filename) != 0:
+                    if file.loc[file['path'] == str(v[0])].empty and sys.getsizeof(full_filename) != 0:
                         file.loc[len(file)] = [str(v[0]), str(v[1])]
-                    self.cluster_handler.add_new_cluster(v[0])
+                    self.cluster_handler.add_new_cluster(v[1])
 
             file.to_csv(self.name, index=False)
         except UnicodeDecodeError:

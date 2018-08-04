@@ -11,21 +11,25 @@ class ClusterHandler:
         self.clusters = dict()
 
     def go_in_right_cluster(self, last_symbol):
-        while True and len(self.clusters) == 0:
+        while len(self.clusters) == 0:
             time.sleep(0.0001)
             pass
+        hash_set = set(self.clusters.keys())
         current = list(self.clusters.keys())[0]
+        hash_set.remove(current)
         while True:
             cluster = self.clusters[current]
             minimal = distance(current, last_symbol)
             the_smallest = float('inf')
             temp = None
             for neighbor in cluster:
-                dif = distance(neighbor, last_symbol)
-                if dif < the_smallest:
-                    the_smallest = dif
-                    temp = neighbor
-            if the_smallest >= minimal:
+                if neighbor in hash_set:
+                    hash_set.remove(neighbor)
+                    dif = distance(neighbor, last_symbol)
+                    if dif < the_smallest:
+                        the_smallest = dif
+                        temp = neighbor
+            if the_smallest > minimal or len(hash_set) == 0:
                 return current
             else:
                 current = temp
@@ -48,9 +52,9 @@ class ClusterHandler:
                 for neighbor in self.clusters[cls]:
                     if distance(new_cluster, cls) < distance(cls, neighbor) and \
                             distance(new_cluster, neighbor) < distance(cls, neighbor):
+                        # Возможно стоит из-за этого использовать SET но я не уверен
                         self.clusters[cls].remove(neighbor)
                 self.clusters[cls].append(new_cluster)
-
         pass
 
     def update_results(self, new_cluster):

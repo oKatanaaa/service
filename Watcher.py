@@ -38,9 +38,9 @@ class Watcher:
         self.logger = self.__get_logger(target_path)
         self.queue = Queue()
         if is_learn:
-            self.table_handler = TableHandler(is_learn, "teach_table.csv")
+            self.table_handler = TableHandler(is_learn)
         else:
-            self.table_handler = TableHandler(is_learn, "table.csv")
+            self.table_handler = TableHandler(is_learn)
         self.logger.info(
             "Object watcher was created. Watching for " + target_path + ", it's learner watcher = " + str(is_learn))
 
@@ -51,29 +51,7 @@ class Watcher:
         t = threading.Thread(target=self.watch)
         t.start()
         q.start()
-        # t.join()
         pass
-
-    # def run_watching(self):
-    #     self.table_handler.create_table(FileHandler.collect_information(self.__first_generation()))
-    #     q = threading.Thread(target=self.queue_handler)
-    #     q.setDaemon(True)
-    #     t = threading.Thread(target=self.watch)
-    #     t.start()
-    #     q.start()
-    #     # t.join()
-    #     pass
-    #
-    # def run_learning(self):
-    #     self.table_handler.create_table(FileHandler.collect_information(self.__first_generation()))
-    #     # self.cluster_handler.make_cluster()
-    #     q = threading.Thread(target=self.queue_handler)
-    #     q.setDaemon(True)
-    #     t = threading.Thread(target=self.watch)
-    #     t.start()
-    #     q.start()
-    #     # t.join()
-    #     pass
 
     def __first_generation(self):
         file_list = []

@@ -92,17 +92,18 @@ class ClusterHandler(Thread):
                     target.append(key)
                 elif dif == minim:
                     target.append(key)
-            self.clusters[new_cluster] = list(target)
+            self.clusters[new_cluster] = set(target)
             for cls in target:
-                for neighbor in self.clusters[cls]:
+                neighbor_set = set(self.clusters[cls])
+                for neighbor in neighbor_set:
                     if distance(new_cluster, cls) < distance(cls, neighbor) and \
                             distance(new_cluster, neighbor) < distance(cls, neighbor):
                         # Возможно стоит из-за этого использовать SET но я не уверен
-                        self.clusters[new_cluster].append(neighbor)
+                        self.clusters[new_cluster].add(neighbor)
                         self.clusters[cls].remove(neighbor)
                         self.clusters[neighbor].remove(cls)
-                        self.clusters[neighbor].append(new_cluster)
-                self.clusters[cls].append(new_cluster)
+                        self.clusters[neighbor].add(new_cluster)
+                self.clusters[cls].add(new_cluster)
             self.logger.info("Cluster - " + new_cluster + " was created")
 
     """
@@ -141,6 +142,10 @@ class ClusterHandler(Thread):
     def update(self, msg):
         is_teacher = msg["is_teacher"]
         files = msg["files"]
+        if not msg["is_deleted"]:
+            deleted_cluster = None
+        else:
+            deleted_cluster = msg["deleted_cluster"]
         for file in files:
             if is_teacher:
                 self.add_new_cluster(file["last_symbol"])
@@ -153,6 +158,8 @@ class ClusterHandler(Thread):
             {"option": "update_table",
              "table_name": msg["table_name"],
              "is_teacher": is_teacher,
+             "is_deleted": msg["is_deleted"],
+             "deleted_cluster": deleted_cluster,
              "rows": files}
         )
         self.logger.info("Clusters was up to date")
@@ -181,7 +188,8 @@ class ClusterHandler(Thread):
             "table_name": table_name,
             "files": files,
             "is_teacher": is_teacher,
-            "is_deleted": True
+            "is_deleted": True,
+            "deleted_cluster": cluster_list
         })
 
     def __get_logger(self):

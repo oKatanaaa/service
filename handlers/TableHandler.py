@@ -135,7 +135,7 @@ class TableHandler(Thread):
                             self.address,
                             self.message_system.ADDRESS_LIST["ClusterHandler"],
                             {"option": "delete",
-                             "cluster": cluster_of_deleted_file,
+                             "clusters": cluster_of_deleted_file,
                              "table_name": table_name,
                              "files": lines,
                              "is_teacher": is_teacher,
@@ -156,6 +156,11 @@ class TableHandler(Thread):
     def update_table(self, msg):
         table_name = msg["table_name"]
         is_teacher = msg["is_teacher"]
+        is_deleted = msg["is_deleted"]
+        if is_deleted:
+            deleted_cluster = msg["deleted_cluster"]
+        else:
+            deleted_cluster = None
         rows = msg["rows"]
         file = pd.read_csv(table_name, sep=',')
         for row in rows:
@@ -180,8 +185,20 @@ class TableHandler(Thread):
                         path = file.iloc[line, 0]
                         symbol = str(file.iloc[line, 1]).strip()
                         prev_cluster = str(file.iloc[line, 2]).strip()
-                        if distance(symbol, prev_cluster) > distance(symbol, new_cluster):
-                            file.cluster[file.path == path] = new_cluster
+                        if is_deleted and prev_cluster in deleted_cluster:
+                            new_msg = Message(
+                                self.address,
+                                self.message_system.ADDRESS_LIST["ClusterHandler"],
+                                {"option": "update",
+                                 "is_teacher": False,
+                                 "table_name": file_name,
+                                 "is_deleted": False,
+                                 "files": [{"path": path, "last_symbol": symbol}]}
+                            )
+                            self.message_system.send(new_msg)
+                        else:
+                            if distance(symbol, prev_cluster) > distance(symbol, new_cluster):
+                                file.cluster[file.path == path] = new_cluster
                     file.to_csv(file_name, index=False)
                     self.logger.info("Table have some update")
 

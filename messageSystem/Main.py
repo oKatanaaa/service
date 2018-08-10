@@ -1,5 +1,6 @@
 import os
 import sys
+from shutil import copyfile
 
 from handlers.ClusterHandler import ClusterHandler
 from handlers.FileHandler import FileHandler
@@ -19,6 +20,9 @@ def check_args():
 
 
 if __name__ == "__main__":
+    if os.path.exists(str(os.getcwd()) + ".\logs\my_watch.log") and os.path.getsize(".\logs\my_watch.log") > 100240:
+        copyfile(".\logs\my_watch.log", ".\logs\old_my_watch.log")
+        os.remove(str(os.getcwd()) + ".\logs\my_watch.log")
     teach_path, analyze_path = check_args()
     message_system = MessageSystem()
     first_watcher = Watcher(message_system, teach_path, "teach_table.csv", True)

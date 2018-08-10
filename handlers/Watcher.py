@@ -1,3 +1,4 @@
+import logging
 import win32file
 from threading import Thread
 
@@ -5,17 +6,18 @@ import win32con
 
 from messageSystem.Message import Message
 
+"""
+Класс - дозорные. Ловит любые измнения в целевой папке и успешно передаёт их нужно обработчику
+Не является потоком демоном
+"""
+
 
 class Watcher(Thread):
+    """
+    Список используемых файлов
+    """
     OPENED_FILES = list()
-
-    ACTIONS = {
-        1: "Created",
-        2: "Deleted",
-        3: "Updated",
-        4: "Renamed from ",
-        5: "Renamed to "
-    }
+    OPENED_TABLES = list()
 
     FILE_LIST_DIRECTORY = 0x0001
 
@@ -23,12 +25,16 @@ class Watcher(Thread):
     def __init__(self, message_system, target_path, table_name, is_teacher=False):
         Thread.__init__(self)
         self.setName("Main Thread (Watcher)")
+        """ Ссылка на общий для всех объект - системы сообщений     """
         self.message_system = message_system
+        """ Адрес класса в системе сообщений """
         self.address = message_system.ADDRESS_LIST[self.__class__.__name__]
         self.is_teacher = is_teacher
-        self.logger = None
+        self.logger = self.__get_logger()
         self.target_path = target_path
         self.table_name = table_name
+        Watcher.OPENED_TABLES.append({"table_name": table_name,
+                                      "is_teacher": is_teacher})
         Watcher.OPENED_FILES.append({"path": target_path,
                                      "is_teacher": is_teacher})
         self.hDir = win32file.CreateFile(
@@ -40,7 +46,11 @@ class Watcher(Thread):
             win32con.FILE_FLAG_BACKUP_SEMANTICS,
             None
         )
+        self.logger.info("Class " + self.__class__.__name__ + " successfully initialized")
 
+    """
+    Старт потока. Генерирует первый раз таблицу/кластеры
+    """
     def run(self):
         if self.is_teacher:
             msg = Message(
@@ -64,6 +74,9 @@ class Watcher(Thread):
             self.message_system.send(msg)
         self.start_watch()
 
+    """
+    Мониторинг
+    """
     def start_watch(self):
         while True:
             results = win32file.ReadDirectoryChangesW(
@@ -89,4 +102,14 @@ class Watcher(Thread):
                  "target_path": self.target_path,
                  "changes": results}
             )
+            self.logger.info("Some changes was happened")
             self.message_system.send(msg)
+
+    def __get_logger(self):
+        logger = logging.getLogger(self.__class__.__name__)
+        logger.setLevel(logging.DEBUG)
+
+        fh = logging.FileHandler(".\logs\my_watch.log")
+        fh.setFormatter(logging.Formatter('%(asctime)s - %(threadName)s - %(levelname)s - %(message)s'))
+        logger.addHandler(fh)
+        return logger

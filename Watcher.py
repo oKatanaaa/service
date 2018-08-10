@@ -107,8 +107,8 @@ class Watcher:
                         old_name = ""
 
     # noinspection PyMethodMayBeStatic
-    def __get_logger(self, logger_name: str):
-        logger = logging.getLogger("Watcher " + logger_name)
+    def __get_logger(self):
+        logger = logging.getLogger(self.__class__.__name__)
         logger.setLevel(logging.DEBUG)
 
         fh = logging.FileHandler(".\logs\my_watch.log")

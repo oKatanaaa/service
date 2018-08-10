@@ -3,6 +3,7 @@ import os
 import sys
 from threading import Thread
 
+from handlers.Utils import *
 from messageSystem.Message import Message
 
 """
@@ -47,9 +48,9 @@ class FileHandler(Thread):
             msg = self.message_system.queue_listing[self.address][0].get()
             self.logger.info(self.__class__.__name__ + " have a message")
 
-            if msg["option"] == "first_generation":
+            if msg[option] == first_generation_option:
                 self.first_generation(msg)
-            elif msg["option"] == "changes":
+            elif msg[option] == changes_option:
                 self.get_changes(msg)
 
     """
@@ -58,36 +59,36 @@ class FileHandler(Thread):
     """
     def first_generation(self, msg):
         file_name_list = []
-        target_path = msg["path"]
+        target_path = msg[path]
         for root_dir, dirs, files in os.walk(target_path):
             for file in files:
                 if file[-4:] == ".txt":
                     file_name_list.append(os.path.join(root_dir, file))
 
         file_contents = self.grub_file_content(file_name_list)
-        if msg["is_teacher"]:
+        if msg[is_teacher]:
             new_msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["ClusterHandler"],
-                {"option": "create_clusters",
-                 "table_name": msg["table_name"],
-                 "file_contents": file_contents}
+                {option: create_clusters_option,
+                 table_name: msg[table_name],
+                 files_with_content: file_contents}
             )
             additional_msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["TableHandler"],
-                {"option": "create_teacher_table",
-                 "table_name": msg["table_name"],
-                 "file_contents": file_contents}
+                {option: create_teacher_tables_option,
+                 table_name: msg[table_name],
+                 files_with_content: file_contents}
             )
             self.message_system.send(additional_msg)
         else:
             new_msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["ClusterHandler"],
-                {"option": "identify_clusters",
-                 "table_name": msg["table_name"],
-                 "file_contents": file_contents}
+                {option: identify_clusters_option,
+                 table_name: msg[table_name],
+                 files_with_content: file_contents}
             )
         self.message_system.send(new_msg)
         self.logger.info("Table successfully generated")
@@ -97,9 +98,9 @@ class FileHandler(Thread):
     В зависимости от изменений вызывает соответсвующие им методы
     """
     def get_changes(self, msg):
-        target_path = msg["target_path"]
-        changes_list = msg["changes"]
-        is_teacher = msg["is_teacher"]
+        target_path = msg[path]
+        changes_list = msg[changes]
+        teacher = msg[is_teacher]
         for action, file in changes_list:
             if file[-4:] != ".txt":
                 continue
@@ -111,32 +112,32 @@ class FileHandler(Thread):
                 new_msg = Message(
                     self.address,
                     self.message_system.ADDRESS_LIST["TableHandler"],
-                    {"option": "delete",
-                     "is_teacher": is_teacher,
-                     "table_name": msg["table_name"],
-                     "path": full_filename}
+                    {option: delete_from_table_option,
+                     is_teacher: teacher,
+                     table_name: msg[table_name],
+                     path: full_filename}
                 )
                 self.message_system.send(new_msg)
 
             elif action == 3:
                 if os.path.getsize(full_filename) != 0:
-                    if not is_teacher:
+                    if not teacher:
                         new_msg = Message(
                             self.address,
                             self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {"option": "update",
-                             "is_teacher": is_teacher,
-                             "table_name": msg["table_name"],
-                             "files": self.grub_file_content([full_filename])}
+                            {option: update_cluster_option,
+                             teacher: teacher,
+                             table_name: msg[table_name],
+                             files_with_content: self.grub_file_content([full_filename])}
                         )
                     else:
                         new_msg = Message(
                             self.address,
                             self.message_system.ADDRESS_LIST["TableHandler"],
-                            {"option": "prepare",
-                             "is_teacher": is_teacher,
-                             "table_name": msg["table_name"],
-                             "files": self.grub_file_content([full_filename])}
+                            {option: prepare_to_update_option,
+                             is_teacher: teacher,
+                             table_name: msg[table_name],
+                             files_with_content: self.grub_file_content([full_filename])}
                         )
                     self.message_system.send(new_msg)
 
@@ -148,10 +149,10 @@ class FileHandler(Thread):
                     new_msg = Message(
                         self.address,
                         self.message_system.ADDRESS_LIST["TableHandler"],
-                        {"option": "rename",
-                         "table_name": msg["table_name"],
-                         "old_name": self.temp,
-                         "new_name": full_filename}
+                        {option: rename_option,
+                         table_name: msg[table_name],
+                         old_name: self.temp,
+                         new_name: full_filename}
                     )
                     self.message_system.send(new_msg)
 

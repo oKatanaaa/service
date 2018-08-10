@@ -4,6 +4,7 @@ from threading import Thread
 
 import win32con
 
+from handlers.Utils import *
 from messageSystem.Message import Message
 
 """
@@ -22,21 +23,21 @@ class Watcher(Thread):
     FILE_LIST_DIRECTORY = 0x0001
 
     # TODO: check for existing target_path
-    def __init__(self, message_system, target_path, table_name, is_teacher=False):
+    def __init__(self, message_system, target_path, _table_name, _is_teacher=False):
         Thread.__init__(self)
         self.setName("Main Thread (Watcher)")
         """ Ссылка на общий для всех объект - системы сообщений     """
         self.message_system = message_system
         """ Адрес класса в системе сообщений """
         self.address = message_system.ADDRESS_LIST[self.__class__.__name__]
-        self.is_teacher = is_teacher
+        self.is_teacher = _is_teacher
         self.logger = self.__get_logger()
         self.target_path = target_path
-        self.table_name = table_name
-        Watcher.OPENED_TABLES.append({"table_name": table_name,
-                                      "is_teacher": is_teacher})
+        self.table_name = _table_name
+        Watcher.OPENED_TABLES.append({"table_name": _table_name,
+                                      "is_teacher": _is_teacher})
         Watcher.OPENED_FILES.append({"path": target_path,
-                                     "is_teacher": is_teacher})
+                                     "is_teacher": _is_teacher})
         self.hDir = win32file.CreateFile(
             self.target_path,
             self.FILE_LIST_DIRECTORY,
@@ -56,20 +57,20 @@ class Watcher(Thread):
             msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["FileHandler"],
-                {"option": "first_generation",
-                 "is_teacher": True,
-                 "path": self.target_path,
-                 "table_name": self.table_name}
+                {option: first_generation_option,
+                 is_teacher: True,
+                 path: self.target_path,
+                 table_name: self.table_name}
             )
             self.message_system.send(msg)
         else:
             msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["FileHandler"],
-                {"option": "first_generation",
-                 "is_teacher": False,
-                 "path": self.target_path,
-                 "table_name": self.table_name}
+                {option: first_generation_option,
+                 is_teacher: False,
+                 path: self.target_path,
+                 table_name: self.table_name}
             )
             self.message_system.send(msg)
         self.start_watch()
@@ -96,11 +97,11 @@ class Watcher(Thread):
             msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["FileHandler"],
-                {"option": "changes",
-                 "table_name": self.table_name,
-                 "is_teacher": self.is_teacher,
-                 "target_path": self.target_path,
-                 "changes": results}
+                {option: changes_option,
+                 table_name: self.table_name,
+                 is_teacher: self.is_teacher,
+                 path: self.target_path,
+                 changes: results}
             )
             self.logger.info("Some changes was happened")
             self.message_system.send(msg)

@@ -3,6 +3,7 @@ from threading import Thread
 
 import pandas as pd
 
+from handlers.Utils import *
 from handlers.Watcher import Watcher
 from messageSystem.Message import Message
 
@@ -37,17 +38,17 @@ class TableHandler(Thread):
             msg = self.message_system.queue_listing[self.address][0].get()
             self.logger.info(self.__class__.__name__ + " have a message")
 
-            if msg["option"] == "create_table":
+            if msg[option] == create_table_option:
                 self.create_table(msg)
-            elif msg["option"] == "create_teacher_table":
+            elif msg[option] == create_teacher_tables_option:
                 self.create_teacher_table(msg)
-            elif msg["option"] == "update_table":
+            elif msg[option] == update_table_option:
                 self.update_table(msg)
-            elif msg["option"] == "rename":
+            elif msg[option] == rename_option:
                 self.rename(msg)
-            elif msg["option"] == "delete":
+            elif msg[option] == delete_from_table_option:
                 self.delete(msg)
-            elif msg["option"] == "prepare":
+            elif msg[option] == prepare_to_update_option:
                 self.prepare_to_update(msg)
 
     """
@@ -55,13 +56,13 @@ class TableHandler(Thread):
     """
 
     def create_teacher_table(self, msg):
-        table_name = msg["table_name"]
-        file_contents = msg["file_contents"]
+        name_of_table = msg[table_name]
+        file_contents = msg[files_with_content]
         file = pd.DataFrame({"path": [], "last_symbol": []})
         file.columns = ['path', 'last_symbol']
         for line in file_contents:
             file.loc[len(file)] = line
-        file.to_csv(table_name, index=False)
+        file.to_csv(name_of_table, index=False)
         self.logger.info("Teach table was created")
 
     """
@@ -69,13 +70,13 @@ class TableHandler(Thread):
     """
 
     def create_table(self, msg):
-        table_name = msg["table_name"]
-        file_contents = msg["file_contents"]
+        name_of_table = msg[table_name]
+        file_contents = msg[files_with_content]
         file = pd.DataFrame({"path": [], "last_symbol": [], "cluster": []})
         file.columns = ['path', 'last_symbol', 'cluster']
         for line in file_contents:
             file.loc[len(file)] = line
-        file.to_csv(table_name, index=False)
+        file.to_csv(name_of_table, index=False)
         self.logger.info("Table was created")
 
     """
@@ -83,12 +84,12 @@ class TableHandler(Thread):
     """
 
     def rename(self, msg):
-        table_name = msg["table_name"]
-        old_name = msg["old_name"]
-        new_name = msg["new_name"]
-        file = pd.read_csv(table_name, sep=',')
-        file.path[file.path == old_name] = new_name
-        file.to_csv(table_name, index=False)
+        name_of_table = msg[table_name]
+        old_file_name = msg[old_name]
+        new_file_name = msg[new_name]
+        file = pd.read_csv(name_of_table, sep=',')
+        file.path[file.path == old_file_name] = new_file_name
+        file.to_csv(name_of_table, index=False)
         self.logger.info("Renamed some rows")
 
     """
@@ -103,25 +104,25 @@ class TableHandler(Thread):
     """
 
     def delete(self, msg):
-        table_name = msg["table_name"]
-        is_teacher = msg["is_teacher"]
-        path = msg["path"]
-        if not is_teacher:
-            file = pd.read_csv(table_name, sep=',')
-            file = file[file.path != path]
-            file.to_csv(table_name, index=False)
+        name_of_table = msg[table_name]
+        teacher = msg[is_teacher]
+        target_path = msg[path]
+        if not teacher:
+            file = pd.read_csv(name_of_table, sep=',')
+            file = file[file.path != target_path]
+            file.to_csv(name_of_table, index=False)
         else:
-            file = pd.read_csv(table_name, sep=',')
-            cluster_of_deleted_file = file.last_symbol[file.path == path].iloc[0][0]
+            file = pd.read_csv(name_of_table, sep=',')
+            cluster_of_deleted_file = file.last_symbol[file.path == target_path].iloc[0][0]
             need_to_make_changes_after_remove = len(file.last_symbol[file.last_symbol == cluster_of_deleted_file]) == 1
-            file = file[file.path != path]
-            file.to_csv(table_name, index=False)
+            file = file[file.path != target_path]
+            file.to_csv(name_of_table, index=False)
             if need_to_make_changes_after_remove:
                 for table in Watcher.OPENED_TABLES:
-                    table_name = table["table_name"]
-                    teacher = table["is_teacher"]
+                    name_of_table = table[table_name]
+                    teacher = table[is_teacher]
                     if not teacher:
-                        table = pd.read_csv(table_name, sep=',')
+                        table = pd.read_csv(name_of_table, sep=',')
                         need_to_update = table[table.cluster == cluster_of_deleted_file]
                         need_to_update = need_to_update.to_dict()
                         keys = need_to_update['path'].keys()
@@ -134,12 +135,12 @@ class TableHandler(Thread):
                         new_msg = Message(
                             self.address,
                             self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {"option": "delete",
-                             "clusters": cluster_of_deleted_file,
-                             "table_name": table_name,
-                             "files": lines,
-                             "is_teacher": is_teacher,
-                             "is_deleted": True
+                            {option: deleted_cluster,
+                             clusters_list: cluster_of_deleted_file,
+                             table_name: name_of_table,
+                             files_with_content: lines,
+                             is_teacher: teacher,
+                             is_deleted: True
                              }
                         )
                         self.message_system.send(new_msg)
@@ -154,83 +155,87 @@ class TableHandler(Thread):
     """
 
     def update_table(self, msg):
-        table_name = msg["table_name"]
-        is_teacher = msg["is_teacher"]
-        is_deleted = msg["is_deleted"]
-        if is_deleted:
-            deleted_cluster = msg["deleted_cluster"]
+        name_of_table = msg[table_name]
+        teacher = msg[is_teacher]
+        if msg[is_deleted]:
+            deleted_cls = msg[deleted_cluster]
         else:
-            deleted_cluster = None
-        rows = msg["rows"]
-        file = pd.read_csv(table_name, sep=',')
-        for row in rows:
-            # print(file[file.path == row["path"]])
+            deleted_cls = None
+
+        files = msg[files_with_content]
+        file = pd.read_csv(name_of_table, sep=',')
+
+        for row in files:
             if file[file.path == row["path"]].empty:
                 file.loc[len(file)] = row
             else:
-                # file.loc[file["path"] == row["path"]] = [row["path"], row["last_symbol"], row["cluster"]]
                 file.path[file["path"] == row["path"]] = row['path']
                 file.last_symbol[file['path'] == row['path']] = row['last_symbol']
-                if not is_teacher:
+                if not teacher:
                     file.cluster[file['path'] == row['path']] = row['cluster']
-            file.to_csv(table_name, index=False)
-        if is_teacher:
-            new_cluster = rows[0]["last_symbol"]
+            file.to_csv(name_of_table, index=False)
+
+        if teacher:
+            new_cluster = files[0]["last_symbol"]
             for file in Watcher.OPENED_TABLES:
                 file_name = file["table_name"]
                 teacher = file["is_teacher"]
+
                 if not teacher:
                     file = pd.read_csv(file_name, sep=',')
+
                     for line in range(len(file)):
-                        path = file.iloc[line, 0]
+                        target_path = file.iloc[line, 0]
                         symbol = str(file.iloc[line, 1]).strip()
                         prev_cluster = str(file.iloc[line, 2]).strip()
-                        if is_deleted and prev_cluster in deleted_cluster:
+
+                        if msg[is_deleted] and prev_cluster in deleted_cls:
                             new_msg = Message(
                                 self.address,
                                 self.message_system.ADDRESS_LIST["ClusterHandler"],
-                                {"option": "update",
-                                 "is_teacher": False,
-                                 "table_name": file_name,
-                                 "is_deleted": False,
-                                 "files": [{"path": path, "last_symbol": symbol}]}
+                                {option: update_cluster_option,
+                                 is_teacher: False,
+                                 table_name: file_name,
+                                 is_deleted: False,
+                                 files_with_content: [{"path": target_path, "last_symbol": symbol}]}
                             )
                             self.message_system.send(new_msg)
                         else:
                             if distance(symbol, prev_cluster) > distance(symbol, new_cluster):
-                                file.cluster[file.path == path] = new_cluster
+                                file.cluster[file.path == target_path] = new_cluster
                     file.to_csv(file_name, index=False)
                     self.logger.info("Table have some update")
 
     def prepare_to_update(self, msg):
-        is_teacher = msg["is_teacher"]
-        table_name = msg["table_name"]
-        files = msg["files"]
-        table = pd.read_csv(table_name, sep=',')
+        name_of_table = msg["table_name"]
+        files = msg[files_with_content]
+        table = pd.read_csv(name_of_table, sep=',')
         old_symbol_list = []
+
         for file in files:
             old_symbol = table.loc[table.path == file["path"]].to_dict(orient='list')
             if len(old_symbol["last_symbol"]) != 0:
                 old_symbol_list.append(old_symbol["last_symbol"][0])
+
         if len(old_symbol_list) > 0:
             new_msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["ClusterHandler"],
-                {"option": "delete",
-                 "table_name": table_name,
-                 "is_teacher": is_teacher,
-                 "files": files,
-                 "cluster": old_symbol_list}
+                {option: delete_from_clusters_option,
+                 table_name: name_of_table,
+                 is_teacher: msg[is_deleted],
+                 files_with_content: files,
+                 deleted_cluster: old_symbol_list}
             )
         else:
             new_msg = Message(
                 self.address,
                 self.message_system.ADDRESS_LIST["ClusterHandler"],
-                {"option": "update",
-                 "table_name": table_name,
-                 "is_teacher": is_teacher,
-                 "is_deleted": False,
-                 "files": files,
+                {option: update_cluster_option,
+                 table_name: name_of_table,
+                 is_teacher: msg[is_teacher],
+                 is_deleted: False,
+                 files_with_content: files,
                  }
             )
         self.message_system.send(new_msg)

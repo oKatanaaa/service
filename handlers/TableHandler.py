@@ -183,6 +183,8 @@ class TableHandler(Thread):
 
                 if not teacher:
                     file = pd.read_csv(file_name, sep=',')
+                    soft_update_list = list()
+                    hard_update_list = list()
 
                     for line in range(len(file)):
                         target_path = file.iloc[line, 0]
@@ -190,19 +192,46 @@ class TableHandler(Thread):
                         prev_cluster = str(file.iloc[line, 2]).strip()
 
                         if msg[is_deleted] and prev_cluster in deleted_cls:
-                            new_msg = Message(
-                                self.address,
-                                self.message_system.ADDRESS_LIST["ClusterHandler"],
-                                {option: update_cluster_option,
-                                 is_teacher: False,
-                                 table_name: file_name,
-                                 is_deleted: False,
-                                 files_with_content: [{"path": target_path, "last_symbol": symbol}]}
-                            )
-                            self.message_system.send(new_msg)
+                            # new_msg = Message(
+                            #     self.address,
+                            #     self.message_system.ADDRESS_LIST["ClusterHandler"],
+                            #     {option: update_cluster_option,
+                            #      is_teacher: False,
+                            #      table_name: file_name,
+                            #      is_deleted: False,
+                            #      files_with_content: [{"path": target_path, "last_symbol": symbol}]}
+                            # )
+                            # self.message_system.send(new_msg)
+                            hard_update_list.append({"path": target_path, "last_symbol": symbol})
                         else:
-                            if distance(symbol, prev_cluster) > distance(symbol, new_cluster):
-                                file.cluster[file.path == target_path] = new_cluster
+                            soft_update_list.append({"path": target_path,
+                                                     "last_symbol": symbol,
+                                                     "cluster": prev_cluster})
+                            # if distance(symbol, prev_cluster) > distance(symbol, new_cluster):
+                            #     file.cluster[file.path == target_path] = new_cluster
+                    if len(hard_update_list) != 0:
+                        new_msg = Message(
+                            self.address,
+                            self.message_system.ADDRESS_LIST["ClusterHandler"],
+                            {option: update_cluster_option,
+                             is_teacher: False,
+                             table_name: file_name,
+                             is_deleted: False,
+                             files_with_content: hard_update_list}
+                        )
+                        self.message_system.send(new_msg)
+                    if len(soft_update_list) != 0:
+                        new_msg = Message(
+                            self.address,
+                            self.message_system.ADDRESS_LIST["ClusterHandler"],
+                            {option: soft_update_option,
+                             'new_cluster': new_cluster,
+                             is_teacher: False,
+                             table_name: file_name,
+                             is_deleted: False,
+                             files_with_content: soft_update_list}
+                        )
+                        self.message_system.send(new_msg)
                     file.to_csv(file_name, index=False)
                     self.logger.info("Table have some update")
 
@@ -223,7 +252,7 @@ class TableHandler(Thread):
                 self.message_system.ADDRESS_LIST["ClusterHandler"],
                 {option: delete_from_clusters_option,
                  table_name: name_of_table,
-                 is_teacher: msg[is_deleted],
+                 is_teacher: msg[is_teacher],
                  files_with_content: files,
                  deleted_cluster: old_symbol_list}
             )
@@ -235,8 +264,7 @@ class TableHandler(Thread):
                  table_name: name_of_table,
                  is_teacher: msg[is_teacher],
                  is_deleted: False,
-                 files_with_content: files,
-                 }
+                 files_with_content: files}
             )
         self.message_system.send(new_msg)
 

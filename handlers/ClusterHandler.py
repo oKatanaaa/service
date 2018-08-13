@@ -19,6 +19,7 @@ class ClusterHandler(Thread):
         self.setDaemon(True)
         self.logger = self.__get_logger()
         self.clusters = dict()
+        self.last_used_cluster = None
         """ Ссылка на общий для всех объект - системы сообщений     """
         self.message_system = message_system
         """ Адрес класса в системе сообщений """
@@ -40,8 +41,10 @@ class ClusterHandler(Thread):
                 self.identify_clusters(msg)
             elif msg[option] == update_cluster_option:
                 self.update(msg)
-            elif msg[option] == identify_clusters_option:
+            elif msg[option] == delete_from_clusters_option:
                 self.delete(msg)
+            elif msg[option] == soft_update_option:
+                self.soft_update(msg)
             else:
                 print("Unknown option")
 
@@ -119,30 +122,36 @@ class ClusterHandler(Thread):
     ближе всего оказался сосед, то тебе берём этого соседа и его соседей, и повторяем алгоритм. 
     Алгоритм не проверяет уже проверенные кластеры
     """
-    def go_in_right_cluster(self, last_symbol):
+
+    def go_in_right_cluster(self, _last_symbol):
+        if self.last_used_cluster is not None:
+            current = self.last_used_cluster
+        else:
+            current = list(self.clusters.keys())[0]
         hash_set = set(self.clusters.keys())
-        current = list(self.clusters.keys())[0]
         hash_set.remove(current)
 
         while True:
             cluster = self.clusters[current]
-            minimal = distance(current, last_symbol)
+            minimal = distance(current, _last_symbol)
             the_smallest = float('inf')
             temp = None
 
             for neighbor in cluster:
                 if neighbor in hash_set:
                     hash_set.remove(neighbor)
-                    dif = distance(neighbor, last_symbol)
+                    dif = distance(neighbor, _last_symbol)
                     if dif < the_smallest:
                         the_smallest = dif
                         temp = neighbor
 
             if the_smallest > minimal:
-                self.logger.info(last_symbol + " refers to " + current)
+                self.logger.info(_last_symbol + " refers to " + current)
+                self.last_used_cluster = current
                 return current
             elif len(hash_set) == 0:
                 if the_smallest < minimal:
+                    self.last_used_cluster = temp
                     return temp
             else:
                 current = temp
@@ -178,6 +187,27 @@ class ClusterHandler(Thread):
         self.logger.info("Clusters was up to date")
         self.message_system.send(new_msg)
 
+    def soft_update(self, msg):
+        files = msg[files_with_content]
+        new_cluster = msg['new_cluster']
+
+        for file in files:
+            if distance(file['last_symbol'], file['cluster']) > distance(file['last_symbol'], new_cluster):
+                file['cluster'] = new_cluster
+
+        new_msg = Message(
+            self.address,
+            self.message_system.ADDRESS_LIST["TableHandler"],
+            {option: update_table_option,
+             table_name: msg[table_name],
+             is_teacher: msg[is_teacher],
+             is_deleted: msg[is_deleted],
+             deleted_cluster: None,
+             files_with_content: files}
+        )
+        self.message_system.send(new_msg)
+
+
     """
     Реализует удаление кластера.
     Сначала мы удаляем этот кластер из списков соседних
@@ -185,11 +215,13 @@ class ClusterHandler(Thread):
     Далее обновляем записи таблицы
     """
     def delete(self, msg):
-        cluster_list = msg[clusters_list]
+        cluster_lst = msg[deleted_cluster]
         files = msg[files_with_content]
         teacher = msg[is_teacher]
 
-        for cluster in cluster_list:
+        for cluster in cluster_lst:
+            if self.last_used_cluster == cluster:
+                self.last_used_cluster = None
             if cluster in self.clusters:
                 have_deleted_cluster = self.clusters[cluster]
                 self.clusters.pop(cluster, None)
@@ -206,7 +238,7 @@ class ClusterHandler(Thread):
             files_with_content: files,
             is_teacher: teacher,
             is_deleted: True,
-            deleted_cluster: cluster_list
+            deleted_cluster: cluster_lst
         })
 
     def __get_logger(self):

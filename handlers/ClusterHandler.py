@@ -83,37 +83,57 @@ class ClusterHandler(Thread):
     нового кластера, и убирается из списка соседов соответсвенно.
     """
     def add_new_cluster(self, new_cluster):
-        # new_cluster = msg["new_cluster"]
+
         if self.clusters.get(new_cluster) is None:
-            keys = list(self.clusters.keys())
-            target = list()
-            minim = float('inf')
+            if len(self.clusters) == 0:
+                self.clusters[new_cluster] = set()
 
-            for key in keys:
-                dif = distance(key, new_cluster)
-                if dif < minim:
-                    minim = dif
-                    target.clear()
-                    target.append(key)
-                elif dif == minim:
-                    target.append(key)
+            if self.last_used_cluster is not None:
+                current = self.last_used_cluster
+            else:
+                current = list(self.clusters.keys())[0]
+            hash_set = set(self.clusters.keys())
+            hash_set.remove(current)
 
-            self.clusters[new_cluster] = set(target)
+            while True:
+                cluster = self.clusters[current]
+                minimal = distance(current, new_cluster)
+                the_smallest = float('inf')
+                temp = None
 
-            for cls in target:
-                neighbor_set = set(self.clusters[cls])
-                for neighbor in neighbor_set:
+                for neighbor in cluster:
+                    if neighbor in hash_set:
+                        hash_set.remove(neighbor)
+                        dif = distance(neighbor, new_cluster)
+                        if dif < the_smallest:
+                            the_smallest = dif
+                            temp = neighbor
 
-                    if distance(new_cluster, cls) < distance(cls, neighbor) and \
-                            distance(new_cluster, neighbor) < distance(cls, neighbor):
-                        self.clusters[new_cluster].add(neighbor)
-                        self.clusters[cls].remove(neighbor)
-                        self.clusters[neighbor].remove(cls)
-                        self.clusters[neighbor].add(new_cluster)
+                if the_smallest > minimal:
+                    self.logger.info(new_cluster + " refers to " + current)
 
-                self.clusters[cls].add(new_cluster)
+                    self.__add_cls(new_cluster, current)
 
-            self.logger.info("Cluster - " + new_cluster + " was created")
+                    self.logger.info("Cluster - " + new_cluster + " was created")
+                    return
+                elif len(hash_set) == 0:
+                    self.__add_cls(new_cluster, temp)
+                    return
+                else:
+                    current = temp
+
+    def __add_cls(self, new_cluster, current):
+        self.clusters[new_cluster] = set(current)
+        neighbor_set = set(self.clusters[current])
+        for neighbor in neighbor_set:
+            if distance(new_cluster, current) < distance(current, neighbor) and \
+                    distance(new_cluster, neighbor) < distance(current, neighbor):
+                self.clusters[new_cluster].add(neighbor)
+                self.clusters[current].remove(neighbor)
+                self.clusters[neighbor].remove(current)
+                self.clusters[neighbor].add(new_cluster)
+        self.clusters[current].add(new_cluster)
+
 
     """
     Определение кластера по последнему символу.
@@ -150,9 +170,8 @@ class ClusterHandler(Thread):
                 self.last_used_cluster = current
                 return current
             elif len(hash_set) == 0:
-                if the_smallest < minimal:
-                    self.last_used_cluster = temp
-                    return temp
+                self.last_used_cluster = temp
+                return temp
             else:
                 current = temp
 

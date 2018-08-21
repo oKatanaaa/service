@@ -1,473 +1,548 @@
-2018-08-19 16:38:04,742 - MainThread - INFO - Class MessageSystem successfully initialized
-2018-08-19 16:38:04,742 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:38:04,757 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:38:04,757 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:38:04,757 - MainThread - INFO - Class FileHandler successfully initialized
-2018-08-19 16:38:04,757 - MainThread - INFO - Class ClusterHandler successfully initialized
-2018-08-19 16:38:04,757 - MainThread - INFO - Class TableHandler successfully initialized
-2018-08-19 16:38:04,757 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:38:04,757 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Desktop\test_folder\русская маленькая б.txt
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,757 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:38:04,757 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:38:04,773 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:38:04,788 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:38:04,788 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,804 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:38:04,820 - Table Handler Daemon Thread - INFO - Teach table was created
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:38:04,820 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:38:04,820 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:39:18,167 - MainThread - INFO - Class MessageSystem successfully initialized
-2018-08-19 16:39:18,167 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:39:18,183 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:39:18,183 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:39:18,183 - MainThread - INFO - Class FileHandler successfully initialized
-2018-08-19 16:39:18,183 - MainThread - INFO - Class ClusterHandler successfully initialized
-2018-08-19 16:39:18,183 - MainThread - INFO - Class TableHandler successfully initialized
-2018-08-19 16:39:18,183 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:39:18,183 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Desktop\test_folder\русская маленькая б.txt
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,183 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:39:18,183 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:39:18,214 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:39:18,214 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:39:18,214 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - Z refers to A
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - Я refers to Б
-2018-08-19 16:39:18,214 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - Table Handler Daemon Thread - INFO - Teach table was created
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
-2018-08-19 16:39:18,230 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:39:18,245 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - t refers to z
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - n refers to z
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - h refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - d refers to a
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - C refers to A
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - y refers to z
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - й refers to Я
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Cluster identify success
-2018-08-19 16:39:18,245 - Cluster Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:39:18,245 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:39:18,339 - Table Handler Daemon Thread - INFO - Table was created
-2018-08-19 16:40:26,274 - MainThread - INFO - Class MessageSystem successfully initialized
-2018-08-19 16:40:26,274 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:40:26,274 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:40:26,274 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:40:26,274 - MainThread - INFO - Class FileHandler successfully initialized
-2018-08-19 16:40:26,274 - MainThread - INFO - Class ClusterHandler successfully initialized
-2018-08-19 16:40:26,274 - MainThread - INFO - Class TableHandler successfully initialized
-2018-08-19 16:40:26,274 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:40:26,290 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Desktop\test_folder\русская маленькая б.txt
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:40:26,290 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:40:26,290 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:40:26,306 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:40:26,352 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:40:26,368 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:40:26,368 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:40:26,384 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
-2018-08-19 16:40:26,384 - Cluster Handler Daemon Thread - INFO - Z refers to A
-2018-08-19 16:40:26,384 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
-2018-08-19 16:40:26,384 - Cluster Handler Daemon Thread - INFO - Я refers to Б
-2018-08-19 16:40:26,384 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
-2018-08-19 16:40:26,399 - Table Handler Daemon Thread - INFO - Teach table was created
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,399 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:40:26,415 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:40:26,415 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:40:33,446 - Cluster Handler Daemon Thread - INFO - t refers to z
-2018-08-19 16:40:33,931 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:40:34,415 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:40:34,806 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:40:35,181 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:40:35,571 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:40:35,993 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:40:36,399 - Cluster Handler Daemon Thread - INFO - n refers to z
-2018-08-19 16:40:36,837 - Cluster Handler Daemon Thread - INFO - h refers to a
-2018-08-19 16:40:37,306 - Cluster Handler Daemon Thread - INFO - d refers to a
-2018-08-19 16:40:38,196 - Cluster Handler Daemon Thread - INFO - C refers to A
-2018-08-19 16:40:39,024 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:40:39,743 - Cluster Handler Daemon Thread - INFO - y refers to z
-2018-08-19 16:40:40,321 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:40,868 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:41,431 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:41,899 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:42,540 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:43,134 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:43,665 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:40:44,368 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:44,978 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:45,540 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:46,056 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:46,587 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:47,165 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:47,915 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:40:48,493 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:03,118 - Main Thread (Watcher) - INFO - Some changes was happened
-2018-08-19 16:42:03,118 - Main Thread (Watcher) - INFO - Some changes was happened
-2018-08-19 16:42:03,118 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:42:03,118 - Main Thread (Watcher) - INFO - Some changes was happened
-2018-08-19 16:42:03,134 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:42:03,118 - Main Thread (Watcher) - INFO - Some changes was happened
-2018-08-19 16:42:03,134 - File Handler Daemon Thread - INFO - русская маленькая б.txt: is Updated
-2018-08-19 16:42:03,134 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:42:03,149 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:03,149 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:03,149 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:42:03,149 - File Handler Daemon Thread - INFO - русская маленькая б.txt: is Updated
-2018-08-19 16:42:03,149 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:42:03,181 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:03,181 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:03,181 - Table Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:03,181 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:42:03,181 - Table Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:09,159 - MainThread - INFO - Class MessageSystem successfully initialized
-2018-08-19 16:42:09,159 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:42:09,159 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:42:09,159 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:42:09,159 - MainThread - INFO - Class FileHandler successfully initialized
-2018-08-19 16:42:09,159 - MainThread - INFO - Class ClusterHandler successfully initialized
-2018-08-19 16:42:09,159 - MainThread - INFO - Class TableHandler successfully initialized
-2018-08-19 16:42:09,159 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:42:09,159 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:42:09,159 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:09,175 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:42:09,175 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - Z refers to A
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - Я refers to б
-2018-08-19 16:42:09,191 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - Table Handler Daemon Thread - INFO - Teach table was created
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:09,206 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - t refers to z
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - n refers to z
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - h refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - d refers to a
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - C refers to A
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - y refers to z
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - й refers to б
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Cluster identify success
-2018-08-19 16:42:09,206 - Cluster Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:42:09,206 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:42:09,269 - Table Handler Daemon Thread - INFO - Table was created
-2018-08-19 16:43:35,722 - MainThread - INFO - Class MessageSystem successfully initialized
-2018-08-19 16:43:35,722 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:43:35,738 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:43:35,738 - MainThread - INFO - Class Watcher successfully initialized
-2018-08-19 16:43:35,738 - MainThread - INFO - Class FileHandler successfully initialized
-2018-08-19 16:43:35,738 - MainThread - INFO - Class ClusterHandler successfully initialized
-2018-08-19 16:43:35,738 - MainThread - INFO - Class TableHandler successfully initialized
-2018-08-19 16:43:35,738 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:43:35,738 - Main Thread (Watcher) - INFO - Sending message
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:43:35,738 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:43:35,738 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:43:35,753 - File Handler Daemon Thread - INFO - FileHandler have a message
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - Z refers to A
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - Я refers to б
-2018-08-19 16:43:35,753 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - File successfully read
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:43:35,785 - File Handler Daemon Thread - INFO - Table successfully generated
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - t refers to z
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - e refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - n refers to z
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - h refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - d refers to a
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - C refers to A
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - A refers to A
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - y refers to z
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Table Handler Daemon Thread - INFO - Teach table was created
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - т refers to я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - й refers to б
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Cluster identify success
-2018-08-19 16:43:35,816 - Cluster Handler Daemon Thread - INFO - Sending message
-2018-08-19 16:43:35,816 - Table Handler Daemon Thread - INFO - TableHandler have a message
-2018-08-19 16:43:35,910 - Table Handler Daemon Thread - INFO - Table was created
+2018-08-21 08:29:51,360 - MainThread - INFO - Class MessageSystem successfully initialized
+2018-08-21 08:29:51,369 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:29:51,388 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:29:51,388 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:29:51,388 - MainThread - INFO - Class FileHandler successfully initialized
+2018-08-21 08:29:51,390 - MainThread - INFO - Class ClusterHandler successfully initialized
+2018-08-21 08:29:51,392 - MainThread - INFO - Class TableHandler successfully initialized
+2018-08-21 08:29:51,405 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:29:51,407 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:29:51,408 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:29:51,409 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,409 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,410 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,410 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,410 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,411 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,412 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,414 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,418 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:51,419 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:29:51,431 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:51,439 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:29:51,460 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:29:51,461 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:29:51,461 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:29:51,461 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
+2018-08-21 08:29:51,466 - Cluster Handler Daemon Thread - INFO - Z refers to A
+2018-08-21 08:29:51,466 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
+2018-08-21 08:29:51,466 - Cluster Handler Daemon Thread - INFO - Я refers to б
+2018-08-21 08:29:51,467 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
+2018-08-21 08:29:51,491 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,492 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,493 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,494 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,494 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
+2018-08-21 08:29:51,496 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,497 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
+2018-08-21 08:29:51,499 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,500 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,501 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,502 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,503 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
+2018-08-21 08:29:51,504 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
+2018-08-21 08:29:51,505 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,507 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,508 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,509 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,509 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,510 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,511 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,512 - Table Handler Daemon Thread - INFO - Teach table was created
+2018-08-21 08:29:51,512 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,513 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,513 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,513 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,513 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,514 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,514 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,514 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,514 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,515 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,515 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,515 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,515 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:51,516 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:51,516 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:29:51,516 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - t refers to z
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - n refers to z
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - h refers to a
+2018-08-21 08:29:51,517 - Cluster Handler Daemon Thread - INFO - d refers to a
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - C refers to A
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - y refers to z
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,518 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:29:51,519 - Cluster Handler Daemon Thread - INFO - й refers to б
+2018-08-21 08:29:51,520 - Cluster Handler Daemon Thread - INFO - Cluster identify success
+2018-08-21 08:29:51,520 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:51,520 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:29:51,629 - Table Handler Daemon Thread - INFO - Table was created
+2018-08-21 08:29:56,041 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:29:56,041 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:29:56,041 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:29:56,042 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:29:56,042 - File Handler Daemon Thread - INFO - small english z.txt: is Deleted
+2018-08-21 08:29:56,042 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:56,043 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:29:56,060 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:56,060 - Table Handler Daemon Thread - INFO - I destroyed this
+2018-08-21 08:29:56,061 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:29:56,061 - Cluster Handler Daemon Thread - INFO - DESTROY
+2018-08-21 08:29:56,062 - Cluster Handler Daemon Thread - INFO - t refers to a
+2018-08-21 08:29:56,063 - Cluster Handler Daemon Thread - INFO - n refers to a
+2018-08-21 08:29:56,063 - Cluster Handler Daemon Thread - INFO - y refers to a
+2018-08-21 08:29:56,063 - Cluster Handler Daemon Thread - INFO - Clusters was up to date
+2018-08-21 08:29:56,063 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:56,064 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:29:57,103 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:29:57,103 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:29:57,103 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:29:57,104 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:29:57,104 - File Handler Daemon Thread - INFO - small english z.txt: is Created
+2018-08-21 08:29:57,107 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:29:57,107 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:29:57,108 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:29:57,109 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:29:57,109 - File Handler Daemon Thread - INFO - small english z.txt: is Updated
+2018-08-21 08:29:57,110 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:29:57,110 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:57,111 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:29:57,123 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:57,124 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:29:57,124 - Cluster Handler Daemon Thread - INFO - z refers to a
+2018-08-21 08:29:57,125 - Cluster Handler Daemon Thread - INFO - Cluster - z was created
+2018-08-21 08:29:57,125 - Cluster Handler Daemon Thread - INFO - Clusters was up to date
+2018-08-21 08:29:57,126 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:57,126 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:29:57,152 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:57,155 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:29:57,156 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:29:57,168 - Table Handler Daemon Thread - INFO - Table have some update
+2018-08-21 08:29:57,169 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:03,050 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:03,050 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:03,050 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:30:03,051 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:30:03,051 - File Handler Daemon Thread - INFO - small english z.txt: is Deleted
+2018-08-21 08:30:03,051 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:03,052 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:03,069 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:03,069 - Table Handler Daemon Thread - INFO - I destroyed this
+2018-08-21 08:30:03,070 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:30:03,071 - Cluster Handler Daemon Thread - INFO - DESTROY
+2018-08-21 08:30:03,071 - Cluster Handler Daemon Thread - INFO - t refers to a
+2018-08-21 08:30:03,072 - Cluster Handler Daemon Thread - INFO - n refers to a
+2018-08-21 08:30:03,072 - Cluster Handler Daemon Thread - INFO - y refers to a
+2018-08-21 08:30:03,072 - Cluster Handler Daemon Thread - INFO - Clusters was up to date
+2018-08-21 08:30:03,072 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:03,073 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:06,314 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:06,314 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:06,314 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:30:06,315 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:30:06,315 - File Handler Daemon Thread - INFO - small english z.txt: is Created
+2018-08-21 08:30:06,318 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:06,318 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:06,320 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:30:06,321 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:30:06,321 - File Handler Daemon Thread - INFO - small english z.txt: is Updated
+2018-08-21 08:30:06,322 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:06,323 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:06,323 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:06,333 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:06,334 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:30:06,334 - Cluster Handler Daemon Thread - INFO - z refers to a
+2018-08-21 08:30:06,335 - Cluster Handler Daemon Thread - INFO - Cluster - z was created
+2018-08-21 08:30:06,335 - Cluster Handler Daemon Thread - INFO - Clusters was up to date
+2018-08-21 08:30:06,335 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:06,336 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:06,373 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:30:06,371 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:06,374 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:06,383 - Table Handler Daemon Thread - INFO - Table have some update
+2018-08-21 08:30:06,384 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:25,857 - MainThread - INFO - Class MessageSystem successfully initialized
+2018-08-21 08:30:25,858 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:30:25,865 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:30:25,865 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:30:25,866 - MainThread - INFO - Class FileHandler successfully initialized
+2018-08-21 08:30:25,867 - MainThread - INFO - Class ClusterHandler successfully initialized
+2018-08-21 08:30:25,869 - MainThread - INFO - Class TableHandler successfully initialized
+2018-08-21 08:30:25,886 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:30:25,898 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:30:25,895 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:30:25,905 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,909 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,914 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,917 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,921 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,929 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,933 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,943 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:25,951 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:25,956 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:25,963 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:25,989 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:30:26,017 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:30:26,274 - Table Handler Daemon Thread - INFO - Teach table was created
+2018-08-21 08:30:26,287 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,289 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,291 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,295 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,297 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
+2018-08-21 08:30:26,299 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,301 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
+2018-08-21 08:30:26,303 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,306 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,308 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,310 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,313 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
+2018-08-21 08:30:26,316 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
+2018-08-21 08:30:26,318 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,320 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,323 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,325 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,328 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,330 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,331 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,333 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,335 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,338 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,340 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,341 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,344 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,346 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,348 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,350 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,352 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,354 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,356 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,358 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:30:26,362 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:26,365 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:30:31,367 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:30:31,368 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:30:31,368 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
+2018-08-21 08:30:31,369 - Cluster Handler Daemon Thread - INFO - Z refers to A
+2018-08-21 08:30:31,369 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
+2018-08-21 08:30:31,370 - Cluster Handler Daemon Thread - INFO - Я refers to б
+2018-08-21 08:30:31,370 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
+2018-08-21 08:30:31,370 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:30:31,371 - Cluster Handler Daemon Thread - INFO - t refers to z
+2018-08-21 08:30:31,371 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:30:31,372 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:30:31,372 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:30:31,373 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:30:31,373 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:30:31,373 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:30:31,374 - Cluster Handler Daemon Thread - INFO - n refers to z
+2018-08-21 08:30:31,374 - Cluster Handler Daemon Thread - INFO - h refers to a
+2018-08-21 08:30:31,375 - Cluster Handler Daemon Thread - INFO - d refers to a
+2018-08-21 08:30:31,375 - Cluster Handler Daemon Thread - INFO - C refers to A
+2018-08-21 08:30:31,375 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:30:31,376 - Cluster Handler Daemon Thread - INFO - y refers to z
+2018-08-21 08:30:31,376 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,376 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,377 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,377 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,377 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,377 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,378 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:30:31,378 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,378 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,379 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,379 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,379 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,380 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,382 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,382 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:30:31,383 - Cluster Handler Daemon Thread - INFO - й refers to б
+2018-08-21 08:30:31,383 - Cluster Handler Daemon Thread - INFO - Cluster identify success
+2018-08-21 08:30:31,384 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:31,385 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:31,888 - Table Handler Daemon Thread - INFO - Table was created
+2018-08-21 08:30:35,446 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:35,446 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:30:35,447 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:30:35,449 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:30:35,451 - File Handler Daemon Thread - INFO - small english z.txt: is Deleted
+2018-08-21 08:30:35,454 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:35,457 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:30:35,550 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:30:35,552 - Table Handler Daemon Thread - INFO - I destroyed this
+2018-08-21 08:30:35,553 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:33:06,489 - MainThread - INFO - Class MessageSystem successfully initialized
+2018-08-21 08:33:06,491 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:33:06,497 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:33:06,497 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:33:06,498 - MainThread - INFO - Class FileHandler successfully initialized
+2018-08-21 08:33:06,499 - MainThread - INFO - Class ClusterHandler successfully initialized
+2018-08-21 08:33:06,501 - MainThread - INFO - Class TableHandler successfully initialized
+2018-08-21 08:33:06,509 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:33:06,512 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:33:06,514 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:33:06,516 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,517 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,518 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,519 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,519 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,519 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,521 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,522 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:33:06,524 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:33:06,524 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:33:06,526 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:33:06,526 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:33:06,533 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:33:06,535 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:33:06,778 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,782 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,784 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,792 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,797 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
+2018-08-21 08:33:06,800 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,806 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
+2018-08-21 08:33:06,809 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,812 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,813 - Table Handler Daemon Thread - INFO - Teach table was created
+2018-08-21 08:33:06,815 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,817 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,817 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
+2018-08-21 08:33:06,819 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
+2018-08-21 08:33:06,822 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,823 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,824 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,826 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,828 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,829 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,830 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,831 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,832 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,833 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,834 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,836 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,838 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,838 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,839 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,840 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,842 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,843 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,844 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,845 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:33:06,845 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:33:06,847 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:43:45,730 - MainThread - INFO - Class MessageSystem successfully initialized
+2018-08-21 08:43:45,731 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:43:45,738 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:43:45,738 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:43:45,739 - MainThread - INFO - Class FileHandler successfully initialized
+2018-08-21 08:43:45,740 - MainThread - INFO - Class ClusterHandler successfully initialized
+2018-08-21 08:43:45,741 - MainThread - INFO - Class TableHandler successfully initialized
+2018-08-21 08:43:45,749 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:43:45,752 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:43:45,754 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:43:45,756 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,757 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,758 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,758 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,759 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,760 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,760 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,762 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:43:45,764 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:43:45,779 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:43:45,785 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:43:45,832 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:43:45,834 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:43:45,839 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:43:45,996 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:45,999 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,000 - Table Handler Daemon Thread - INFO - Teach table was created
+2018-08-21 08:43:46,001 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,003 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,004 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
+2018-08-21 08:43:46,005 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,008 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
+2018-08-21 08:43:46,010 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,012 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,014 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,016 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,018 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
+2018-08-21 08:43:46,020 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
+2018-08-21 08:43:46,026 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,028 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,030 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,031 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,033 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,035 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,037 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,040 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,041 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,042 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,043 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,044 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,044 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,045 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,046 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,049 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,049 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,050 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,051 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,053 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:43:46,056 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:43:46,058 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:44:04,645 - MainThread - INFO - Class MessageSystem successfully initialized
+2018-08-21 08:44:04,646 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:44:04,653 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:44:04,653 - MainThread - INFO - Class Watcher successfully initialized
+2018-08-21 08:44:04,654 - MainThread - INFO - Class FileHandler successfully initialized
+2018-08-21 08:44:04,656 - MainThread - INFO - Class ClusterHandler successfully initialized
+2018-08-21 08:44:04,657 - MainThread - INFO - Class TableHandler successfully initialized
+2018-08-21 08:44:04,664 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:44:04,668 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:44:04,670 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:44:04,672 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,673 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,673 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,674 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,675 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,675 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,676 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,678 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:04,680 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:44:04,696 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:04,697 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:44:04,697 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:44:04,704 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:44:04,706 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:44:04,707 - Cluster Handler Daemon Thread - INFO - Cluster - A was created
+2018-08-21 08:44:04,708 - Cluster Handler Daemon Thread - INFO - Z refers to A
+2018-08-21 08:44:04,708 - Cluster Handler Daemon Thread - INFO - Cluster - Z was created
+2018-08-21 08:44:04,709 - Cluster Handler Daemon Thread - INFO - Я refers to б
+2018-08-21 08:44:04,710 - Cluster Handler Daemon Thread - INFO - Cluster - Я was created
+2018-08-21 08:44:04,864 - Table Handler Daemon Thread - INFO - Teach table was created
+2018-08-21 08:44:04,872 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,873 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,874 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,874 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,875 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Lite Portable v1.3.5.2\readme_ru.txt
+2018-08-21 08:44:04,876 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,877 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_cn.txt
+2018-08-21 08:44:04,877 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,878 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,879 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,880 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,880 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_ua.txt
+2018-08-21 08:44:04,881 - File Handler Daemon Thread - ERROR - Catch UnicodeDecodeError in C:\Users\Banayaki\Downloads\KMS Tools Portable 01.04.2018 by Ratiborus\Programs\KMSAuto Net 2016 v1.5.3 Portable\readme\readme_vi.txt
+2018-08-21 08:44:04,882 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,882 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,883 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,884 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,884 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,885 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,886 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,886 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,887 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,888 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,888 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,889 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,889 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,890 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,891 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,891 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,892 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,893 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,894 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,894 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:04,895 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:04,896 - File Handler Daemon Thread - INFO - Table successfully generated
+2018-08-21 08:44:04,897 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:44:04,898 - Cluster Handler Daemon Thread - INFO - t refers to a
+2018-08-21 08:44:04,899 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:44:04,899 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:44:04,900 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:44:04,900 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:44:04,901 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:44:04,901 - Cluster Handler Daemon Thread - INFO - e refers to a
+2018-08-21 08:44:04,902 - Cluster Handler Daemon Thread - INFO - n refers to a
+2018-08-21 08:44:04,902 - Cluster Handler Daemon Thread - INFO - h refers to a
+2018-08-21 08:44:04,903 - Cluster Handler Daemon Thread - INFO - d refers to a
+2018-08-21 08:44:04,904 - Cluster Handler Daemon Thread - INFO - C refers to A
+2018-08-21 08:44:04,904 - Cluster Handler Daemon Thread - INFO - A refers to A
+2018-08-21 08:44:04,905 - Cluster Handler Daemon Thread - INFO - y refers to a
+2018-08-21 08:44:04,905 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,906 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,906 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,907 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,907 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,908 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,908 - Cluster Handler Daemon Thread - INFO - т refers to я
+2018-08-21 08:44:04,909 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,909 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,910 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,910 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,911 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,911 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,912 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,912 - Cluster Handler Daemon Thread - INFO - Ы refers to Я
+2018-08-21 08:44:04,913 - Cluster Handler Daemon Thread - INFO - й refers to б
+2018-08-21 08:44:04,914 - Cluster Handler Daemon Thread - INFO - Cluster identify success
+2018-08-21 08:44:04,914 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:04,915 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:44:05,044 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:44:05,044 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:44:05,055 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:44:05,071 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:44:05,071 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:44:05,083 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:44:05,088 - File Handler Daemon Thread - INFO - small english z.txt: is Created
+2018-08-21 08:44:05,096 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:44:05,159 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:44:05,176 - File Handler Daemon Thread - INFO - small english z.txt: is Updated
+2018-08-21 08:44:05,253 - File Handler Daemon Thread - INFO - File successfully read
+2018-08-21 08:44:05,282 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:05,464 - Table Handler Daemon Thread - INFO - Table was created
+2018-08-21 08:44:05,465 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:44:05,486 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:05,487 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:44:05,488 - Cluster Handler Daemon Thread - INFO - z refers to a
+2018-08-21 08:44:05,489 - Cluster Handler Daemon Thread - INFO - Cluster - z was created
+2018-08-21 08:44:05,489 - Cluster Handler Daemon Thread - INFO - Clusters was up to date
+2018-08-21 08:44:05,490 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:05,491 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:44:05,554 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:05,559 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message
+2018-08-21 08:44:05,562 - Cluster Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:05,565 - Table Handler Daemon Thread - INFO - Table have some update
+2018-08-21 08:44:05,567 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:44:20,565 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:44:20,565 - Main Thread (Watcher) - INFO - Some changes was happened
+2018-08-21 08:44:20,569 - Main Thread (Watcher) - INFO - Sending message
+2018-08-21 08:44:20,574 - File Handler Daemon Thread - INFO - FileHandler have a message
+2018-08-21 08:44:20,577 - File Handler Daemon Thread - INFO - small english z.txt: is Deleted
+2018-08-21 08:44:20,580 - File Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:20,587 - Table Handler Daemon Thread - INFO - TableHandler have a message
+2018-08-21 08:44:20,764 - Table Handler Daemon Thread - INFO - Sending message
+2018-08-21 08:44:20,766 - Table Handler Daemon Thread - INFO - I destroyed this
+2018-08-21 08:44:20,769 - Cluster Handler Daemon Thread - INFO - ClusterHandler have a message

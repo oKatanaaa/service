@@ -135,8 +135,8 @@ class TableHandler(Thread):
                         new_msg = Message(
                             self.address,
                             self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {option: deleted_cluster,
-                             clusters_list: cluster_of_deleted_file,
+                            {option: delete_from_clusters_option,
+                             deleted_cluster: cluster_of_deleted_file,
                              table_name: name_of_table,
                              files_with_content: lines,
                              is_teacher: teacher,

@@ -123,8 +123,8 @@ class ClusterHandler(Thread):
                     current = temp
 
     def __add_cls(self, new_cluster, current):
-        self.clusters[new_cluster] = set(current)
         neighbor_set = set(self.clusters[current])
+        self.clusters[new_cluster] = set(current)
         for neighbor in neighbor_set:
             if distance(new_cluster, current) < distance(current, neighbor) and \
                     distance(new_cluster, neighbor) < distance(current, neighbor):
@@ -245,11 +245,15 @@ class ClusterHandler(Thread):
                 have_deleted_cluster = self.clusters[cluster]
                 self.clusters.pop(cluster, None)
                 for neighbor in have_deleted_cluster:
-                    for neighbor_2 in self.clusters[neighbor]:
-                        if neighbor_2 != neighbor and neighbor_2 != cluster:
-                            self.clusters[neighbor_2].remove(neighbor)
-                    self.clusters.pop(neighbor, None)
-                    self.add_new_cluster(neighbor)
+                    self.clusters[neighbor].discard(cluster)
+                    neighbors_2 = self.clusters[neighbor]
+                    for ngh in have_deleted_cluster:
+                        is_crossing = True
+                        for ngh_2 in neighbors_2:
+                            if neighbor != ngh and distance(neighbor, ngh) <= distance(neighbor, ngh_2):
+                                is_crossing = False
+                        if is_crossing:
+                            self.clusters[neighbor].add(ngh)
 
         self.logger.info("DESTROY")
         self.update({

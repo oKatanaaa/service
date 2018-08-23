@@ -9,17 +9,21 @@ class MessageSystem:
         "Watcher": 0,
         "FileHandler": 1,
         "TableHandler": 2,
-        "ClusterHandler": 3
+        "ClusterHandler": 3,
+        "Utility": 4
     }
 
     def __init__(self):
         self.logger = self.__get_logger()
-        self.queue_listing = [list(), list(), list(), list()]
+        self.queue_listing = [list(), list(), list(), list(), list()]
         self.logger.info("Class " + self.__class__.__name__ + " successfully initialized")
 
     def register(self, new_handler):
         # Need to catch exception
         self.queue_listing[self.ADDRESS_LIST[new_handler.__class__.__name__]].append(Queue())
+
+    def root_register(self):
+        self.queue_listing[self.ADDRESS_LIST["Utility"]].append(Queue())
 
     def send(self, message: Message):
         # Need to catch exception

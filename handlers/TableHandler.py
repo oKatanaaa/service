@@ -32,7 +32,6 @@ class TableHandler(Thread):
     """
     Обработка сообщений
     """
-
     def run(self):
         while True:
             msg = self.message_system.queue_listing[self.address][0].get()
@@ -114,6 +113,7 @@ class TableHandler(Thread):
         else:
             file = pd.read_csv(name_of_table, sep=',')
             cluster_of_deleted_file = file.last_symbol[file.path == target_path].iloc[0][0]
+            # Проверяем что файл с таким кластером единственный
             need_to_make_changes_after_remove = len(file.last_symbol[file.last_symbol == cluster_of_deleted_file]) == 1
             file = file[file.path != target_path]
             file.to_csv(name_of_table, index=False)
@@ -161,8 +161,9 @@ class TableHandler(Thread):
             deleted_cls = msg[deleted_cluster]
         else:
             deleted_cls = None
-
         files = msg[files_with_content]
+        if len(files) == 0:
+            return
         file = pd.read_csv(name_of_table, sep=',')
 
         for row in files:
@@ -192,23 +193,11 @@ class TableHandler(Thread):
                         prev_cluster = str(file.iloc[line, 2]).strip()
 
                         if msg[is_deleted] and prev_cluster in deleted_cls:
-                            # new_msg = Message(
-                            #     self.address,
-                            #     self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            #     {option: update_cluster_option,
-                            #      is_teacher: False,
-                            #      table_name: file_name,
-                            #      is_deleted: False,
-                            #      files_with_content: [{"path": target_path, "last_symbol": symbol}]}
-                            # )
-                            # self.message_system.send(new_msg)
                             hard_update_list.append({"path": target_path, "last_symbol": symbol})
                         else:
                             soft_update_list.append({"path": target_path,
                                                      "last_symbol": symbol,
                                                      "cluster": prev_cluster})
-                            # if distance(symbol, prev_cluster) > distance(symbol, new_cluster):
-                            #     file.cluster[file.path == target_path] = new_cluster
                     if len(hard_update_list) != 0:
                         new_msg = Message(
                             self.address,

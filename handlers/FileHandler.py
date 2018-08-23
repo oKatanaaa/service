@@ -126,7 +126,8 @@ class FileHandler(Thread):
                             self.address,
                             self.message_system.ADDRESS_LIST["ClusterHandler"],
                             {option: update_cluster_option,
-                             teacher: teacher,
+                             is_teacher: teacher,
+                             is_deleted: False,
                              table_name: msg[table_name],
                              files_with_content: self.grub_file_content([full_filename])}
                         )
@@ -169,7 +170,7 @@ class FileHandler(Thread):
                     while file.tell() > 1 and file.seek(-3, os.SEEK_CUR):
                         ch = file.read(2).decode()[-1]
 
-                        if ch.isalpha():
+                        if ch.isalpha() or ch.isdigit() or not ch.isalpha():
                             file_content.append({
                                 "path": name,
                                 "last_symbol": ch

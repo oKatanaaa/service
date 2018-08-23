@@ -1,6 +1,7 @@
 import os
 import sys
 from shutil import copyfile
+from timeit import default_timer as timer
 
 from handlers.ClusterHandler import ClusterHandler
 from handlers.FileHandler import FileHandler
@@ -20,6 +21,12 @@ def check_args():
 
 
 if __name__ == "__main__":
+    signal = False
+    exit_signal = False
+    time_lst = []
+    start_time = timer()
+    t_start = start_time
+
     if os.path.exists(str(os.getcwd()) + ".\logs\my_watch.log") and os.path.getsize(".\logs\my_watch.log") > 100240:
         copyfile(".\logs\my_watch.log", ".\logs\old_my_watch.log")
         os.remove(str(os.getcwd()) + ".\logs\my_watch.log")
@@ -35,8 +42,22 @@ if __name__ == "__main__":
     message_system.register(ch)
     th = TableHandler(message_system)
     message_system.register(th)
+    message_system.root_register()
     th.start()
     ch.start()
     fh.start()
     first_watcher.start()
     second_watcher.start()
+
+    while True:
+        msg = message_system.queue_listing[message_system.ADDRESS_LIST["Utility"]][0].get()
+        if signal:
+            if exit_signal:
+                time_lst.append(start_time - timer())
+                break
+            t_finish = timer()
+            time_lst.append(t_start - t_finish)
+            t_start = t_finish
+            signal = False
+
+    print(time_lst)

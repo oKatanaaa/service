@@ -11,7 +11,6 @@ from messageSystem.Message import Message
 
 
 class ClusterHandler(Thread):
-    # Todo: static filed with clusters
 
     def __init__(self, message_system):
         Thread.__init__(self)
@@ -31,20 +30,44 @@ class ClusterHandler(Thread):
     Запуск обработчика
     """
     def run(self):
+        identify_number = 0
+        count_of_something = 0
         while True:
             msg = self.message_system.queue_listing[self.address][0].get()
             self.logger.info(self.__class__.__name__ + " have a message")
 
             if msg[option] == create_clusters_option:
                 self.create_clusters(msg)
+                identify_number += 1
+                if identify_number % 10 == 0:
+                    new_msg = Message(
+                        self.address,
+                        self.message_system.ADDRESS_LIST["Utility"],
+                        {'signal': True,
+                         'exit': False})
+                    self.message_system.send(new_msg)
             elif msg[option] == identify_clusters_option:
                 self.identify_clusters(msg)
             elif msg[option] == update_cluster_option:
                 self.update(msg)
+                if count_of_something % 1000 == 0:
+                    new_msg = Message(
+                        self.address,
+                        self.message_system.ADDRESS_LIST["Utility"],
+                        {'signal': True,
+                         'exit': False})
+                    self.message_system.send(new_msg)
             elif msg[option] == delete_from_clusters_option:
                 self.delete(msg)
             elif msg[option] == soft_update_option:
                 self.soft_update(msg)
+                if count_of_something % 1000 == 0:
+                    new_msg = Message(
+                        self.address,
+                        self.message_system.ADDRESS_LIST["Utility"],
+                        {'signal': True,
+                         'exit': False})
+                    self.message_system.send(new_msg)
             else:
                 print("Unknown option")
 
@@ -243,6 +266,7 @@ class ClusterHandler(Thread):
                 self.last_used_cluster = None
             if cluster in self.clusters:
                 have_deleted_cluster = self.clusters[cluster]
+                have_deleted_cluster.discard(cluster)
                 self.clusters.pop(cluster, None)
                 for neighbor in have_deleted_cluster:
                     self.clusters[neighbor].discard(cluster)

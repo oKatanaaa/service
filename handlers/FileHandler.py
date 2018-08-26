@@ -37,16 +37,19 @@ class FileHandler(Thread):
         self.address = message_system.ADDRESS_LIST[self.__class__.__name__]
         """ Не используемое поле """
         self.number_of_queue = len(message_system.queue_listing[self.address]) - 1
-        self.logger.info("Class " + self.__class__.__name__ + " successfully initialized")
+
+        self.logger.debug("Class " + self.__class__.__name__ + " successfully initialized")
 
     """
     Метод запускаемый при старте потока. Бесконечно ожидает переданных ему сообщений
     Если получает, то обрабатывает их и вызывает нужные функции
     """
+
     def run(self):
         while True:
             msg = self.message_system.queue_listing[self.address][0].get()
-            self.logger.info(self.__class__.__name__ + " have a message")
+
+            self.logger.debug(self.__class__.__name__ + " have a message " + msg[option])
 
             if msg[option] == first_generation_option:
                 self.first_generation(msg)
@@ -57,6 +60,7 @@ class FileHandler(Thread):
     Первая генерация. Создаёт список файлов и их содержимого
     Вызывает нужные методы в зависимости от того, дирректория обучения это или нет
     """
+
     def first_generation(self, msg):
         file_name_list = []
         target_path = msg[path]
@@ -91,22 +95,24 @@ class FileHandler(Thread):
                  files_with_content: file_contents}
             )
         self.message_system.send(new_msg)
-        self.logger.info("Table successfully generated")
+        self.logger.debug("Table successfully generated")
 
     """
     Метод вызываемый при изменении какого-либо файла целевой директории
     В зависимости от изменений вызывает соответсвующие им методы
     """
+
     def get_changes(self, msg):
         target_path = msg[path]
         changes_list = msg[changes]
         teacher = msg[is_teacher]
         for action, file in changes_list:
-            if file[-4:] != ".txt":
+            """ Проверяем формат файла, нас интересуют только txt файлы """
+            if file is None or file[-4:] != ".txt":
                 continue
 
             full_filename = os.path.join(target_path, file)
-            self.logger.info(file + ": is " + self.ACTIONS[action])
+            self.logger.debug("Catch action in " + file + ": is " + self.ACTIONS[action])
 
             if action == 2:
                 new_msg = Message(
@@ -125,9 +131,8 @@ class FileHandler(Thread):
                         new_msg = Message(
                             self.address,
                             self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {option: update_cluster_option,
+                            {option: hard_update_option,
                              is_teacher: teacher,
-                             is_deleted: False,
                              table_name: msg[table_name],
                              files_with_content: self.grub_file_content([full_filename])}
                         )
@@ -143,6 +148,7 @@ class FileHandler(Thread):
                     self.message_system.send(new_msg)
 
             elif action == 4:
+                """ Запоминаем старое имя файла """
                 self.temp = full_filename
 
             elif action == 5:
@@ -160,6 +166,7 @@ class FileHandler(Thread):
     """
     Читает содержимое файла, а именно находит последнюю букву
     """
+
     def grub_file_content(self, file_name_list):
         file_content = []
         for name in file_name_list:
@@ -170,18 +177,21 @@ class FileHandler(Thread):
                     while file.tell() > 1 and file.seek(-3, os.SEEK_CUR):
                         ch = file.read(2).decode()[-1]
 
+                        """ Что является последний символом, на данный момент что угодно."""
                         if ch.isalpha() or ch.isdigit() or not ch.isalpha():
                             file_content.append({
                                 "path": name,
                                 "last_symbol": ch
                             })
-                            self.logger.info("File successfully read")
+                            self.logger.debug("File: " + name + " have last symbol as - " + ch)
                             break
-
+            # Исключение если файл невозможно прочитать в следствии неизвестной кодировки
             except UnicodeDecodeError:
                 self.logger.error("Catch UnicodeDecodeError in " + name)
+            # Выбрасывается если файл занят другим процессом или просто напросто недоступен для user'a
             except PermissionError:
                 self.logger.error("Now somewhere used this " + name)
+            # Выбрасывается в том случае, если в файле меньше одного байта
             except OSError:
                 self.logger.error("File small, but no so!")
                 with open(name, 'rb') as file:

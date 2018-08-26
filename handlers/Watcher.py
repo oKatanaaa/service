@@ -73,6 +73,7 @@ class Watcher(Thread):
                  table_name: self.table_name}
             )
             self.message_system.send(msg)
+
         self.start_watch()
 
     """

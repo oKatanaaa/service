@@ -18,6 +18,8 @@ class TableHandler(Thread):
 
     def __init__(self, message_system):
         Thread.__init__(self)
+        self.cls_size = 0
+        pd.options.mode.chained_assignment = None
         self.setName("Table Handler Daemon Thread")
         self.setDaemon(True)
         self.logger = self.__get_logger()
@@ -27,15 +29,17 @@ class TableHandler(Thread):
         self.address = message_system.ADDRESS_LIST[self.__class__.__name__]
         """ Не используется """
         self.number_of_queue = len(message_system.queue_listing[self.address]) - 1
-        self.logger.info("Class " + self.__class__.__name__ + " successfully initialized")
+
+        self.logger.debug("Class " + self.__class__.__name__ + " successfully initialized")
 
     """
     Обработка сообщений
     """
+
     def run(self):
         while True:
             msg = self.message_system.queue_listing[self.address][0].get()
-            self.logger.info(self.__class__.__name__ + " have a message")
+            self.logger.debug(self.__class__.__name__ + " have a message " + msg[option])
 
             if msg[option] == create_table_option:
                 self.create_table(msg)
@@ -47,8 +51,30 @@ class TableHandler(Thread):
                 self.rename(msg)
             elif msg[option] == delete_from_table_option:
                 self.delete(msg)
+                self.__lock()
+                if self.cls_size == 10:
+                    new_msg = Message(
+                        self.address,
+                        self.message_system.ADDRESS_LIST['Utility'],
+                        {}
+                    )
+                    self.message_system.send(new_msg)
             elif msg[option] == prepare_to_update_option:
                 self.prepare_to_update(msg)
+                self.__lock()
+            else:
+                self.logger.error("Unknown option in " + self.__class__.__name__)
+
+    """
+    Барьер или блокировщик. К сожалению после каждого обновления кластеров должна обновится таблица
+    файлов. Для этого можно использовать deque(?) или этот блок
+    """
+
+    def __lock(self):
+        self.logger.debug("TableHandler locked")
+        msg = self.message_system.queue_listing[self.message_system.ADDRESS_LIST["Interrupt"]][0].get()
+        self.logger.debug("TableHandler UNlocked!")
+        self.update_table(msg)
 
     """
     Создание таблицы, в которой отсутствует столбец cluster
@@ -62,7 +88,7 @@ class TableHandler(Thread):
         for line in file_contents:
             file.loc[len(file)] = line
         file.to_csv(name_of_table, index=False)
-        self.logger.info("Teach table was created")
+        self.logger.debug("Teach table was created")
 
     """
     Создание полной таблицы
@@ -76,7 +102,7 @@ class TableHandler(Thread):
         for line in file_contents:
             file.loc[len(file)] = line
         file.to_csv(name_of_table, index=False)
-        self.logger.info("Table was created")
+        self.logger.debug("Table was created")
 
     """
     Обработка переименования
@@ -89,7 +115,7 @@ class TableHandler(Thread):
         file = pd.read_csv(name_of_table, sep=',')
         file.path[file.path == old_file_name] = new_file_name
         file.to_csv(name_of_table, index=False)
-        self.logger.info("Renamed some rows")
+        self.logger.debug("Renamed some rows")
 
     """
     Обработка удаления.
@@ -103,6 +129,7 @@ class TableHandler(Thread):
     """
 
     def delete(self, msg):
+        self.logger.debug("TableHandler delete start work!")
         name_of_table = msg[table_name]
         teacher = msg[is_teacher]
         target_path = msg[path]
@@ -112,18 +139,41 @@ class TableHandler(Thread):
             file.to_csv(name_of_table, index=False)
         else:
             file = pd.read_csv(name_of_table, sep=',')
-            cluster_of_deleted_file = file.last_symbol[file.path == target_path].iloc[0][0]
+            try:
+                cluster_of_deleted_file = file.last_symbol[file.path == target_path].iloc[0][0]
+            except IndexError:
+                # Фантомные боли. Попытка удалить уже удаленный кластер
+                # Или попытка удалить несуществующий вообще кластер
+                # @see prepare_to_update
+                self.logger.warning("The table doesn't have this file")
+                return
             # Проверяем что файл с таким кластером единственный
             need_to_make_changes_after_remove = len(file.last_symbol[file.last_symbol == cluster_of_deleted_file]) == 1
             file = file[file.path != target_path]
             file.to_csv(name_of_table, index=False)
             if need_to_make_changes_after_remove:
+                # Удаляем из списка класеров
+                new_msg = Message(
+                    self.address,
+                    self.message_system.ADDRESS_LIST["ClusterHandler"],
+                    {option: delete_from_clusters_option,
+                     deleted_cluster: cluster_of_deleted_file}
+                )
+                # Переменная нужная лишь для тестирования
+                # TODO: Убрать это
+                self.cls_size += 1
+                self.message_system.send(new_msg)
+
                 for table in Watcher.OPENED_TABLES:
                     name_of_table = table[table_name]
                     teacher = table[is_teacher]
                     if not teacher:
                         table = pd.read_csv(name_of_table, sep=',')
-                        need_to_update = table[table.cluster == cluster_of_deleted_file]
+                        try:
+                            need_to_update = table[table.cluster == cluster_of_deleted_file]
+                        except TypeError:
+                            self.logger.debug("Clusters of files not yet defined")
+                            return
                         need_to_update = need_to_update.to_dict()
                         keys = need_to_update['path'].keys()
                         lines = []
@@ -131,41 +181,48 @@ class TableHandler(Thread):
                             lines.append({'path': need_to_update['path'][key],
                                           'last_symbol': need_to_update['last_symbol'][key],
                                           'cluster': need_to_update['cluster'][key]})
-
-                        new_msg = Message(
-                            self.address,
-                            self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {option: delete_from_clusters_option,
-                             deleted_cluster: cluster_of_deleted_file,
-                             table_name: name_of_table,
-                             files_with_content: lines,
-                             is_teacher: teacher,
-                             is_deleted: True
-                             }
-                        )
-                        self.message_system.send(new_msg)
-                        self.logger.info("I destroyed this")
+                        if len(lines) > 0:
+                            new_msg = Message(
+                                self.address,
+                                self.message_system.ADDRESS_LIST["ClusterHandler"],
+                                {option: update_after_delete,
+                                 deleted_cluster: cluster_of_deleted_file,
+                                 table_name: name_of_table,
+                                 is_teacher: False,
+                                 files_with_content: lines}
+                            )
+                            self.message_system.send(new_msg)
+                        else:
+                            # Используется для unlock'a
+                            new_msg = Message(
+                                self.address,
+                                self.message_system.ADDRESS_LIST['Interrupt'],
+                                {option: update_table_option,
+                                 files_with_content: [],
+                                 table_name: None,
+                                 is_teacher: None}
+                            )
+                            self.message_system.send(new_msg)
+        self.logger.debug("TableHandler delete end his work")
 
     """
     Обновление таблицы
-    Здесь мы обновляем записи в таблице, в самом простом случае, однако, не всё так просто,
-    если произошло обновление обучающего файла, приходится проверять для все файлов (не учителей)
-    для каждой строки расстояние от текущего кластера, до нового (или изменённого)
-    и соотвественно если расстояние меньше - то производить замену
+    Здесь мы обновляем записи в таблице.
+    Возможно стоит заменить pandas на что то другое, при большом количестве файлов
+    работает оооооочень медлено
     """
 
     def update_table(self, msg):
+        self.logger.debug("Update_table start")
         name_of_table = msg[table_name]
         teacher = msg[is_teacher]
-        if msg[is_deleted]:
-            deleted_cls = msg[deleted_cluster]
-        else:
-            deleted_cls = None
+
         files = msg[files_with_content]
+
         if len(files) == 0:
             return
-        file = pd.read_csv(name_of_table, sep=',')
 
+        file = pd.read_csv(name_of_table, sep=',')
         for row in files:
             if file[file.path == row["path"]].empty:
                 file.loc[len(file)] = row
@@ -174,88 +231,78 @@ class TableHandler(Thread):
                 file.last_symbol[file['path'] == row['path']] = row['last_symbol']
                 if not teacher:
                     file.cluster[file['path'] == row['path']] = row['cluster']
-            file.to_csv(name_of_table, index=False)
 
-        if teacher:
-            new_cluster = files[0]["last_symbol"]
-            for file in Watcher.OPENED_TABLES:
-                file_name = file["table_name"]
-                teacher = file["is_teacher"]
+        file.to_csv(name_of_table, index=False)
+        self.logger.debug("Now table have some update")
 
-                if not teacher:
-                    file = pd.read_csv(file_name, sep=',')
-                    soft_update_list = list()
-                    hard_update_list = list()
-
-                    for line in range(len(file)):
-                        target_path = file.iloc[line, 0]
-                        symbol = str(file.iloc[line, 1]).strip()
-                        prev_cluster = str(file.iloc[line, 2]).strip()
-
-                        if msg[is_deleted] and prev_cluster in deleted_cls:
-                            hard_update_list.append({"path": target_path, "last_symbol": symbol})
-                        else:
-                            soft_update_list.append({"path": target_path,
-                                                     "last_symbol": symbol,
-                                                     "cluster": prev_cluster})
-                    if len(hard_update_list) != 0:
-                        new_msg = Message(
-                            self.address,
-                            self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {option: update_cluster_option,
-                             is_teacher: False,
-                             table_name: file_name,
-                             is_deleted: False,
-                             files_with_content: hard_update_list}
-                        )
-                        self.message_system.send(new_msg)
-                    if len(soft_update_list) != 0:
-                        new_msg = Message(
-                            self.address,
-                            self.message_system.ADDRESS_LIST["ClusterHandler"],
-                            {option: soft_update_option,
-                             'new_cluster': new_cluster,
-                             is_teacher: False,
-                             table_name: file_name,
-                             is_deleted: False,
-                             files_with_content: soft_update_list}
-                        )
-                        self.message_system.send(new_msg)
-                    file.to_csv(file_name, index=False)
-                    self.logger.info("Table have some update")
-
+    """
+    Подготовка к обновлению таблицы.
+    Метод вызывается если был обновлен файл с кластером (добавлен или изменён)
+    """
     def prepare_to_update(self, msg):
-        name_of_table = msg["table_name"]
+        self.logger.debug("Prepare_to_update starts")
+        name_of_table = msg[table_name]
         files = msg[files_with_content]
-        table = pd.read_csv(name_of_table, sep=',')
-        old_symbol_list = []
+
+        if len(files) == 0:
+            return
 
         for file in files:
-            old_symbol = table.loc[table.path == file["path"]].to_dict(orient='list')
-            if len(old_symbol["last_symbol"]) != 0:
-                old_symbol_list.append(old_symbol["last_symbol"][0])
+            new_msg = {
+                path: file['path'],
+                table_name: name_of_table,
+                is_teacher: True
+            }
+            self.delete(new_msg)
 
-        if len(old_symbol_list) > 0:
-            new_msg = Message(
-                self.address,
-                self.message_system.ADDRESS_LIST["ClusterHandler"],
-                {option: delete_from_clusters_option,
-                 table_name: name_of_table,
-                 is_teacher: msg[is_teacher],
-                 files_with_content: files,
-                 deleted_cluster: old_symbol_list}
-            )
-        else:
-            new_msg = Message(
-                self.address,
-                self.message_system.ADDRESS_LIST["ClusterHandler"],
-                {option: update_cluster_option,
-                 table_name: name_of_table,
-                 is_teacher: msg[is_teacher],
-                 is_deleted: False,
-                 files_with_content: files}
-            )
+        # Обновление таблицы кластеров
+        new_msg = {
+            table_name: name_of_table,
+            is_teacher: True,
+            files_with_content: files
+        }
+        self.update_table(new_msg)
+
+        # Добавление новго кластера. backtrack - запрос соседей нового кластера
+        new_msg = Message(
+            self.address,
+            self.message_system.ADDRESS_LIST["ClusterHandler"],
+            {option: create_clusters_option,
+             files_with_content: files,
+             'backtrack': True}
+        )
         self.message_system.send(new_msg)
+
+        # Ожидание ответа запроса что выше
+        msg = self.message_system.queue_listing[self.message_system.ADDRESS_LIST["Interrupt"]][0].get()
+        clusters = None
+        if msg[clusters_list] is not None:
+            clusters = msg[clusters_list]
+
+        new_cls = files[0]['last_symbol']
+        for file in Watcher.OPENED_TABLES:
+            file_name = file["table_name"]
+            teacher = file["is_teacher"]
+
+            if not teacher:
+                file = pd.read_csv(file_name, sep=',')
+                if clusters is not None:
+                    file = file[file.cluster.isin(clusters)]
+                file = file.to_dict(orient='records')
+
+                # Проверяем только те файлы что являются соседями новго кластера
+                new_msg = Message(
+                    self.address,
+                    self.message_system.ADDRESS_LIST["ClusterHandler"],
+                    {option: soft_update_option,
+                     table_name: file_name,
+                     is_teacher: False,
+                     'new_cluster': new_cls,
+                     files_with_content: file}
+                )
+
+                self.message_system.send(new_msg)
+        self.logger.debug("Prepare_to_update end")
 
     def __get_logger(self):
         logger = logging.getLogger(self.__class__.__name__)

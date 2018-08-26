@@ -19,61 +19,67 @@ class ClusterHandler(Thread):
         self.logger = self.__get_logger()
         self.clusters = dict()
         self.last_used_cluster = None
+        self.trash = None
+        self.files_count = 0
         """ Ссылка на общий для всех объект - системы сообщений     """
         self.message_system = message_system
         """ Адрес класса в системе сообщений """
         self.address = message_system.ADDRESS_LIST[self.__class__.__name__]
         self.number_of_queue = len(message_system.queue_listing[self.address]) - 1
-        self.logger.info("Class " + self.__class__.__name__ + " successfully initialized")
+
+        self.logger.debug("Class " + self.__class__.__name__ + " successfully initialized")
 
     """
     Запуск обработчика
     """
+
     def run(self):
-        identify_number = 0
-        count_of_something = 0
+        check_set = [10, 20, 30]
         while True:
+
             msg = self.message_system.queue_listing[self.address][0].get()
-            self.logger.info(self.__class__.__name__ + " have a message")
+            self.logger.debug(self.__class__.__name__ + " have a message " + msg[option])
 
             if msg[option] == create_clusters_option:
                 self.create_clusters(msg)
-                identify_number += 1
-                if identify_number % 10 == 0:
+                cls_size = len(self.clusters.keys())
+                if cls_size in check_set:
+                    check_set.remove(cls_size)
                     new_msg = Message(
                         self.address,
-                        self.message_system.ADDRESS_LIST["Utility"],
-                        {'signal': True,
-                         'exit': False})
+                        self.message_system.ADDRESS_LIST['Utility'],
+                        {}
+                    )
                     self.message_system.send(new_msg)
+
             elif msg[option] == identify_clusters_option:
                 self.identify_clusters(msg)
-            elif msg[option] == update_cluster_option:
-                self.update(msg)
-                if count_of_something % 1000 == 0:
+
+            elif msg[option] == hard_update_option:
+                self.hard_update(msg)
+                if self.files_count == 1000:
                     new_msg = Message(
                         self.address,
-                        self.message_system.ADDRESS_LIST["Utility"],
-                        {'signal': True,
-                         'exit': False})
+                        self.message_system.ADDRESS_LIST['Utility'],
+                        {}
+                    )
                     self.message_system.send(new_msg)
+
             elif msg[option] == delete_from_clusters_option:
                 self.delete(msg)
+
             elif msg[option] == soft_update_option:
                 self.soft_update(msg)
-                if count_of_something % 1000 == 0:
-                    new_msg = Message(
-                        self.address,
-                        self.message_system.ADDRESS_LIST["Utility"],
-                        {'signal': True,
-                         'exit': False})
-                    self.message_system.send(new_msg)
+
+            elif msg[option] == update_after_delete:
+                self.delete_update(msg)
             else:
-                print("Unknown option")
+                self.logger.debug("Unknown option")
 
     """
     Определение кластера для каждой переданной строки
     """
+
     def identify_clusters(self, msg):
         lines = msg[files_with_content]
         for line in lines:
@@ -85,16 +91,24 @@ class ClusterHandler(Thread):
              table_name: msg[table_name],
              files_with_content: lines}
         )
-        self.logger.info("Cluster identify success")
+        self.logger.debug("Cluster identify success")
         self.message_system.send(new_msg)
 
     """
     Добавление новых кластеров
     """
+
     def create_clusters(self, msg):
         lines = msg[files_with_content]
         for line in lines:
             self.add_new_cluster(line[last_symbol])
+            if msg.get('backtrack') is not None:
+                new_msg = Message(
+                    self.address,
+                    self.message_system.ADDRESS_LIST["Interrupt"],
+                    {clusters_list: self.clusters[line[last_symbol]]}
+                )
+                self.message_system.send(new_msg)
 
     """
     Добавление кластера.
@@ -105,17 +119,20 @@ class ClusterHandler(Thread):
     между своим ближайшим кластером и его соседом. То это означает что сосед теперь становится соседом для нашего
     нового кластера, и убирается из списка соседов соответсвенно.
     """
+
     def add_new_cluster(self, new_cluster):
 
         if self.clusters.get(new_cluster) is None:
             if len(self.clusters) == 0:
                 self.clusters[new_cluster] = set()
+                return
 
             if self.last_used_cluster is not None:
                 current = self.last_used_cluster
             else:
                 current = list(self.clusters.keys())[0]
             hash_set = set(self.clusters.keys())
+            print(self.last_used_cluster)
             hash_set.remove(current)
 
             while True:
@@ -133,17 +150,24 @@ class ClusterHandler(Thread):
                             temp = neighbor
 
                 if the_smallest > minimal:
-                    self.logger.info(new_cluster + " refers to " + current)
+                    self.logger.debug(new_cluster + " refers to " + current)
 
                     self.__add_cls(new_cluster, current)
+                    self.last_used_cluster = new_cluster
 
-                    self.logger.info("Cluster - " + new_cluster + " was created")
+                    self.logger.debug("Cluster - " + new_cluster + " was created")
                     return
                 elif len(hash_set) == 0:
                     self.__add_cls(new_cluster, temp)
+                    self.last_used_cluster = new_cluster
                     return
                 else:
                     current = temp
+
+    """
+    Служебный метод, для првоерки пересечения кластеров.
+    Подробнее об этом - у меня :)
+    """
 
     def __add_cls(self, new_cluster, current):
         neighbor_set = set(self.clusters[current])
@@ -156,7 +180,6 @@ class ClusterHandler(Thread):
                 self.clusters[neighbor].remove(current)
                 self.clusters[neighbor].add(new_cluster)
         self.clusters[current].add(new_cluster)
-
 
     """
     Определение кластера по последнему символу.
@@ -189,7 +212,7 @@ class ClusterHandler(Thread):
                         temp = neighbor
 
             if the_smallest > minimal:
-                self.logger.info(_last_symbol + " refers to " + current)
+                self.logger.debug(_last_symbol + " refers to " + current)
                 self.last_used_cluster = current
                 return current
             elif len(hash_set) == 0:
@@ -199,43 +222,38 @@ class ClusterHandler(Thread):
                 current = temp
 
     """
-    Если призошло какое-либо обновление данных файла, то будет вызван этот метод
-    и в зависимости от того был ли это обучающий файл - будут предприняты меры.
+    Обновление классификаторов. Простое сравнение с новым кластером. Если новый ближе, то он  будет определять файл
     """
-    def update(self, msg):
-        teacher = msg[is_teacher]
-        files = msg[files_with_content]
-
-        if not msg[is_deleted]:
-            deleted_cls = None
-        else:
-            deleted_cls = msg[deleted_cluster]
-        for file in files:
-            if teacher:
-                self.add_new_cluster(file[last_symbol])
-            else:
-                file["cluster"] = self.go_in_right_cluster(file[last_symbol])
-
-        new_msg = Message(
-            self.address,
-            self.message_system.ADDRESS_LIST["TableHandler"],
-            {option: update_table_option,
-             table_name: msg[table_name],
-             is_teacher: teacher,
-             is_deleted: msg[is_deleted],
-             deleted_cluster: deleted_cls,
-             files_with_content: files}
-        )
-        self.logger.info("Clusters was up to date")
-        self.message_system.send(new_msg)
 
     def soft_update(self, msg):
         files = msg[files_with_content]
         new_cluster = msg['new_cluster']
 
         for file in files:
-            if distance(file['last_symbol'], file['cluster']) > distance(file['last_symbol'], new_cluster):
-                file['cluster'] = new_cluster
+            if str(file['cluster']) in self.clusters[new_cluster]:
+                if distance(file['last_symbol'], str(file['cluster'])) > distance(file['last_symbol'], new_cluster):
+                    file['cluster'] = new_cluster
+
+        new_msg = Message(
+            self.address,
+            self.message_system.ADDRESS_LIST["Interrupt"],
+            {option: update_table_option,
+             table_name: msg[table_name],
+             is_teacher: msg[is_teacher],
+             files_with_content: files}
+        )
+        self.message_system.send(new_msg)
+
+    """
+    Дублированный метод (identify_cluster) для определения классификатора абсолтно новго файла
+    """
+
+    def hard_update(self, msg):
+        files = msg[files_with_content]
+        self.files_count += len(files)
+
+        for file in files:
+            file['cluster'] = self.go_in_right_cluster(file['last_symbol'])
 
         new_msg = Message(
             self.address,
@@ -243,12 +261,40 @@ class ClusterHandler(Thread):
             {option: update_table_option,
              table_name: msg[table_name],
              is_teacher: msg[is_teacher],
-             is_deleted: msg[is_deleted],
-             deleted_cluster: None,
              files_with_content: files}
         )
+
+        self.logger.debug("Cluster hard update success")
         self.message_system.send(new_msg)
 
+    """
+    Метод обеспечивающий обновление кластеров после удаления одного из них.
+    """
+
+    def delete_update(self, msg):
+        files = msg[files_with_content]
+        cluster = msg[deleted_cluster]
+        neighbors = self.trash[cluster]
+
+        for file in files:
+            _min = float('inf')
+            answer = None
+            for ngh in neighbors:
+                dist = distance(ngh, file['last_symbol'])
+                if dist < _min:
+                    _min = dist
+                    answer = ngh
+            file['cluster'] = answer
+
+        new_msg = Message(
+            self.address,
+            self.message_system.ADDRESS_LIST['Interrupt'],
+            {option: update_table_option,
+             files_with_content: files,
+             table_name: msg[table_name],
+             is_teacher: msg[is_teacher]}
+        )
+        self.message_system.send(new_msg)
 
     """
     Реализует удаление кластера.
@@ -256,37 +302,42 @@ class ClusterHandler(Thread):
     А затем и сам этот кластер из списка
     Далее обновляем записи таблицы
     """
+
     def delete(self, msg):
-        cluster_lst = msg[deleted_cluster]
-        files = msg[files_with_content]
-        teacher = msg[is_teacher]
+        cluster = msg[deleted_cluster]
+        self.trash = {cluster: self.clusters[cluster]}
 
-        for cluster in cluster_lst:
-            if self.last_used_cluster == cluster:
-                self.last_used_cluster = None
-            if cluster in self.clusters:
-                have_deleted_cluster = self.clusters[cluster]
-                have_deleted_cluster.discard(cluster)
-                self.clusters.pop(cluster, None)
-                for neighbor in have_deleted_cluster:
-                    self.clusters[neighbor].discard(cluster)
-                    neighbors_2 = self.clusters[neighbor]
-                    for ngh in have_deleted_cluster:
-                        is_crossing = True
-                        for ngh_2 in neighbors_2:
-                            if neighbor != ngh and distance(neighbor, ngh) <= distance(neighbor, ngh_2):
-                                is_crossing = False
-                        if is_crossing:
-                            self.clusters[neighbor].add(ngh)
+        # if self.last_used_cluster == cluster:
+        #     self.last_used_cluster = None
+        # if cluster in self.clusters:
+        #     have_deleted_cluster = self.clusters[cluster]
+        #     have_deleted_cluster.discard(cluster)
+        #     self.clusters.pop(cluster, None)
+        #     for neighbor in have_deleted_cluster:
+        #         self.clusters[neighbor].discard(cluster)
+        #         neighbors_2 = self.clusters[neighbor]
+        #         for ngh in have_deleted_cluster:
+        #             if ngh != neighbor:
+        #                 is_crossing = True
+        #                 for ngh_2 in neighbors_2:
+        #                     if neighbor != ngh and distance(neighbor, ngh) <= distance(neighbor, ngh_2):
+        #                         is_crossing = False
+        #                 if is_crossing:
+        #                     self.clusters[neighbor].add(ngh)
 
-        self.logger.info("DESTROY")
-        self.update({
-            table_name: msg[table_name],
-            files_with_content: files,
-            is_teacher: teacher,
-            is_deleted: True,
-            deleted_cluster: cluster_lst
-        })
+        # Старый вариант удаления. Не работает
+        self.last_used_cluster = None
+        if cluster in self.clusters:
+            have_deleted_cluster = self.clusters[cluster]
+            self.clusters.pop(cluster, None)
+            for neighbor in have_deleted_cluster:
+                for neighbor_2 in self.clusters[neighbor]:
+                    if neighbor_2 != neighbor and neighbor_2 != cluster:
+                        self.clusters[neighbor_2].remove(neighbor)
+                self.clusters.pop(neighbor, None)
+                self.add_new_cluster(neighbor)
+
+        self.logger.debug(str(cluster) + ' - was deleted')
 
     def __get_logger(self):
         logger = logging.getLogger(self.__class__.__name__)

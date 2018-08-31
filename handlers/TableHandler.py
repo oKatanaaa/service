@@ -62,6 +62,8 @@ class TableHandler(Thread):
             elif msg[option] == prepare_to_update_option:
                 self.prepare_to_update(msg)
                 self.__lock()
+            elif msg[option] == "kill":
+                break
             else:
                 self.logger.error("Unknown option in " + self.__class__.__name__)
 
@@ -276,7 +278,7 @@ class TableHandler(Thread):
         # Ожидание ответа запроса что выше
         msg = self.message_system.queue_listing[self.message_system.ADDRESS_LIST["Interrupt"]][0].get()
         clusters = None
-        if msg[clusters_list] is not None:
+        if msg.get(clusters_list) is not None:
             clusters = msg[clusters_list]
 
         new_cls = files[0]['last_symbol']
@@ -306,7 +308,7 @@ class TableHandler(Thread):
 
     def __get_logger(self):
         logger = logging.getLogger(self.__class__.__name__)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.INFO)
 
         fh = logging.FileHandler(".\logs\my_watch.log")
         fh.setFormatter(logging.Formatter('%(asctime)s - %(threadName)s - %(levelname)s - %(message)s'))

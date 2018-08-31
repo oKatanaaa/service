@@ -26,6 +26,7 @@ class Watcher(Thread):
     def __init__(self, message_system, target_path, _table_name, _is_teacher=False):
         Thread.__init__(self)
         self.setName("Main Thread (Watcher)")
+        self.setDaemon(True)
         """ Ссылка на общий для всех объект - системы сообщений     """
         self.message_system = message_system
         """ Адрес класса в системе сообщений """
@@ -94,6 +95,9 @@ class Watcher(Thread):
                 None,
                 None
             )
+
+            if not self.message_system.queue_listing[self.address][0].empty:
+                break
 
             msg = Message(
                 self.address,

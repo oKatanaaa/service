@@ -41,7 +41,7 @@ class MessageSystem:
 
     def __get_logger(self):
         logger = logging.getLogger(self.__class__.__name__)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.INFO)
 
         fh = logging.FileHandler(".\logs\my_watch.log")
         fh.setFormatter(logging.Formatter('%(asctime)s - %(threadName)s - %(levelname)s - %(message)s'))

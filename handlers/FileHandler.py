@@ -55,6 +55,8 @@ class FileHandler(Thread):
                 self.first_generation(msg)
             elif msg[option] == changes_option:
                 self.get_changes(msg)
+            elif msg[option] == 'kill':
+                break
 
     """
     Первая генерация. Создаёт список файлов и их содержимого
@@ -205,7 +207,7 @@ class FileHandler(Thread):
 
     def __get_logger(self):
         logger = logging.getLogger(self.__class__.__name__)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.CRITICAL)
 
         fh = logging.FileHandler(".\logs\my_watch.log")
         fh.setFormatter(logging.Formatter('%(asctime)s - %(threadName)s - %(levelname)s - %(message)s'))

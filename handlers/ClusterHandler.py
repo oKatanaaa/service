@@ -73,6 +73,8 @@ class ClusterHandler(Thread):
 
             elif msg[option] == update_after_delete:
                 self.delete_update(msg)
+            elif msg[option] == "kill":
+                break
             else:
                 self.logger.debug("Unknown option")
 
@@ -132,7 +134,6 @@ class ClusterHandler(Thread):
             else:
                 current = list(self.clusters.keys())[0]
             hash_set = set(self.clusters.keys())
-            print(self.last_used_cluster)
             hash_set.remove(current)
 
             while True:
@@ -307,35 +308,39 @@ class ClusterHandler(Thread):
         cluster = msg[deleted_cluster]
         self.trash = {cluster: self.clusters[cluster]}
 
-        # if self.last_used_cluster == cluster:
-        #     self.last_used_cluster = None
-        # if cluster in self.clusters:
-        #     have_deleted_cluster = self.clusters[cluster]
-        #     have_deleted_cluster.discard(cluster)
+        # if len(self.clusters.keys()) == 2:
         #     self.clusters.pop(cluster, None)
-        #     for neighbor in have_deleted_cluster:
-        #         self.clusters[neighbor].discard(cluster)
-        #         neighbors_2 = self.clusters[neighbor]
-        #         for ngh in have_deleted_cluster:
-        #             if ngh != neighbor:
-        #                 is_crossing = True
-        #                 for ngh_2 in neighbors_2:
-        #                     if neighbor != ngh and distance(neighbor, ngh) <= distance(neighbor, ngh_2):
-        #                         is_crossing = False
-        #                 if is_crossing:
-        #                     self.clusters[neighbor].add(ngh)
-
-        # Старый вариант удаления. Не работает
-        self.last_used_cluster = None
+        #     self.clusters[list(self.clusters.keys())[0]].discard(cluster)
+        if len(self.clusters.keys()) == 1:
+            self.clusters.pop(cluster, None)
+        if self.last_used_cluster == cluster:
+            self.last_used_cluster = None
         if cluster in self.clusters:
             have_deleted_cluster = self.clusters[cluster]
             self.clusters.pop(cluster, None)
             for neighbor in have_deleted_cluster:
-                for neighbor_2 in self.clusters[neighbor]:
-                    if neighbor_2 != neighbor and neighbor_2 != cluster:
-                        self.clusters[neighbor_2].remove(neighbor)
-                self.clusters.pop(neighbor, None)
-                self.add_new_cluster(neighbor)
+                self.clusters[neighbor].discard(cluster)
+                neighbors_2 = self.clusters[neighbor]
+                for ngh in have_deleted_cluster:
+                    if ngh != neighbor:
+                        is_crossing = True
+                        for ngh_2 in neighbors_2:
+                            if distance(ngh_2, ngh) <= distance(neighbor, ngh_2):
+                                is_crossing = False
+                        if is_crossing:
+                            self.clusters[neighbor].add(ngh)
+
+        # Старый вариант удаления.
+        # self.last_used_cluster = None
+        # if cluster in self.clusters:
+        #     have_deleted_cluster = self.clusters[cluster]
+        #     self.clusters.pop(cluster, None)
+        #     for neighbor in have_deleted_cluster:
+        #         for neighbor_2 in self.clusters[neighbor]:
+        #             if neighbor_2 != neighbor and neighbor_2 != cluster:
+        #                 self.clusters[neighbor_2].remove(neighbor)
+        #         self.clusters.pop(neighbor, None)
+        #         self.add_new_cluster(neighbor)
 
         self.logger.debug(str(cluster) + ' - was deleted')
 

@@ -15,13 +15,14 @@ class MessageSystem:
     }
 
     def __init__(self):
-        self.logger = self.__get_logger()
         self.queue_listing = [list(), list(), list(), list(), list(), list()]
-        self.logger.info("Class " + self.__class__.__name__ + " successfully initialized")
 
     def register(self, new_handler):
         # Need to catch exception
-        self.queue_listing[self.ADDRESS_LIST[new_handler.__class__.__name__]].append(Queue())
+        if new_handler.__class__.__name__ == "ClusterHandlerWithoutNgh":
+            self.queue_listing[self.ADDRESS_LIST["ClusterHandler"]].append(Queue())
+        else:
+            self.queue_listing[self.ADDRESS_LIST[new_handler.__class__.__name__]].append(Queue())
 
     def root_register(self):
         self.queue_listing[self.ADDRESS_LIST["Utility"]].append(Queue())
@@ -31,19 +32,9 @@ class MessageSystem:
         # Need to catch exception
         # Choice easy queue
         self.queue_listing[message.to][0].put(message.msg)
-        self.logger.info("Sending message")
 
     def all_tasks_done(self):
         for queue in self.queue_listing:
             if not queue[0].empty:
                 return False
         return True
-
-    def __get_logger(self):
-        logger = logging.getLogger(self.__class__.__name__)
-        logger.setLevel(logging.INFO)
-
-        fh = logging.FileHandler(".\logs\my_watch.log")
-        fh.setFormatter(logging.Formatter('%(asctime)s - %(threadName)s - %(levelname)s - %(message)s'))
-        logger.addHandler(fh)
-        return logger

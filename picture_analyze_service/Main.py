@@ -10,6 +10,7 @@ from picture_analyze_service.handlers.TableHandler import TableHandler
 from picture_analyze_service.handlers.Watcher import Watcher
 from messageSystem.Message import Message
 from messageSystem.MessageSystem import MessageSystem
+from picture_analyze_service.handlers.DeloneClusterHandler import ClusterHandler
 
 
 def check_args():
@@ -48,8 +49,9 @@ if __name__ == "__main__":
     # message_system.register(second_watcher)
     fh = FileHandler(message_system)
     message_system.register(fh)
-    if delete_type != "no ngh":
-        ch = ClusterHandler(message_system, delete_type)
+    # if delete_type != "no ngh":
+    #     ch = ClusterHandler(message_system, delete_type)
+    ch = ClusterHandler(message_system, delete_type)
     message_system.register(ch)
     th = TableHandler(message_system)
     message_system.register(th)

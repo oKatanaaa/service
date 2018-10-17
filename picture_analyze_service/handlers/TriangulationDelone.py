@@ -19,7 +19,7 @@ class Point:
         self.z = z
 
     def to_str(self):
-        return str(self.x) + " " + str(self.y) + " " + str(self.y)
+        return str(self.x) + " " + str(self.y) + " " + str(self.z)
 
 
 class Tetrahedron:
@@ -58,13 +58,7 @@ class TriangulationDelone:
     # noinspection PyPep8Naming
     def localize_point(self, plane_point_1: Point, plane_point_2: Point, plane_point_3: Point, plane_point_4: Point,
                        point: Point):
-        A = (plane_point_2.y - plane_point_1.y) * (plane_point_3.z - plane_point_1.z) - \
-            (plane_point_3.y - plane_point_1.y) * (plane_point_2.z - plane_point_1.z)
-        B = (plane_point_3.x - plane_point_1.x) * (plane_point_2.z - plane_point_1.z) - \
-            (plane_point_2.x - plane_point_1.x) * (plane_point_3.z - plane_point_1.z)
-        C = (plane_point_2.x - plane_point_1.x) * (plane_point_3.y - plane_point_1.y) - \
-            (plane_point_3.x - plane_point_1.x) * (plane_point_2.y - plane_point_1.y)
-        D = - (A * plane_point_1.x + B * plane_point_1.y + C * plane_point_1.z)
+        A, B, C, D = self.plate_expr([plane_point_1, plane_point_2, plane_point_3])
         sign_in_tetrahedron = A * plane_point_4.x + B * plane_point_4.y + C * plane_point_4.z + D
         sign_of_point = A * point.x + B * point.y + C * point.z + D
         if abs(sign_of_point) < EPS:
@@ -112,13 +106,18 @@ class TriangulationDelone:
     def delone_check(self, point: Point, center: Point, radius: float):
         return (point.x - center.x) ** 2 + (point.x - center.x) ** 2 + (point.x - center.x) ** 2 >= radius ** 2
 
-    def is_on_edge(self, plane: list, point: Point):
-        combinations = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+    def is_on_edge(self, t: Tetrahedron, plate: list, point: Point):
+        combinations = [(0, 1), (0, 2), (1, 2)]
+        plate_a, plate_b, plate_c, plate_d = self.plate_expr(plate)
+        out_point = list(set(t.points) - set(plate))[0]
         for combination in combinations:
-            x = (point.x - plane[combination[0]].x) / (plane[combination[1]].x - plane[combination[0]].x)
-            y = (point.y - plane[combination[0]].y) / (plane[combination[1]].y - plane[combination[0]].y)
-            z = (point.z - plane[combination[0]].z) / (plane[combination[1]].z - plane[combination[0]].z)
-            if x == y == z:
+            plate = [t.points[i] for i in combination] + [out_point]
+            o_plate_a, o_plate_b, o_plate_c, o_plate_d = self.plate_expr(plate)
+
+            s0 = plate_a * point.x + plate_b * point.y + plate_c * point.z + plate_d
+            s1 = o_plate_a * point.x + o_plate_b * point.y + o_plate_c * point.z + o_plate_d
+
+            if s1 == s0 == 0:
                 return combination
         return None
 
@@ -126,7 +125,6 @@ class TriangulationDelone:
         combinations = [(0, 1, 2, 3), (1, 2, 3, 0), (2, 3, 0, 1), (3, 0, 1, 2)]
         target = self.tetrahedrons[0]
         res = -1
-        # TODO возможно нужна преинициализация если первые 4 точки
         possibly_plate = None
         for i in range(len(self.tetrahedrons)):
             res = 1
@@ -160,7 +158,7 @@ class TriangulationDelone:
             points_without_p = points
             points_without_p.remove(p)
             for pp in points_without_p:
-                self.clusters[p.to_str()].remove(pp)
+                self.clusters[p.to_str()].discard(pp)
         self.tetrahedrons.remove(t)
         for ngh in t.neighbors:
             ngh.remove(t)
@@ -209,6 +207,7 @@ class TriangulationDelone:
         return [Tetrahedron([plate[0], plate[1], plate[2], point])]
 
     def check_local_rebuilding(self, new_figure_list: list):
+        # Бесконечнный цикл
         for figure in new_figure_list:
             center = self.find_center(figure)
             radius = self.find_radius(center, figure.points[0])
@@ -219,12 +218,10 @@ class TriangulationDelone:
                     if not self.delone_check(check_point, center, radius):
                         type_of_rebuild = self.identify_type(figure, check)
                         if type_of_rebuild == 1:
-                            new_figure_list.remove(figure)
                             new_figure_list.remove(check)
                             new_figure_list += self.local_rebuild_first(figure, check)
                             self.check_local_rebuilding(new_figure_list)
                         else:
-                            new_figure_list.remove(figure)
                             new_figure_list.remove(check)
                             update = list(self.local_rebuild_second(figure, check))
                             if update[3] in new_figure_list:
@@ -232,6 +229,7 @@ class TriangulationDelone:
                             update.pop()
                             new_figure_list += update
                             self.check_local_rebuilding(new_figure_list)
+                        break
         return new_figure_list
 
     # noinspection PyPep8Naming
@@ -242,19 +240,13 @@ class TriangulationDelone:
         plate = list(plate)
         triangle = [plate[0], out_first, out_second]
         edge = [plate[1], plate[2]]
-        A = (triangle[1].y - triangle[0].y) * (triangle[2].z - triangle[0].z) - \
-            (triangle[2].y - triangle[0].y) * (triangle[1].z - triangle[0].z)
-        B = (triangle[2].x - triangle[0].x) * (triangle[1].z - triangle[0].z) - \
-            (triangle[1].x - triangle[0].x) * (triangle[2].z - triangle[0].z)
-        C = (triangle[1].x - triangle[0].x) * (triangle[2].y - triangle[0].y) - \
-            (triangle[2].x - triangle[0].x) * (triangle[1].y - triangle[0].y)
-        D = - (A * triangle[0].x + B * triangle[0].y + C * triangle[0].z)
+        A, B, C, D = self.plate_expr(triangle)
 
         xs = edge[0].x - edge[1].x
         ys = edge[0].y - edge[1].y
         zs = edge[0].z - edge[1].z
 
-        t = - (A * edge[1].x + B * edge[1].y + C * edge[1].z + D) / (A * xs + B * ys + C * zs)
+        t = - (A * edge[1].x + B * edge[1].y + C * edge[1].z + D) / (A * xs + B * ys + C * zs + EPS)
 
         xp = edge[1].x + xs * t
         yp = edge[1].y + ys * t
@@ -305,39 +297,111 @@ class TriangulationDelone:
 
     def add_point(self, coordinate: str):
         if coordinate not in self.clusters:
-            if len(self.clusters.keys()) < 4:
-                keys = list(self.clusters.keys())
-                self.clusters[coordinate] = set()
-                for key in keys:
-                    self.clusters[coordinate].add(key)
-                    self.clusters[key].add(coordinate)
-                if len(keys) == 3:
-                    points_str = self.clusters.get(coordinate)
-                    points_str.append(coordinate)
+            if len(self.tetrahedrons) == 0:
+                if len(self.clusters.keys()) == 2:
+                    points_str = list(self.clusters.keys())
+                    self.clusters[coordinate] = set()
+                    p1 = points_str[0]
+                    p1 = p1.split(" ")
+                    p1 = Point(int(p1[0]), int(p1[1]), int(p1[2]))
+                    p2 = points_str[1]
+                    p2 = p2.split(" ")
+                    p2 = Point(int(p2[0]), int(p2[1]), int(p2[2]))
+                    a, b, c = self.line_exp(p1, p2)
+
+                    point = coordinate.split(" ")
+                    point = Point(int(point[0]), int(point[1]), int(point[2]))
+
+                    if a * point.x + b * point.y + c == 0:
+                        if self.distance(point, p1) < self.distance(p1, p2) and \
+                                self.distance(point, p2) < self.distance(p1, p2):
+                            self.clusters[p1.to_str()].discard(p2.to_str())
+                            self.clusters[p1.to_str()].add(point.to_str())
+                            self.clusters[p2.to_str()].discard(p1.to_str())
+                            self.clusters[p2.to_str()].add(point.to_str())
+                            self.clusters[point.to_str()].add(p1.to_str())
+                            self.clusters[point.to_str()].add(p2.to_str())
+                    else:
+                        self.clusters[p1.to_str()].add(point.to_str())
+                        self.clusters[p2.to_str()].add(point.to_str())
+                        self.clusters[point.to_str()].add(p1.to_str())
+                        self.clusters[point.to_str()].add(p2.to_str())
+
+                elif len(self.clusters.keys()) < 3:
+                    keys = list(self.clusters.keys())
+                    self.clusters[coordinate] = set()
+                    for key in keys:
+                        self.clusters[coordinate].add(key)
+                        self.clusters[key].add(coordinate)
+                else:
+                    keys = list(self.clusters.keys())
+                    keys = list(keys[0:3])
                     points = []
-                    for p in points_str:
-                        p = p.split(" ")
-                        points.append(Point(p[0], p[1], p[2]))
-                    self.tetrahedrons.append(Tetrahedron(points))
+                    for key in keys:
+                        key = key.split(" ")
+                        points.append(Point(int(key[0]), int(key[1]), int(key[2])))
+                    a, b, c, d = self.plate_expr(list(points[0:3]))
+                    if a * points[2].x + b * points[2].y + c * points[2].z + d == 0:
+                        pass
 
-            coordinate = coordinate.split(" ")
-            point = Point(coordinate[0], coordinate[1], coordinate[2])
-            res, target, possibly_plate = self.find_point(point)
-            new_figure_list = None
-            if res > 0:
-                new_figure_list = self.add_in_tetrahedron(target, point)
-            elif res < 0:
-                new_figure_list = self.add_outside(target.points[possibly_plate[0:3]], point)
-            else:  # res == 0
-                edge = self.is_on_edge(target.points[possibly_plate[0:3]], point)
-                if edge is not None:
-                    new_figure_list = self.add_in_edge(target, target.points[edge[0:2]], point)
+            # if len(self.clusters.keys()) < 4:
+            #     keys = list(self.clusters.keys())
+            #     self.clusters[coordinate] = set()
+            #     for key in keys:
+            #         self.clusters[coordinate].add(key)
+            #         self.clusters[key].add(coordinate)
+            #     if len(keys) == 3:
+            #         points_str = self.clusters.get(coordinate)
+            #         points_str.add(coordinate)
+            #         points = []
+            #         for p in points_str:
+            #             p = p.split(" ")
+            #             points.append(Point(int(p[0]), int(p[1]), int(p[2])))
+            #
+            #         a, b, c, d = self.plate_expr(list(points[0:3]))
+            #         if a * points[3].x + b * points[3].y + c * points[3].z + d == 0:
+            #             copy = points
+            #             copy.pop(3)
+            #             minim = float("inf")
+            #             nearest = None
+            #             nearest_2 = None
+            #             for p in copy:
+            #                 dist = self.distance(p, points[3])
+            #                 if dist < minim:
+            #                     minim = dist
+            #                     nearest = p
+            #             points_str = self.clusters.get(nearest.to_str())
+            #             nghs = []
+            #             for p in points_str:
+            #                 p = p.split(" ")
+            #                 nghs.append(Point(int(p[0]), int(p[1]), int(p[2])))
+            #             for ngh in nghs:
+            #                 dist = self.distance(p, points[3])
+            #                 if dist < minim:
+            #                     minim = dist
+            #                     nearest_2 = p
+            #
+            #         self.tetrahedrons.append(Tetrahedron(points))
+            else:
 
-            new_figure_list = self.check_local_rebuilding(new_figure_list)
-            ngh_of_deleted = self.delete_tetrahedron(target)
-            self.update_neighbours(ngh_of_deleted, new_figure_list)
-            self.tetrahedrons += new_figure_list
-            self.update_cluster(new_figure_list)
+                coordinate = coordinate.split(" ")
+                point = Point(int(coordinate[0]), int(coordinate[1]), int(coordinate[2]))
+                res, target, possibly_plate = self.find_point(point)
+                new_figure_list = None
+                if res > 0:
+                    new_figure_list = self.add_in_tetrahedron(target, point)
+                elif res < 0:
+                    new_figure_list = self.add_outside([target.points[i] for i in possibly_plate[0:3]], point)
+                else:  # res == 0
+                    edge = self.is_on_edge(target, [target.points[i] for i in possibly_plate[0:3]], point)
+                    if edge is not None:
+                        new_figure_list = self.add_in_edge(target, [target.points[i] for i in edge[0:2]], point)
+
+                new_figure_list = self.check_local_rebuilding(new_figure_list)
+                ngh_of_deleted = self.delete_tetrahedron(target)
+                self.update_neighbours(ngh_of_deleted, new_figure_list)
+                self.tetrahedrons += new_figure_list
+                self.update_cluster(new_figure_list)
 
     def update_cluster(self, new_figure_list: list):
         for figure in new_figure_list:
@@ -353,3 +417,24 @@ class TriangulationDelone:
 
     def distance(self, x1, x2, y1, y2, z1, z2):
         return pow((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2), 0.5)
+
+    def distance(self, p1: Point, p2: Point):
+        return pow((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y) + (p1.z - p2.z) * (p1.z - p2.z), 0.5)
+
+    def plate_expr(self, triangle: list):
+        A = (triangle[1].y - triangle[0].y) * (triangle[2].z - triangle[0].z) - \
+            (triangle[2].y - triangle[0].y) * (triangle[1].z - triangle[0].z)
+        B = (triangle[2].x - triangle[0].x) * (triangle[1].z - triangle[0].z) - \
+            (triangle[1].x - triangle[0].x) * (triangle[2].z - triangle[0].z)
+        C = (triangle[1].x - triangle[0].x) * (triangle[2].y - triangle[0].y) - \
+            (triangle[2].x - triangle[0].x) * (triangle[1].y - triangle[0].y)
+        D = - (A * triangle[0].x + B * triangle[0].y + C * triangle[0].z)
+
+        return A, B, C, D
+
+    def line_exp(self, p1: Point, p2: Point):
+        a = p1.y - p2.y
+        b = p2.x - p1.x
+        c = p1.x * p2.y - p2.x * p1.y
+
+        return a, b, c

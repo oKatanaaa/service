@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     for delete_type in delete_types:
 
-        for option in range(number_of_options):
+        for option in range(7, number_of_options):
             results = [list(), list(), list(), list(), list(), list()]
             first_option = first_list[option]
             second_option = second_list[option]

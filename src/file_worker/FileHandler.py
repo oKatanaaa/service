@@ -1,0 +1,78 @@
+import os
+from multiprocessing import Queue
+from threading import Thread
+
+from file_worker.ContentGrubber import ContentGrubber
+from file_worker.DirWatcher import DirWatcher
+
+
+class FileHandler(Thread):
+    WORKING_DIRS = list()
+
+    ACTIONS = {
+        1: "Created",
+        2: "Deleted",
+        3: "Updated",
+        4: "Renamed from",
+        5: "Renamed to"
+    }
+
+    def __init__(self, target_path: str, is_teacher: bool):
+        super().__init__()
+        self.setName("File Thread " + str(self.ident))
+        self.setDaemon(True)
+        self.target_path = target_path
+        self.is_teacher = is_teacher
+        self.WORKING_DIRS.append({'path': target_path,
+                                  'teacher': is_teacher})
+
+        self.content_grubber = ContentGrubber("image")
+        self.queue = Queue()
+        self.dir_watcher = DirWatcher(self.target_path, self.queue)
+        pass
+
+    def run(self):
+        self.dir_watcher.start()
+        old_name = None
+
+        while True:
+            changes = self.queue.get()
+
+            for action, filename in changes:
+                if filename is None or filename[-4:] != '.tif':
+                    continue
+                full_filename = os.path.join(self.target_path, filename)
+
+                if os.path.getsize(full_filename) != 0:
+                    change_type = self.ACTIONS.get(action)
+
+                    if action == 2:
+                        self.cluster_queue.put({
+                            "change_type": change_type,
+                            "point": None
+                        })
+                        pass
+
+                    elif action == 3:
+                        point = self.content_grubber.get_info(full_filename)
+                        self.cluster_queue.put({
+                            "change_type": change_type,
+                            "point": point
+                        })
+                        pass
+
+                    elif action == 4:
+                        old_name = full_filename
+                        pass
+
+                    elif action == 5:
+                        self.cluster_queue.put({
+                            "change_type": change_type,
+                            "old_name": old_name,
+                            "new_name": full_filename,
+                            "point": None
+                        })
+                        pass
+
+                    else:
+                        raise Exception("Unsupported Operation")

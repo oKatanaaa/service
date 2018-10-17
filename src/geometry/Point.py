@@ -2,14 +2,15 @@
 
 class Point:
 
-    def __init__(self, coordinates: list):
-        self.coordinates = coordinates
+    def __init__(self, coordinates):
+        self.coordinates = list()
+        for number in coordinates:
+            self.coordinates.append(float(number))
 
     def get_coordinate(self, index: int):
         return self.coordinates[index]
 
-    def distance(self, point):
-
+    def distance_to(self, point):
         if len(self.coordinates) != len(point.coordinates):
             raise Exception()
         sum_of_squares = 0

@@ -25,3 +25,6 @@ class Graph:
 
     def get_neighbours(self, point: Point):
         return self.graph.get(point)
+
+    def is_in_graph(self, point: Point):
+        return point in self.graph

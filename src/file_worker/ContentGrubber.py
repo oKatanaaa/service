@@ -14,6 +14,7 @@ def get_image_info(image_name):
     g = [image[i] for i in range(length) if i % 3 == 1]
     g = mean(g)
     b = [image[i] for i in range(length) if i % 3 == 2]
+    b = mean(b)
     return r, g, b
 
 

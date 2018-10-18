@@ -19,3 +19,9 @@ class Point:
             sum_of_squares += (p1 - p2) ** 2
 
         return sum_of_squares ** 0.5
+
+    def to_str(self):
+        result = ""
+        for x in self.coordinates:
+            result += str(x) + " "
+        return result[0:-1]

@@ -47,13 +47,15 @@ class FileHandler(Thread):
                 full_filename = os.path.join(self.target_path, filename)
 
                 if os.path.getsize(full_filename) != 0:
-                    change_type = self.ACTIONS.get(action)
+                    if action == 1:
+                        pass
 
-                    if action == 2:
+                    elif action == 2:
+                        row = TableRow(filename, None)
                         self.job_queue.put({
                             "teacher": self.is_teacher,
-                            "change_type": change_type,
-                            "row": None
+                            "action": action,
+                            "row": row
                         })
                         pass
 
@@ -62,7 +64,7 @@ class FileHandler(Thread):
                         row = TableRow(filename, point)
                         self.job_queue.put({
                             "teacher": self.is_teacher,
-                            "change_type": change_type,
+                            "action": action,
                             "row": row
                         })
                         pass
@@ -74,7 +76,7 @@ class FileHandler(Thread):
                     elif action == 5:
                         self.job_queue.put({
                             "teacher": self.is_teacher,
-                            "change_type": change_type,
+                            "action": action,
                             "old_name": old_name,
                             "new_name": full_filename,
                             "row": None

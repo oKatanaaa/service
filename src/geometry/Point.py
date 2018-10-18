@@ -5,7 +5,7 @@ class Point:
     def __init__(self, coordinates):
         self.coordinates = list()
         for number in coordinates:
-            self.coordinates.append(float(number))
+            self.coordinates.append(int(number))
 
     def get_coordinate(self, index: int):
         return self.coordinates[index]

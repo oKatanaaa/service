@@ -46,7 +46,7 @@ class FileHandler(Thread):
                     continue
                 full_filename = os.path.join(self.target_path, filename)
 
-                if os.path.getsize(full_filename) != 0:
+                if action == 2 or os.path.getsize(full_filename) != 0:
                     if action == 1:
                         pass
 

@@ -5,6 +5,8 @@ import pandas as pd
 from cluster_worker.TableRow import TableRow
 from geometry.Point import Point
 
+pd.options.mode.chained_assignment = None
+
 
 class TableHandler:
     ROOT_PATH = r"Q:/service/output"
@@ -46,6 +48,7 @@ class TableHandler:
             else:
                 # TODO check
                 row = row.to_dict()
+
                 table.feature[table['path'] == row['path']] = row['feature']
                 table.cluster[table['path'] == row['path']] = row['cluster']
         table.to_csv(self.path, index=False)

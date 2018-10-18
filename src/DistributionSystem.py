@@ -2,6 +2,7 @@ from multiprocessing import Queue
 from threading import Thread
 
 from cluster_worker.ClusterHandler import ClusterHandler
+from cluster_worker.TableRow import TableRow
 from cluster_worker.algorithms.nearest_neighbours.NNA import NNA
 from file_worker.FileHandler import FileHandler
 
@@ -75,6 +76,7 @@ class DistributionSystem(Thread):
         ident_check = 0
         delete_check = 0
 
+        temp = TableRow(None, None)
         while True:
             job = self.jobs.get()
 
@@ -94,8 +96,11 @@ class DistributionSystem(Thread):
 
             elif action == 3:
                 if not teacher:
+                    if row.get_filename() == temp.get_filename() and row.get_feature() == temp.get_feature():
+                        continue
                     ident_check += 1
                     self.cluster_handler.hard_update(row)
+                    temp = row
                     if ident_check in ident_set:
                         ident_set.remove(ident_check)
                         self.service.put("Signal")

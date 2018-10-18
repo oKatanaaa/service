@@ -26,7 +26,7 @@ class ClusterHandler:
         pass
 
     def delete_cluster(self, cluster_row: TableRow):
-        point = cluster_row.feature
+        point = self.teacher_table_handler.get_feature(cluster_row.get_filename())
         neighbours = self.algorithm.graph.get_neighbours(point)
         rows = self.file_table_handler.get_rows_with_cluster(point)
         for row in rows:

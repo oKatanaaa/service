@@ -48,6 +48,6 @@ class ContentGrubber:
 
     def grub(self, filename: str):
         info = self.get_info(filename)
-        return Point(info)
+        return info
 
     pass

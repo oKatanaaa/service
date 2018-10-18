@@ -6,11 +6,11 @@ class Algorithm:
     def __init__(self):
         raise RuntimeError('Unsupported operation')
 
-    def add_new_cluster(self, point: Point):
+    def add_point(self, point: Point):
         pass
 
-    def delete_cluster(self, point: Point):
+    def delete_point(self, point: Point):
         pass
 
-    def identify_cluster(self, point: Point):
+    def find_nearest_to(self, point: Point):
         pass

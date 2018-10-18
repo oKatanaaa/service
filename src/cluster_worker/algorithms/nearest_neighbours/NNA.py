@@ -10,15 +10,15 @@ class NNA(Algorithm):
         self.graph = Graph()
         pass
 
-    def add_new_cluster(self, point: Point):
+    def add_point(self, point: Point):
         self.graph.add_point(point, set())
         pass
 
-    def delete_cluster(self, point: Point):
+    def delete_point(self, point: Point):
         self.graph.remove_point(point)
         pass
 
-    def identify_cluster(self, point: Point):
+    def find_nearest_to(self, point: Point):
         clusters = list(self.graph.graph.keys())
         dif = float('inf')
         nearest = None

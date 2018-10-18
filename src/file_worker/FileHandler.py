@@ -2,8 +2,10 @@ import os
 from multiprocessing import Queue
 from threading import Thread
 
+from cluster_worker.TableRow import TableRow
 from file_worker.ContentGrubber import ContentGrubber
 from file_worker.DirWatcher import DirWatcher
+from geometry.Point import Point
 
 
 class FileHandler(Thread):
@@ -17,7 +19,7 @@ class FileHandler(Thread):
         5: "Renamed to"
     }
 
-    def __init__(self, target_path: str, is_teacher: bool):
+    def __init__(self, target_path: str, is_teacher: bool, job_queue: Queue):
         super().__init__()
         self.setName("File Thread " + str(self.ident))
         self.setDaemon(True)
@@ -26,6 +28,7 @@ class FileHandler(Thread):
         self.WORKING_DIRS.append({'path': target_path,
                                   'teacher': is_teacher})
 
+        self.job_queue = job_queue
         self.content_grubber = ContentGrubber("image")
         self.queue = Queue()
         self.dir_watcher = DirWatcher(self.target_path, self.queue)
@@ -47,17 +50,20 @@ class FileHandler(Thread):
                     change_type = self.ACTIONS.get(action)
 
                     if action == 2:
-                        self.cluster_queue.put({
+                        self.job_queue.put({
+                            "teacher": self.is_teacher,
                             "change_type": change_type,
-                            "point": None
+                            "row": None
                         })
                         pass
 
                     elif action == 3:
-                        point = self.content_grubber.get_info(full_filename)
-                        self.cluster_queue.put({
+                        point = Point(self.content_grubber.get_info(full_filename))
+                        row = TableRow(filename, point)
+                        self.job_queue.put({
+                            "teacher": self.is_teacher,
                             "change_type": change_type,
-                            "point": point
+                            "row": row
                         })
                         pass
 
@@ -66,11 +72,12 @@ class FileHandler(Thread):
                         pass
 
                     elif action == 5:
-                        self.cluster_queue.put({
+                        self.job_queue.put({
+                            "teacher": self.is_teacher,
                             "change_type": change_type,
                             "old_name": old_name,
                             "new_name": full_filename,
-                            "point": None
+                            "row": None
                         })
                         pass
 

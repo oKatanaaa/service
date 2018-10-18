@@ -11,7 +11,9 @@ class Graph:
     def __init__(self):
         self.graph = dict()
 
-    def add_point(self, point: Point, neighbours: set):
+    def add_point(self, point: Point, neighbours=None):
+        if neighbours is None:
+            neighbours = set()
         self.graph[point] = neighbours
 
     def remove_point(self, point: Point):

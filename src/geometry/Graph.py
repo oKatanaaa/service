@@ -30,3 +30,23 @@ class Graph:
 
     def is_in_graph(self, point: Point):
         return point in self.graph
+
+    # NEED TO CREATE
+
+    def get_neighbours_list(self, point: Point):
+        """
+        This function returns a list of neighbours in tuples
+        List format: [(tuple),(tuple),...]
+        Tuple format: (distance to neighbour, neighbour point)
+        Values in the list must be sorted by distances from nearest to farthest
+        """
+        pass
+
+    def get_distance_to(self, point: Point):
+        """
+        This function returns a list of each graph point in tuples
+        List format: [(tuple),(tuple),...]
+        Tuple format: (distance to point, point)
+        Values in the list must be sorted by distances from nearest to farthest
+        """
+        pass

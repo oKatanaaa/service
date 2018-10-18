@@ -71,4 +71,4 @@ class DVA(Algorithm):
             # Get only points and set them as new neighbors
             map_NewNeighbors = map(lambda x: x[1], list_tuplesNewNeighbors)
             set_NewNeighbors = set(map_NewNeighbors)
-            self.graph.set_neighbours(set_NewNeighbors)
+            self.graph.set_neighbours(point, set_NewNeighbors)

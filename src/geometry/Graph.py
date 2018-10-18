@@ -31,6 +31,14 @@ class Graph:
     def is_in_graph(self, point: Point):
         return point in self.graph
 
+    def set_neighbours(self, point: Point, neighbours: set):
+        """
+        Danger operation! Change current neighbours set to custom.
+        :param neighbours: Set of new neighbours
+        :return: none
+        """
+        self.graph[point] = neighbours
+
     # NEED TO CREATE
 
     def get_neighbours_list(self, point: Point):

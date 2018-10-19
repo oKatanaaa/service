@@ -29,3 +29,6 @@ class Point:
 
     def __hash__(self):
         return self.to_str().__hash__()
+
+    def __eq__(self, compare_to):
+        return compare_to.__hash__() == self.__hash__()

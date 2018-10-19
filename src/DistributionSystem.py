@@ -83,6 +83,9 @@ class DistributionSystem(Thread):
             action = job.get('action')
             teacher = job.get('teacher')
             row = job.get('row')
+            if row.get_filename() == temp.get_filename() and row.get_feature() == temp.get_feature():
+                continue
+            temp = row
 
             if action == 2:
                 if not teacher:
@@ -96,11 +99,8 @@ class DistributionSystem(Thread):
 
             elif action == 3:
                 if not teacher:
-                    if row.get_filename() == temp.get_filename() and row.get_feature() == temp.get_feature():
-                        continue
                     ident_check += 1
                     self.cluster_handler.hard_update(row)
-                    temp = row
                     if ident_check in ident_set:
                         ident_set.remove(ident_check)
                         self.service.put("Signal")

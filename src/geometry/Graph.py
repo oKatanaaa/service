@@ -58,3 +58,12 @@ class Graph:
         Values in the list must be sorted by distances from nearest to farthest
         """
         pass
+
+    def to_str(self):
+        data = ""
+        for x in list(self.graph.keys()):
+            data += x.to_str() + ": "
+            for ngh in self.graph.get(x):
+                data += ngh.to_str() + " "
+            data += '\n'
+        return data

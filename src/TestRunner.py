@@ -38,6 +38,8 @@ if __name__ == "__main__":
                                        algorithms
                                        ], stdout=subprocess.PIPE) as process:
 
+                    while True:
+                        pass
                     string = str(process.stdout.readline())
                     process.kill()
             except Exception:

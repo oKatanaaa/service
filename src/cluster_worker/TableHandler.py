@@ -60,6 +60,10 @@ class TableHandler:
         table = pd.read_csv(self.path, sep=',')
         table = table[table.cluster == cluster.to_str()]
         table = table.to_dict(orient='records')
+        for i in range(len(table)):
+            row = table[i]
+            table[i] = TableRow(row.get('path'), Point(row.get('feature').split(' ')),
+                                Point(row.get('cluster').split(' ')))
         return table
 
     def get_feature(self, filename: str):

@@ -6,10 +6,11 @@ from geometry.Point import Point
 
 class ClusterHandler:
 
-    def __init__(self, algorithm=NNA()):
+    def __init__(self, algorithm=NNA(), no_ngh=False):
         self.teacher_table_handler = TableHandler('cluster_table.csv', True)
         self.file_table_handler = TableHandler('file_table.csv', False)
         self.algorithm = algorithm
+        self.no_ngh = no_ngh
 
     def update_cluster(self, cluster_row: TableRow):
         deleted_feature = self.teacher_table_handler.get_feature(cluster_row.filename)
@@ -22,17 +23,23 @@ class ClusterHandler:
             self.algorithm.add_point(row.feature)
             # Need to cast
             self.teacher_table_handler.update([row])
-            self.soft_update(row)
+            if self.no_ngh:
+                rows = self.file_table_handler.get_all_rows()
+                for x in rows:
+                    self.hard_update(x)
+            else:
+                self.soft_update(row)
+
         pass
 
     def delete_cluster(self, cluster_row: TableRow):
-        point = cluster_row.feature
+        point = self.teacher_table_handler.get_feature(cluster_row.get_filename())
         neighbours = self.algorithm.graph.get_neighbours(point)
         rows = self.file_table_handler.get_rows_with_cluster(point)
+        self.algorithm.delete_point(point)
         for row in rows:
             row.cluster = self.__choose_nearest(row.feature, neighbours)
         self.file_table_handler.update(rows)
-        self.algorithm.delete_point(point)
         self.teacher_table_handler.delete(cluster_row)
         pass
 
@@ -65,8 +72,8 @@ class ClusterHandler:
 
     # noinspection PyMethodMayBeStatic
     def __choose_nearest(self, feature, neighbours):
-        if len(neighbours) == 0:
-            return None
+        if neighbours is None or len(neighbours) == 0:
+            return self.algorithm.find_nearest_to(feature)
         dif = float('inf')
         nearest = None
         for ngh in neighbours:

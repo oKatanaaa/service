@@ -21,7 +21,7 @@ class TableRow:
     def get_cluster(self):
         if self.cluster is not None:
             result = ""
-            for x in self.feature.coordinates:
+            for x in self.cluster.coordinates:
                 result += str(x) + " "
             return result[0:-1]
         else:

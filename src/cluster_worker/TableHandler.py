@@ -5,6 +5,8 @@ import pandas as pd
 from cluster_worker.TableRow import TableRow
 from geometry.Point import Point
 
+pd.options.mode.chained_assignment = None
+
 
 class TableHandler:
     ROOT_PATH = r"Q:/service/output"
@@ -46,10 +48,22 @@ class TableHandler:
             else:
                 # TODO check
                 row = row.to_dict()
+
                 table.feature[table['path'] == row['path']] = row['feature']
                 table.cluster[table['path'] == row['path']] = row['cluster']
         table.to_csv(self.path, index=False)
         pass
+
+    def get_all_rows(self):
+        if self.is_teacher:
+            raise Exception('Unsupported Operation')
+        table = pd.read_csv(self.path, sep=',')
+        table = table.to_dict(orient='records')
+        for i in range(len(table)):
+            row = table[i]
+            table[i] = TableRow(row.get('path'), Point(row.get('feature').split(' ')),
+                                Point(row.get('cluster').split(' ')))
+        return table
 
     def get_rows_with_cluster(self, cluster: Point):
         if self.is_teacher:
@@ -57,6 +71,10 @@ class TableHandler:
         table = pd.read_csv(self.path, sep=',')
         table = table[table.cluster == cluster.to_str()]
         table = table.to_dict(orient='records')
+        for i in range(len(table)):
+            row = table[i]
+            table[i] = TableRow(row.get('path'), Point(row.get('feature').split(' ')),
+                                Point(row.get('cluster').split(' ')))
         return table
 
     def get_feature(self, filename: str):

@@ -1,3 +1,4 @@
+import hashlib
 
 
 class Point:
@@ -5,7 +6,7 @@ class Point:
     def __init__(self, coordinates):
         self.coordinates = list()
         for number in coordinates:
-            self.coordinates.append(float(number))
+            self.coordinates.append(int(number))
 
     def get_coordinate(self, index: int):
         return self.coordinates[index]
@@ -25,3 +26,6 @@ class Point:
         for x in self.coordinates:
             result += str(x) + " "
         return result[0:-1]
+
+    def __hash__(self):
+        return self.to_str().__hash__()

@@ -1,6 +1,5 @@
-from copy import copy
-
 from geometry.Point import Point
+from copy import copy
 
 """
 Класс представляющий собой некоторыйы граф (или его подобие)
@@ -39,7 +38,7 @@ class Graph:
         return key_list
 
     def is_in_graph(self, point: Point):
-        return point in self.graph
+        return point.to_str() in self.graph
 
     def set_neighbours(self, point: Point, neighbours):
         """
@@ -80,9 +79,9 @@ class Graph:
     def to_str(self):
         data = ""
         for x in list(self.graph.keys()):
-            data += x + ": "
+            data += x.to_str() + ": "
             for ngh in self.graph.get(x):
-                data += ngh + " "
+                data += ngh.to_str() + " "
             data += '\n'
         return data
 

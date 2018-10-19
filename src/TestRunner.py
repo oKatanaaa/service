@@ -35,6 +35,7 @@ if __name__ == "__main__":
                                        second_option,
                                        third_option,
                                        fourth_option,
+                                       algorithms[1]
                                        algorithms[2]
                                        ], stdout=subprocess.PIPE) as process:
 

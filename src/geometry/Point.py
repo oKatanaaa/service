@@ -1,6 +1,3 @@
-import hashlib
-
-
 class Point:
 
     def __init__(self, coordinates):
@@ -29,3 +26,13 @@ class Point:
 
     def __hash__(self):
         return self.to_str().__hash__()
+
+    def __eq__(self, other):
+        return self.__hash__() == other.__hash__()
+
+    # Just for debug
+    def __str__(self):
+        return self.__name__() + " " + self.to_str()
+
+    def __name__(self):
+        return "Point"

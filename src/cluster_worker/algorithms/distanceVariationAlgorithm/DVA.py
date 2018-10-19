@@ -11,43 +11,54 @@ class DVA(Algorithm):
         self.dist_multiplier = dist_multiplier
 
     def add_point(self, point: Point):
-        # Get list of distances to point
-        list_tuplesPointDist = self.graph.get_distance_to(point)
+        # This list contains tuples of points and distances to them : (distance, point)
+        list_distances = self.graph.get_distance_to(point)
+
+        # If graph is empty we don't need to do any specific operations but adding point
+        if len(list_distances) == 0:
+            self.graph.add_point(point, set())
+            return
 
         # Get nearest point
-        num_nearestPointDistance = list_tuplesPointDist[0][0]
+        num_nearest_distance = list_distances[0][0]
 
-        # Get list of neighbors of point
-        filter_tuples = filter(lambda x: x[0] <= num_nearestPointDistance * self.dist_multiplier, list_tuplesPointDist)
-        list_tuplesNeighbors = list(filter_tuples)
-        map_neighbors = map(lambda x: x[1], list_tuplesNeighbors)
+        # Get list of new neighbors of point
+        filter_tuples = filter(lambda x: x[0] <= num_nearest_distance * self.dist_multiplier, list_distances)
+        list_neighbors = list(filter_tuples)
+        map_neighbors = map(lambda x: x[1], list_neighbors)
         set_neighbors = set(map_neighbors)
 
         # Add point and its neighbors to graph
         self.graph.add_point(point, set_neighbors)
 
         # Get list of points which connections is needed to correct
-        list_pointsToCorrect = list(map_neighbors)
+        list_points_to_correct = list(map_neighbors)
 
         # Correct graph structure
-        self.__correct_graph_structure(list_pointsToCorrect)
+        self.__correct_graph_structure(list_points_to_correct)
 
     def delete_point(self, point: Point):
         # Get list of points which connections is needed to correct
-        list_tuplesNeighbors = self.graph.get_neighbours_list(point)
-        map_neighbors = map(lambda x: x[1], list_tuplesNeighbors)
-        list_pointsToCorrect = list(map_neighbors)
+        list_neighbors = self.graph.get_neighbours_list(point)
+
+        if len(list_neighbors) == 0:
+            self.graph.remove_point(point)
+            return
+
+        map_neighbors = map(lambda x: x[1], list_neighbors)
+        list_points_to_correct = list(map_neighbors)
 
         # Remove point
         self.graph.remove_point(point)
 
         # Correct graph structure
-        self.__correct_graph_structure(self.graph, list_pointsToCorrect)
+        self.__correct_graph_structure(self.graph, list_points_to_correct)
 
     def find_nearest_to(self, point: Point):
+
         pass
 
-    def __correct_graph_structure(self, list_pointsToCorrect: Point):
+    def __correct_graph_structure(self, list_pointsToCorrect: list):
         """
         This method corrects connections of each point in list_pointsToCorrect
         :param graph: Graph structure you want to correct
@@ -55,20 +66,20 @@ class DVA(Algorithm):
         """
         for point in list_pointsToCorrect:
             # Get neighbors of point
-            list_tuplesCurrentNeighbors = self.graph.get_neighbours_list(point)
+            list_tuples_current_neighbors = self.graph.get_neighbours_list(point)
 
             # Get distance to nearest neighbor
-            num_nearestPointDistance = list_tuplesCurrentNeighbors[0][0]
+            num_nearest_distance = list_tuples_current_neighbors[0][0]
 
             # Create a list of new neighbors
-            filter_tuples = filter(lambda x: x[0] <= num_nearestPointDistance * self.coeff, list_tuplesCurrentNeighbors)
-            list_tuplesNewNeighbors = list(filter_tuples)
+            filter_tuples = filter(lambda x: x[0] <= num_nearest_distance * self.coeff, list_tuples_current_neighbors)
+            list_new_neighbors = list(filter_tuples)
 
             # Check if we need don't need to correct current connections
-            if len(list_tuplesNewNeighbors) == len(list_tuplesCurrentNeighbors):
+            if len(list_new_neighbors) == len(list_tuples_current_neighbors):
                 continue
 
             # Get only points and set them as new neighbors
-            map_NewNeighbors = map(lambda x: x[1], list_tuplesNewNeighbors)
-            set_NewNeighbors = set(map_NewNeighbors)
-            self.graph.set_neighbours(point, set_NewNeighbors)
+            map_new_neighbors = map(lambda x: x[1], list_new_neighbors)
+            set_new_neighbors = set(map_new_neighbors)
+            self.graph.set_neighbours(point, set_new_neighbors)

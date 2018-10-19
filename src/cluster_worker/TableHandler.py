@@ -54,6 +54,17 @@ class TableHandler:
         table.to_csv(self.path, index=False)
         pass
 
+    def get_all_rows(self):
+        if self.is_teacher:
+            raise Exception('Unsupported Operation')
+        table = pd.read_csv(self.path, sep=',')
+        table = table.to_dict(orient='records')
+        for i in range(len(table)):
+            row = table[i]
+            table[i] = TableRow(row.get('path'), Point(row.get('feature').split(' ')),
+                                Point(row.get('cluster').split(' ')))
+        return table
+
     def get_rows_with_cluster(self, cluster: Point):
         if self.is_teacher:
             raise Exception('Unsupported Operation')

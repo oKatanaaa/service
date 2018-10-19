@@ -2,12 +2,16 @@ from cluster_worker.algorithms.abstractAlgorithm.Algorithm import Algorithm
 from geometry.Graph import Graph
 from geometry.Point import Point
 
+
+# noinspection PyPep8Naming
 class DVA(Algorithm):
-    def __init__(self, graph: Graph, dist_multiplier = 1.0):
+
+    # noinspection PyMissingConstructor
+    def __init__(self, dist_multiplier=1.0):
         if dist_multiplier < 1.0:
             raise Exception('dist_multiplier cannot be lower than 1.0')
 
-        self.graph = graph
+        self.graph = Graph()
         self.dist_multiplier = dist_multiplier
 
     def add_point(self, point: Point):
@@ -42,15 +46,23 @@ class DVA(Algorithm):
         self.graph.remove_point(point)
 
         # Correct graph structure
-        self.__correct_graph_structure(self.graph, list_pointsToCorrect)
+        self.__correct_graph_structure(list_pointsToCorrect)
 
     def find_nearest_to(self, point: Point):
-        pass
+        clusters = list(self.graph.graph.keys())
+        dif = float('inf')
+        nearest = None
+        for cluster in clusters:
+            cluster = Point(cluster.split(' '))
+            dist = point.distance_to(cluster)
+            if dist < dif:
+                dif = dist
+                nearest = cluster
+        return nearest
 
-    def __correct_graph_structure(self, list_pointsToCorrect: Point):
+    def __correct_graph_structure(self, list_pointsToCorrect: list):
         """
         This method corrects connections of each point in list_pointsToCorrect
-        :param graph: Graph structure you want to correct
         :return: none
         """
         for point in list_pointsToCorrect:
@@ -61,7 +73,8 @@ class DVA(Algorithm):
             num_nearestPointDistance = list_tuplesCurrentNeighbors[0][0]
 
             # Create a list of new neighbors
-            filter_tuples = filter(lambda x: x[0] <= num_nearestPointDistance * self.coeff, list_tuplesCurrentNeighbors)
+            filter_tuples = filter(lambda x: x[0] <= num_nearestPointDistance * self.dist_multiplier,
+                                   list_tuplesCurrentNeighbors)
             list_tuplesNewNeighbors = list(filter_tuples)
 
             # Check if we need don't need to correct current connections

@@ -26,7 +26,7 @@ if __name__ == "__main__":
         algorithm = sys.argv[7]
 
         service = Queue()
-        distSystem = DistributionSystem(teach_path, analyze_path, 'nearest_neighbours', service)
+        distSystem = DistributionSystem(teach_path, analyze_path, algorithm, service)
         distSystem.start()
 
         f_time = timer()

@@ -6,10 +6,11 @@ from geometry.Point import Point
 
 class ClusterHandler:
 
-    def __init__(self, algorithm=NNA()):
+    def __init__(self, algorithm=NNA(), no_ngh=False):
         self.teacher_table_handler = TableHandler('cluster_table.csv', True)
         self.file_table_handler = TableHandler('file_table.csv', False)
         self.algorithm = algorithm
+        self.no_ngh = no_ngh
 
     def update_cluster(self, cluster_row: TableRow):
         deleted_feature = self.teacher_table_handler.get_feature(cluster_row.filename)
@@ -22,7 +23,13 @@ class ClusterHandler:
             self.algorithm.add_point(row.feature)
             # Need to cast
             self.teacher_table_handler.update([row])
-            self.soft_update(row)
+            if self.no_ngh:
+                rows = self.file_table_handler.get_all_rows()
+                for x in rows:
+                    self.hard_update(x)
+            else:
+                self.soft_update(row)
+
         pass
 
     def delete_cluster(self, cluster_row: TableRow):

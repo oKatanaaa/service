@@ -3,6 +3,7 @@ from threading import Thread
 
 from cluster_worker.ClusterHandler import ClusterHandler
 from cluster_worker.TableRow import TableRow
+from cluster_worker.algorithms.distanceVariationAlgorithm.DVA import DVA
 from cluster_worker.algorithms.nearest_neighbours.NNA import NNA
 from file_worker.FileHandler import FileHandler
 
@@ -17,15 +18,18 @@ class DistributionSystem(Thread):
         self.target_file_handler = FileHandler(analyze_path, False, self.jobs)
         self.service = service
 
-        alg = None
         if alg_type == "delaunay_projection":
             alg = None
+            self.cluster_handler = ClusterHandler(alg)
+        elif alg_type == "distance_variation":
+            alg = DVA()
+            self.cluster_handler = ClusterHandler(alg)
         elif alg_type == "neighbour_relations":
             alg = None
+            self.cluster_handler = ClusterHandler(alg)
         elif alg_type == "nearest_neighbours":
             alg = NNA()
-
-        self.cluster_handler = ClusterHandler(alg)
+            self.cluster_handler = ClusterHandler(alg, True)
 
     def run(self):
         if self.service is None:

@@ -2,12 +2,16 @@ from cluster_worker.algorithms.abstractAlgorithm.Algorithm import Algorithm
 from geometry.Graph import Graph
 from geometry.Point import Point
 
+
+# noinspection PyPep8Naming
 class DVA(Algorithm):
-    def __init__(self, graph: Graph, dist_multiplier = 1.0):
+
+    # noinspection PyMissingConstructor
+    def __init__(self, dist_multiplier=1.0):
         if dist_multiplier < 1.0:
             raise Exception('dist_multiplier cannot be lower than 1.0')
 
-        self.graph = graph
+        self.graph = Graph()
         self.dist_multiplier = dist_multiplier
 
     def add_point(self, point: Point):

@@ -15,37 +15,41 @@ class Graph:
     def add_point(self, point: Point, neighbours=None):
         if neighbours is None:
             neighbours = set()
-        self.graph[point.to_str()] = neighbours
+        elif not isinstance(neighbours, set):
+            neighbours = {neighbours}
+        self.graph[point] = neighbours
 
     def remove_point(self, point: Point):
-        deleted_point_nghs = self.graph.get(point.to_str())
+        deleted_point_nghs = self.graph.get(point)
         for p in deleted_point_nghs:
-            self.graph.get(p.to_str()).discard(point)
-        self.graph.pop(point.to_str())
+            self.graph.get(p).discard(point)
+        self.graph.pop(point)
 
-    def add_neighbours(self, point: Point, added):
-        self.graph.get(point.to_str()).update(added)
+    def add_neighbours(self, point: Point, neighbours):
+        if not isinstance(neighbours, set):
+            neighbours = {neighbours}
+        self.graph.get(point).update(neighbours)
 
     def get_neighbours(self, point: Point):
-        return copy(self.graph.get(point.to_str()))
+        return copy(self.graph.get(point))
 
     def get_points(self):
         key_list = list(self.graph.keys())
-        for index in range(len(key_list)):
-            key_list[index] = Point(key_list[index].split(' '))
         return key_list
 
     def is_in_graph(self, point: Point):
         return point.to_str() in self.graph
 
-    def set_neighbours(self, point: Point, neighbours: set):
+    def set_neighbours(self, point: Point, neighbours):
         """
         Danger operation! Change current neighbours set to custom.
         :param point:
         :param neighbours: Set of new neighbours
         :return: none
         """
-        self.graph[point.to_str()] = neighbours
+        if not isinstance(neighbours, set):
+            neighbours = {neighbours}
+        self.graph[point] = neighbours
 
     # NEED TO CREATE
 

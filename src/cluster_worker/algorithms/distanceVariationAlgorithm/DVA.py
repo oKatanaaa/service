@@ -52,16 +52,44 @@ class DVA(Algorithm):
         self.graph.remove_point(point)
 
         # Correct graph structure
-        self.__correct_graph_structure(self.graph, list_points_to_correct)
+        self.__correct_graph_structure(list_points_to_correct)
 
     def find_nearest_to(self, point: Point):
+        set_a = set(self.graph.get_points())
 
-        pass
+        point_current = set_a.pop()
+        num_current_distance = point.distance_to(point_current)
+
+        list_neighbors = self.graph.get_neighbours_list(point_current)
+        while len(list_neighbors) != 0:
+            # Get shortest distance among neighbors
+            list_distances = list(map(lambda x: x[1].distance_to(point), list_neighbors))
+            num_new_distance = min(list_distances)
+
+            if num_current_distance < num_new_distance:
+                return num_current_distance
+
+            # Update current distance
+            num_current_distance = num_new_distance
+
+            # Update point_current
+            index_of_new_distance = list_distances.index(num_new_distance)
+            point_current = list_neighbors[index_of_new_distance]
+
+            # Update set_a
+            for neighbor in list_neighbors:
+                set_a.discard(neighbor)
+
+            # Update list_neighbors
+            filter_only_a_marked_points = filter(lambda x: x[1] in set_a, self.graph.get_neighbours_list(point_current))
+            list_neighbors = list(filter_only_a_marked_points)
+
+        return point_current
 
     def __correct_graph_structure(self, list_pointsToCorrect: list):
         """
         This method corrects connections of each point in list_pointsToCorrect
-        :param graph: Graph structure you want to correct
+        NEED TO MODIFY. DANGER OF LOSS OF CONNECTIONS BETWEEN PARTS OF GRAPH
         :return: none
         """
         for point in list_pointsToCorrect:
@@ -72,7 +100,8 @@ class DVA(Algorithm):
             num_nearest_distance = list_tuples_current_neighbors[0][0]
 
             # Create a list of new neighbors
-            filter_tuples = filter(lambda x: x[0] <= num_nearest_distance * self.coeff, list_tuples_current_neighbors)
+            filter_tuples = filter(lambda x: x[0] <= num_nearest_distance * self.dist_multiplier,
+                                   list_tuples_current_neighbors)
             list_new_neighbors = list(filter_tuples)
 
             # Check if we need don't need to correct current connections

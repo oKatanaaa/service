@@ -52,9 +52,7 @@ class NRA(Algorithm):
         if len(self.graph) < 3:
             self.graph.remove_point(point)
         elif self.graph.is_in_graph(point):
-
-
-        pass
+            pass
 
     def find_nearest_to(self, point: Point):
         clusters = list(self.graph.graph.keys())

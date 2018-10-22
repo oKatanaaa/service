@@ -72,7 +72,7 @@ class DVA(Algorithm):
 
             # Update point_current
             index_of_new_distance = list_distances.index(num_new_distance)
-            point_current = list_neighbors[index_of_new_distance]
+            point_current = list_neighbors[index_of_new_distance][1]
 
             # Update set_a
             for neighbor in list_neighbors:

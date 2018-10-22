@@ -71,7 +71,7 @@ class DVA(Algorithm):
             num_new_distance = min(list_distances)
 
             if num_current_distance < num_new_distance:
-                return num_current_distance
+                return point_current
 
             # Update current distance
             num_current_distance = num_new_distance

@@ -11,7 +11,11 @@ if __name__ == "__main__":
     third_list = ['C', 'C', 'C', 'B', 'B', 'B', 'C', 'C', 'C',
                   'A', 'A', 'A', 'B', 'B', 'B', 'A', 'A', 'A']
     fourth_list = ['A', 'B', 'C']
-    algorithms = ['nearest_neighbours', 'distance_variation', 'neighbour_relations_my_delete']
+    algorithms = ['nearest_neighbours',
+                  'distance_variation',
+                  'neighbour_relations_without_my_delete',
+                  'neighbour_relations_crossing_my_delete',
+                  'neighbour_relations_recheck_my_delete']
     epochs = 10
     number_of_options = 18
     test_path = r"Q:/service/test/picture_test"
@@ -35,8 +39,7 @@ if __name__ == "__main__":
                                        second_option,
                                        third_option,
                                        fourth_option,
-                                       algorithms[1]
-                                       algorithms[2]
+                                       algorithms[4]
                                        ], stdout=subprocess.PIPE) as process:
 
                     string = str(process.stdout.readline())

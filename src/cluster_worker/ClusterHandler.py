@@ -1,7 +1,6 @@
 from cluster_worker.TableHandler import TableHandler
 from cluster_worker.TableRow import TableRow
 from cluster_worker.algorithms.nearest_neighbours.NNA import NNA
-from geometry.Point import Point
 
 
 class ClusterHandler:
@@ -56,8 +55,8 @@ class ClusterHandler:
         for neighbour in neighbours:
             rows = self.file_table_handler.get_rows_with_cluster(neighbour)
             for row in rows:
-                current_cluster = Point(row.cluster)
-                feature = Point(row.feature)
+                current_cluster = row.cluster
+                feature = row.feature
                 if self.__new_nearest(feature, current_cluster, new_cluster):
                     row.cluster = new_cluster
             self.file_table_handler.update(rows)

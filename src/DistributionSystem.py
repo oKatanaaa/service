@@ -5,7 +5,9 @@ from cluster_worker.ClusterHandler import ClusterHandler
 from cluster_worker.TableRow import TableRow
 from cluster_worker.algorithms.distanceVariationAlgorithm.DVA import DVA
 from cluster_worker.algorithms.nearest_neighbours.NNA import NNA
-from cluster_worker.algorithms.neighbour_relations import NRA_my_delete_version
+from cluster_worker.algorithms.neighbour_relations import NRA__with_check_crossing__my_delete_version
+from cluster_worker.algorithms.neighbour_relations import NRA__with_recheck__my_delete_version
+from cluster_worker.algorithms.neighbour_relations import NRA__without_check_ngh__my_delete_version
 from file_worker.FileHandler import FileHandler
 
 
@@ -18,6 +20,7 @@ class DistributionSystem(Thread):
         self.teach_file_handler = FileHandler(teach_path, True, self.jobs)
         self.target_file_handler = FileHandler(analyze_path, False, self.jobs)
         self.service = service
+        self.alg_type = alg_type
 
         if alg_type == "delaunay_projection":
             alg = None
@@ -25,8 +28,14 @@ class DistributionSystem(Thread):
         elif alg_type == "distance_variation":
             alg = DVA()
             self.cluster_handler = ClusterHandler(alg)
-        elif alg_type == "neighbour_relations_my_delete":
-            alg = NRA_my_delete_version.NRA()
+        elif alg_type == 'neighbour_relations_crossing_my_delete':
+            alg = NRA__with_check_crossing__my_delete_version.NRA()
+            self.cluster_handler = ClusterHandler(alg)
+        elif alg_type == 'neighbour_relations_without_my_delete':
+            alg = NRA__without_check_ngh__my_delete_version.NRA()
+            self.cluster_handler = ClusterHandler(alg)
+        elif alg_type == 'neighbour_relations_recheck_my_delete':
+            alg = NRA__with_recheck__my_delete_version.NRA()
             self.cluster_handler = ClusterHandler(alg)
         elif alg_type == "nearest_neighbours":
             alg = NNA()
@@ -99,6 +108,7 @@ class DistributionSystem(Thread):
                     delete_check += 1
                     self.cluster_handler.delete_cluster(row)
                     if delete_check in delete_set:
+                        self.cluster_handler.algorithm.graph.__output_for_gmsh__(self.alg_type + "_after_delete")
                         delete_set.remove(delete_check)
                         self.service.put("Signal")
 
@@ -113,6 +123,7 @@ class DistributionSystem(Thread):
                     add_check += 1
                     self.cluster_handler.update_cluster(row)
                     if add_check in check_set:
+                        self.cluster_handler.algorithm.graph.__output_for_gmsh__(self.alg_type + "_" + str(add_check))
                         check_set.remove(add_check)
                         self.service.put("Signal")
 

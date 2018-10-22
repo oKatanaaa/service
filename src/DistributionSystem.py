@@ -5,6 +5,7 @@ from cluster_worker.ClusterHandler import ClusterHandler
 from cluster_worker.TableRow import TableRow
 from cluster_worker.algorithms.distanceVariationAlgorithm.DVA import DVA
 from cluster_worker.algorithms.nearest_neighbours.NNA import NNA
+from cluster_worker.algorithms.neighbour_relations import NRA_my_delete_version
 from file_worker.FileHandler import FileHandler
 
 
@@ -24,8 +25,8 @@ class DistributionSystem(Thread):
         elif alg_type == "distance_variation":
             alg = DVA()
             self.cluster_handler = ClusterHandler(alg)
-        elif alg_type == "neighbour_relations":
-            alg = None
+        elif alg_type == "neighbour_relations_my_delete":
+            alg = NRA_my_delete_version.NRA()
             self.cluster_handler = ClusterHandler(alg)
         elif alg_type == "nearest_neighbours":
             alg = NNA()

@@ -3,7 +3,6 @@ from threading import Thread
 
 from cluster_worker.ClusterHandler import ClusterHandler
 from cluster_worker.TableRow import TableRow
-from cluster_worker.algorithms.distanceVariationAlgorithm.DVA import DVA
 from cluster_worker.algorithms.nearest_neighbours.NNA import NNA
 from cluster_worker.algorithms.neighbour_relations import NRA__with_check_crossing__my_delete_version
 from cluster_worker.algorithms.neighbour_relations import NRA__with_recheck__my_delete_version
@@ -25,9 +24,6 @@ class DistributionSystem(Thread):
         if alg_type == "delaunay_projection":
             alg = None
             self.cluster_handler = ClusterHandler(alg)
-        elif alg_type == "distance_variation":
-            alg = DVA()
-            self.cluster_handler = ClusterHandler(alg)
         elif alg_type == 'neighbour_relations_crossing_my_delete':
             alg = NRA__with_check_crossing__my_delete_version.NRA()
             self.cluster_handler = ClusterHandler(alg)
@@ -35,6 +31,15 @@ class DistributionSystem(Thread):
             alg = NRA__without_check_ngh__my_delete_version.NRA()
             self.cluster_handler = ClusterHandler(alg)
         elif alg_type == 'neighbour_relations_recheck_my_delete':
+            alg = NRA__with_recheck__my_delete_version.NRA()
+            self.cluster_handler = ClusterHandler(alg)
+        elif alg_type == 'neighbour_relations_crossing':
+            alg = NRA__with_check_crossing__my_delete_version.NRA()
+            self.cluster_handler = ClusterHandler(alg)
+        elif alg_type == 'neighbour_relations_without':
+            alg = NRA__without_check_ngh__my_delete_version.NRA()
+            self.cluster_handler = ClusterHandler(alg)
+        elif alg_type == 'neighbour_relations_recheck':
             alg = NRA__with_recheck__my_delete_version.NRA()
             self.cluster_handler = ClusterHandler(alg)
         elif alg_type == "nearest_neighbours":

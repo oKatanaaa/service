@@ -51,38 +51,59 @@ class NRA(Algorithm):
             self.graph.add_point(point, neighbours)
         pass
 
+    def __check_relationship(self, point_set: set):
+        for point in point_set:
+            test_set = set()
+            new_check_set = set()
+            neighbours = self.graph.get_neighbours_list(point)
+            if len(neighbours) == 0:
+                continue
+            test_set.add(neighbours[0][1])
+            for index in range(1, len(neighbours)):
+                add_flag = True
+                for test_point in test_set:
+                    if neighbours[index][0] > test_point.distance_to(neighbours[index][1]):
+                        add_flag = False
+                        new_check_set.add(neighbours[index][1])
+                        break
+                if add_flag:
+                    test_set.add(neighbours[index][1])
+
+            if len(new_check_set) != 0:
+                self.graph.set_neighbours(point, test_set)
+                self.__check_relationship(new_check_set)
+
     def delete_point(self, point: Point):
-        if len(self.graph) < 3:
-            isolated_points = self.graph.remove_point(point)
-            for p in isolated_points:
-                self.graph.remove_point(p)
-                self.add_point(p)
-        elif self.graph.is_in_graph(point):
-            neighbours = self.graph.get_neighbours(point)
+        if len(self.graph) < 2:
             self.graph.remove_point(point)
-            for neighbour in neighbours:
-                isolated_points = self.graph.remove_point(neighbour)
-                for p in isolated_points:
-                    self.graph.remove_point(p)
-                    self.add_point(p)
-                self.add_point(neighbour)
+        else:
+            if point == self.cache:
+                self.cache = self.graph.get_points()[0]
+            neighbours = self.graph.get_neighbours_list(point)
+            self.graph.remove_point(point)
+            self.__check_relationship(neighbours)
         pass
 
     def find_nearest_to(self, point: Point):
         current = self.cache
-        graph_points = self.graph.get_points()
-        graph_points.remove(current)
-        dist = point.distance_to(current)
+        temp = None
+        minimal = point.distance_to(current)
+        cluster_set = {x for x in self.graph.get_points()}
+        cluster_set.discard(current)
         while True:
-            neighbours = self.graph.get_neighbours_list(current)
-            the_smallest = neighbours[0][0]
-            if the_smallest < dist:
-                dist = the_smallest
-                current = neighbours[0][1]
-                graph_points.remove(current)
+            the_smallest = float('inf')
+            neighbours = self.graph.get_neighbours(current)
+            cluster_set.difference_update(neighbours)
+            for neighbour in neighbours:
+                dist = neighbour.distance_to(point)
+                if dist < the_smallest:
+                    the_smallest = dist
+                    temp = neighbour
+            # noinspection PyChainedComparisons
+            if the_smallest < minimal and len(cluster_set) != 0 and minimal != 0:
+                minimal = the_smallest
+                current = temp
             else:
-                break
-            if len(graph_points) == 0:
                 break
         self.cache = current
         return current

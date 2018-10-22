@@ -28,7 +28,7 @@ class Graph:
     """
     def remove_point(self, point: Point):
         isolated_points = []
-        deleted_point_nghs = self.graph.get(point)
+        deleted_point_nghs = copy(self.graph.get(point))
         for p in deleted_point_nghs:
             if self.is_in_graph(p):
                 self.graph.get(p).discard(point)

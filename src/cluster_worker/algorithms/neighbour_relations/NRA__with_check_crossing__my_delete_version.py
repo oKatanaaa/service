@@ -89,19 +89,24 @@ class NRA(Algorithm):
 
     def find_nearest_to(self, point: Point):
         current = self.cache
-        graph_points = self.graph.get_points()
-        graph_points.remove(current)
-        dist = point.distance_to(current)
+        temp = None
+        minimal = point.distance_to(current)
+        cluster_set = {x for x in self.graph.get_points()}
+        cluster_set.discard(current)
         while True:
-            neighbours = self.graph.get_neighbours_list(current)
-            the_smallest = neighbours[0][0]
-            if the_smallest < dist:
-                dist = the_smallest
-                current = neighbours[0][1]
-                graph_points.remove(current)
+            the_smallest = float('inf')
+            neighbours = self.graph.get_neighbours(current)
+            cluster_set.difference_update(neighbours)
+            for neighbour in neighbours:
+                dist = neighbour.distance_to(point)
+                if dist < the_smallest:
+                    the_smallest = dist
+                    temp = neighbour
+            # noinspection PyChainedComparisons
+            if the_smallest < minimal and len(cluster_set) != 0 and minimal != 0:
+                minimal = the_smallest
+                current = temp
             else:
-                break
-            if len(graph_points) == 0:
                 break
         self.cache = current
         return current

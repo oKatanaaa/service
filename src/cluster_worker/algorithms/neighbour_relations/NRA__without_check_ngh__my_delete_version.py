@@ -2,7 +2,10 @@ from cluster_worker.algorithms.abstractAlgorithm.Algorithm import Algorithm
 from geometry.Graph import Graph
 from geometry.Point import Point
 
-
+"""
+    Стандартный алгоритм по работе с кластерами, с таким вариантом удаление: удаляем точки являющиеся соседями удаляемой
+    и добавляем их обратно, в теории, таким образом граф должен перестраиваться правильно.
+"""
 class NRA(Algorithm):
 
     # noinspection PyMissingConstructor
@@ -11,6 +14,10 @@ class NRA(Algorithm):
         self.cache = None
         pass
 
+    """
+        Вычисляем расстояние от добавляемой точки до всех имеющихся точек.
+        Добавляем ближайшую в список соседей
+    """
     def add_point(self, point: Point):
         if len(self.graph) == 0:
             self.cache = point
@@ -35,16 +42,7 @@ class NRA(Algorithm):
                     break
 
             if add_flag:
-                nghs_of_verify_cls = self.graph.get_neighbours_list(verifiable_cluster)
-                dist = verifiable_cluster.distance_to(point)
-                for ngh in nghs_of_verify_cls:
-                    dist_to_ngh = ngh[0]
-                    if dist >= dist_to_ngh:
-                        add_flag = False
-                        break
-                if add_flag:
-                    self.graph.add_neighbours(verifiable_cluster, {point})
-                    neighbours.add(verifiable_cluster)
+                neighbours.add(verifiable_cluster)
 
         if len(neighbours) == 0:
             neighbours.add(distances[0][1])
@@ -55,31 +53,41 @@ class NRA(Algorithm):
 
     def delete_point(self, point: Point):
         if len(self.graph) < 3:
-            self.graph.remove_point(point)
+            isolated_points = self.graph.remove_point(point)
+            for p in isolated_points:
+                self.graph.remove_point(p)
+                self.add_point(p)
         elif self.graph.is_in_graph(point):
             neighbours = self.graph.get_neighbours(point)
             self.graph.remove_point(point)
             for neighbour in neighbours:
-                self.graph.remove_point(neighbour)
+                isolated_points = self.graph.remove_point(neighbour)
+                for p in isolated_points:
+                    self.graph.remove_point(p)
+                    self.add_point(p)
                 self.add_point(neighbour)
         pass
 
     def find_nearest_to(self, point: Point):
-        # TODO начинать с центра графа
         current = self.cache
-        graph_points = self.graph.get_points()
-        graph_points.remove(current)
-        dist = point.distance_to(current)
+        temp = None
+        minimal = point.distance_to(current)
+        cluster_set = {x for x in self.graph.get_points()}
+        cluster_set.discard(current)
         while True:
-            neighbours = self.graph.get_neighbours_list(current)
-            the_smallest = neighbours[0][0]
-            if the_smallest < dist:
-                dist = the_smallest
-                current = neighbours[0][1]
-                graph_points.remove(current)
+            the_smallest = float('inf')
+            neighbours = self.graph.get_neighbours(current)
+            cluster_set.difference_update(neighbours)
+            for neighbour in neighbours:
+                dist = neighbour.distance_to(point)
+                if dist < the_smallest:
+                    the_smallest = dist
+                    temp = neighbour
+            # noinspection PyChainedComparisons
+            if the_smallest < minimal and len(cluster_set) != 0 and minimal != 0:
+                minimal = the_smallest
+                current = temp
             else:
-                break
-            if len(graph_points) == 0:
                 break
         self.cache = current
         return current

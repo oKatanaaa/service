@@ -23,7 +23,6 @@ class NNA(Algorithm):
         dif = float('inf')
         nearest = None
         for cluster in clusters:
-            cluster = Point(cluster.split(' '))
             dist = point.distance_to(cluster)
             if dist < dif:
                 dif = dist
